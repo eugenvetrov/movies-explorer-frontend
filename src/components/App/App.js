@@ -1,14 +1,27 @@
 import './App.css';
-import Header from '../Header/Header.js'
+import { Routes, Route} from "react-router-dom";
+import Header from '../Header/Header';
+import HeaderLanding from '../HeaderLanding/HeaderLanding.js';
+import LandingSelector from '../LandingSelector/LandingSelector';
 
 function App() {
+
   return (
-    <>
-    <Header />
     <div className="page">
+      <Header />
+      <Routes>
+         <Route
+            path="/"
+            element={
+              <>
+              <HeaderLanding />
+              <LandingSelector />
+              </>
+            }
+          />
+        </Routes>
       hello
     </div>
-    </>
   );
 }
 

@@ -1,13 +1,24 @@
 import './Header.css';
-import logoHeader from '../../images/logo-header.svg';
+import { Routes, Route, Link } from "react-router-dom";
+import logo from '../../images/logo-auth.svg';
 
-function Header() {
-  return (
-    <header className="header">
-      <img src={logoHeader} className="header__logo" alt="Логотип"/>
-      <p className="header__title">Учебный проект студента факультета Веб-разработки.</p>
-    </header>
-  );
+const AuthPanel = () => {
+    return(
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="auth">
+                <img src={logo} className="auth-nav__logo" alt="Логотип в панели аутентификации"/>
+                  <nav className="auth__nav">
+                    <Link to="signup" className="auth-nav__link">Регистрация</Link>
+                    <Link to="signin" className="auth-nav__link auth-nav__link_active">Войти</Link>
+                  </nav>
+              </div>
+            }
+          />
+        </Routes>
+    )
 }
 
-export default Header;
+export default AuthPanel;

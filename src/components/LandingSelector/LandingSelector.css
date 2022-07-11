@@ -1,0 +1,14 @@
+.landing-selector {
+    display: flex;
+    width: 100%;
+    color: #fff;
+    min-height: 66px;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+}
+
+.landing-selector__link {
+    margin: 24px 20px;
+    color: #fff;
+}

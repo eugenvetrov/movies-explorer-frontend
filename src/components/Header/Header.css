@@ -1,51 +1,39 @@
-.header {
+.auth {
     display: flex;
     width: 100%;
-    min-height: 524px;
+    max-height: 74px;
     background-color: #073042;
-    justify-content: center;
     align-items: center;
+    justify-content: space-between;
 }
 
-.header__logo {
+.auth__nav {
     display: flex;
-    position: relative;
-    width: 320px;
-    height: 320px;
 }
 
-.header__title {
-    position: absolute;
+.auth-nav__logo {
+    width: 38px;
+    height: 38px;
+    margin: 18px 0 18px 70px;
+}
+
+.auth-nav__link {
+    display: flex;
+    justify-self: end;
     color: #fff;
-    font-size: 50px;
-    line-height: 58px;
-    font-weight: 400;
-    width: 730px;
-    text-align: center;
-    z-index: 2;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    padding: 8px 20px;
+    margin: 21px 10px;
+    border-radius: 3px;
 }
 
-@media screen and (max-width: 768px) {
-    .header {
-        min-height: 784px;
-    }
+.auth-nav__link_active {
+    background-color: #2BE080;
 }
 
-@media screen and (max-width: 320px) {
-    .header {
-        min-height: 570px;
-    }
-
-    .header__logo {
-        width: 142px;
-        height: 142px;
-    }
-}
-
-@media screen and (max-width: 618px) {
-    .header__title {
-        width: 300px;
-        font-size: 31px;
-        line-height: 39px;
-    }
+.auth-nav__link:nth-last-child(1) {
+    margin-right: 70px; 
 }
