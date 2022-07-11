@@ -11,4 +11,7 @@
 .landing-selector__link {
     margin: 24px 20px;
     color: #fff;
+    font-size: 13px;
+    line-height: 16px;
+    font-weight: 500;
 }
