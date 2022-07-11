@@ -1,0 +1,52 @@
+.student {
+    display: grid;
+    margin: 66px 0 0 0;
+    width: 100%;
+    grid-area: title;
+    grid-template-columns: 51% 49%;
+    grid-template-rows: 76px 46px 187px 18px;
+    grid-template-areas: "title photo"
+                         "description photo"
+                         "text photo"
+                         "github-link photo";
+}
+
+.student__title {
+    font-size: 50px;
+    line-height: 58px;
+    grid-area: title;
+}
+
+.student__description {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 500;
+    margin: 18px 0 0 0;
+    grid-area: description;
+}
+
+.student__text {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    grid-area: text;
+}
+
+.student__github-link {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 500;
+    color: #000;
+    text-decoration: none;
+    grid-area: github-link;
+}
+
+.student__photo {
+    width: 270px;
+    height: 327px;
+    object-fit: cover;
+    justify-self: end;
+    border-radius: 10px;
+    margin: 0;
+    grid-area: photo;
+}

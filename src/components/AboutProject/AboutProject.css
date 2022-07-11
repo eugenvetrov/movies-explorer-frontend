@@ -38,6 +38,7 @@
 .about-project__description-paragraph {
     display: flex;
     margin: 26px 0 0;
+    text-align: left;
 }
 
 .about-project__time-backend {

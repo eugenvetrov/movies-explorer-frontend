@@ -5,6 +5,7 @@ import HeaderLanding from '../HeaderLanding/HeaderLanding.js';
 import LandingSelector from '../LandingSelector/LandingSelector';
 import AboutProject from '../AboutProject/AboutProject';
 import Technology from '../Technology/Technology';
+import Student from '../Student/Student';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
               <LandingSelector />
               <AboutProject />
               <Technology />
+              <Student />
               </>
             }
           />
