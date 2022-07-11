@@ -3,6 +3,7 @@ import { Routes, Route} from "react-router-dom";
 import Header from '../Header/Header';
 import HeaderLanding from '../HeaderLanding/HeaderLanding.js';
 import LandingSelector from '../LandingSelector/LandingSelector';
+import AboutProject from '../AboutProject/AboutProject';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
               <>
               <HeaderLanding />
               <LandingSelector />
+              <AboutProject />
               </>
             }
           />

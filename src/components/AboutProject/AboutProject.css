@@ -1,0 +1,83 @@
+.about-project {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 89%;
+  margin: 110px 0 0;
+}
+
+.about-project__title {
+    display: flex;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 27px;
+}
+
+.about-project__line {
+    display: flex;
+    margin: 23px 0 0 0;
+    width: 100%;
+    border-top: 1px solid #000
+}
+
+.about-project__description {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.about-project__description-title {
+    display: flex;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 70px 0 0;
+}
+
+.about-project__description-paragraph {
+    display: flex;
+    margin: 26px 0 0;
+}
+
+.about-project__time-backend {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin: 110px 0 0 0; 
+}
+
+.about-project__time-backend-scale {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2be080;
+    min-height: 36px;
+    margin: 0;
+}
+
+.about-project__time-frontend {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 110px 0 0 0; 
+}
+
+.about-project__time-frontend-scale {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    min-height: 36px;
+    margin: 0;
+}
+
+.about-project__time-mark {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 14px 0 0 0;
+    color: #a0a0a0;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 500;
+}
