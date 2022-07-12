@@ -7,6 +7,7 @@ import AboutProject from '../AboutProject/AboutProject';
 import Technology from '../Technology/Technology';
 import Student from '../Student/Student';
 import Portfolio from '../Portfolio/Portfolio';
+import Footer from '../Footer/Footer';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
             }
           />
         </Routes>
+        <Footer />
     </div>
   );
 }
