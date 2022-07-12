@@ -1,5 +1,6 @@
 import './App.css';
 import { Routes, Route} from "react-router-dom";
+import {useState} from "react"
 import Header from '../Header/Header';
 import HeaderLanding from '../HeaderLanding/HeaderLanding.js';
 import LandingSelector from '../LandingSelector/LandingSelector';
@@ -11,9 +12,15 @@ import Footer from '../Footer/Footer';
 
 function App() {
 
+  const [activeAuthLink, setActiveAuthLink] = useState('signin')
+
+  const handleAuthMouthOver = (button) => {
+    setActiveAuthLink(button);
+  }
+
   return (
     <div className="page">
-      <Header />
+      <Header activeAuthLink={activeAuthLink} onAuthMouthOver={handleAuthMouthOver}/>
       <Routes>
          <Route
             path="/"
