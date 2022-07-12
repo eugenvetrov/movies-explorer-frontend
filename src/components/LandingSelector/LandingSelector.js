@@ -1,12 +1,11 @@
 import './LandingSelector.css';
-import { Link } from "react-router-dom";
 
 const LandingSelector = () => {
     return(
         <div className="landing-selector">
-            <Link to="#about" className="landing-selector__link">О проекте</Link>
-            <Link to="#technology" className="landing-selector__link">Технологии</Link>
-            <Link to="#student" className="landing-selector__link">Студент</Link>
+            <a href="#about" className="landing-selector__link">О проекте</a>
+            <a href="#technology" className="landing-selector__link">Технологии</a>
+            <a href="#student" className="landing-selector__link">Студент</a>
         </div>
     )
 }

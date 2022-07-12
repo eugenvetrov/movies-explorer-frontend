@@ -1,6 +1,7 @@
 .auth {
     display: flex;
     width: 100%;
+    max-width: 1280px;
     max-height: 74px;
     background-color: #073042;
     align-items: center;

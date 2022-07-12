@@ -6,6 +6,7 @@ import LandingSelector from '../LandingSelector/LandingSelector';
 import AboutProject from '../AboutProject/AboutProject';
 import Technology from '../Technology/Technology';
 import Student from '../Student/Student';
+import Portfolio from '../Portfolio/Portfolio';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
               <AboutProject />
               <Technology />
               <Student />
+              <Portfolio />
               </>
             }
           />

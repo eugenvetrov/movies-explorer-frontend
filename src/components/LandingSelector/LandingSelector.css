@@ -1,6 +1,7 @@
 .landing-selector {
     display: flex;
     width: 100%;
+    max-width: 1280px;
     color: #fff;
     min-height: 66px;
     justify-content: center;
