@@ -8,21 +8,6 @@
   margin: 110px 0 0;
 }
 
-.about-project__title {
-    display: flex;
-    font-size: 22px;
-    font-weight: 400;
-    line-height: 27px;
-    margin: 0;
-}
-
-.about-project__line {
-    display: flex;
-    margin: 23px 0 0 0;
-    width: 100%;
-    border-top: 1px solid #000
-}
-
 .about-project__description {
     display: flex;
     flex-direction: column;

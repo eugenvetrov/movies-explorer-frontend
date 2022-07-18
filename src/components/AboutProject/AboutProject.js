@@ -1,10 +1,10 @@
 import './AboutProject.css';
+import SectionTitle from '../SectionTitle/SectionTitle.js';
 
 const AboutProject = () => {
   return(
-    <section className="about-project" id="about">
-      <h2 className="about-project__title">О проекте</h2>
-      <hr className="about-project__line"/>
+    <section className="about-project" id="about-project">
+      <SectionTitle title="О проекте"/>
       <div className="about-project__description">
         <p className="about-project__description-title">Дипломный проект включал 5 этапов</p>
         <p className="about-project__description-paragraph">Составление плана, работу над бэкендом, вёрстку, добавление функциональности и финальные доработки.</p>

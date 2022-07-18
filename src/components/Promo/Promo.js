@@ -1,7 +1,7 @@
-import './HeaderLanding.css';
+import './Promo.css';
 import logoHeader from '../../images/logo-header.svg';
 
-const HeaderLanding = () => {
+const Promo = () => {
   return (
     <header className="header">
       <img src={logoHeader} className="header__logo" alt="Логотип"/>
@@ -10,4 +10,4 @@ const HeaderLanding = () => {
   );
 }
 
-export default HeaderLanding;
+export default Promo;

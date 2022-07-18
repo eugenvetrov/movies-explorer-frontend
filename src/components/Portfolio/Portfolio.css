@@ -1,8 +1,15 @@
 .portfolio {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 89%;
+    max-width: 1140px;
     margin: 100px 0 0 0;
 }
 
 .portfolio__title {
+    display: flex;
     font-size: 18px;
     line-height: 20px;
     font-weight: 400;

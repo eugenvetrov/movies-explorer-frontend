@@ -1,5 +1,11 @@
 .footer {
-    margin-top: 125px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 89%;
+    max-width: 1140px;
+    margin: 125px 0 0;
 }
 
 .footer__title {
@@ -15,6 +21,10 @@
 }
 
 .footer__line {
+    display: flex;
+    margin: 23px 0 0 0;
+    width: 100%;
+    border-top: 1px solid #000;
     margin-top: 20px;
 }
 
@@ -33,5 +43,11 @@
 }
 
 .footer__link {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 500;
+    color: #000;
+    text-decoration: none;
+    grid-area: github-link;
     margin-left: 20px;
 }

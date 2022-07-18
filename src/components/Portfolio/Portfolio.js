@@ -4,13 +4,13 @@ import arrowLink from '../../images/arrowLink.svg';
 
 const Portfolio = () => {
     return(
-        <section className="about-project portfolio">
-          <p className="portfolio__title about-project__title">Портфолио</p>
-          <a className="portfolio__link" href="https://github.com/eugenvetrov/how-to-learn">
+        <section className="portfolio">
+          <p className="portfolio__title">Портфолио</p>
+          <a className="portfolio__link" href="https://eugenvetrov.github.io/how-to-learn/">
             <p className="portfolio__link-text">Статичный сайт</p>
             <img className="portfolio__link-image" src={arrowLink} alt="Картинка стрелки для ссылки"/>
           </a>
-          <a className="portfolio__link" href="https://github.com/eugenvetrov/russian-travel">
+          <a className="portfolio__link" href="https://eugenvetrov.github.io/yet-another-project/">
             <p className="portfolio__link-text">Адаптивный сайт</p>
             <img className="portfolio__link-image" src={arrowLink} alt="Картинка стрелки для ссылки"/>
           </a>

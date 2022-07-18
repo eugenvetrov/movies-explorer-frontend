@@ -2,11 +2,11 @@ import './App.css';
 import { Routes, Route} from "react-router-dom";
 import {useState} from "react"
 import Header from '../Header/Header';
-import HeaderLanding from '../HeaderLanding/HeaderLanding.js';
-import LandingSelector from '../LandingSelector/LandingSelector';
+import Promo from '../Promo/Promo.js';
+import NavTab from '../NavTab/NavTab.js';
 import AboutProject from '../AboutProject/AboutProject';
-import Technology from '../Technology/Technology';
-import Student from '../Student/Student';
+import Techs from '../Techs/Techs';
+import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
@@ -26,11 +26,11 @@ function App() {
             path="/"
             element={
               <>
-              <HeaderLanding />
-              <LandingSelector />
+              <Promo />
+              <NavTab />
               <AboutProject />
-              <Technology />
-              <Student />
+              <Techs />
+              <AboutMe />
               <Portfolio />
               </>
             }
