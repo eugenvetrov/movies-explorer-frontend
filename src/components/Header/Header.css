@@ -1,4 +1,4 @@
-.auth {
+.header__landing {
     display: flex;
     width: 100%;
     max-width: 1280px;
@@ -8,17 +8,22 @@
     justify-content: space-between;
 }
 
-.auth__nav {
-    display: flex;
+.header__main {
+    background-color: #fff;
 }
 
-.auth-nav__logo {
+.header__nav {
+    display: flex;
+    align-items: center;
+}
+
+.header__nav__logo {
     width: 38px;
     height: 38px;
     margin: 18px 0 18px 70px;
 }
 
-.auth-nav__link {
+.header-nav__link {
     display: flex;
     justify-self: end;
     color: #fff;
@@ -31,10 +36,44 @@
     border-radius: 3px;
 }
 
-.auth-nav__link_active {
+.header-nav__link-movies {
+    display: flex;
+    justify-self: end;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+    color: #000;
+    margin: 0 0 0 20px;
+}
+
+.header-nav__link_active {
     background-color: #2BE080;
 }
 
-.auth-nav__link:nth-last-child(1) {
+.header-nav__link-movies_active {
+    font-weight: 500;
+}
+
+.header-nav__link:nth-last-child(1) {
     margin-right: 70px; 
+}
+
+.header__account-button {
+    display: flex;
+    width: 100px;
+    height: 32px;
+    border-radius: 20px;
+    border: 1px solid #aaa;
+    justify-content: center;
+    align-items: center;
+    margin: 0 70px 0 50px;
+    text-decoration: none;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+}
+
+.header__account-logo {
+    margin: 0 7px 0 0;
 }

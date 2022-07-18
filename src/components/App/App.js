@@ -13,14 +13,21 @@ import Footer from '../Footer/Footer';
 function App() {
 
   const [activeAuthLink, setActiveAuthLink] = useState('signin')
+  const [activeMoviesLink, setActiveMoviesLink] = useState('')
 
   const handleAuthMouthOver = (button) => {
     setActiveAuthLink(button);
   }
 
+ 
+  const handleActiveMoviesLink = (button) => {
+    setActiveMoviesLink(button);
+  }
+
+
   return (
     <div className="page">
-      <Header activeAuthLink={activeAuthLink} onAuthMouthOver={handleAuthMouthOver}/>
+      <Header activeAuthLink={activeAuthLink} onAuthMouthOver={handleAuthMouthOver} activeMoviesLink={activeMoviesLink}/>
       <Routes>
          <Route
             path="/"
