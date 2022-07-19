@@ -1,0 +1,37 @@
+.search-movie__form {
+    display: flex;
+    justify-content: center;
+    width: 89%;
+    max-width: 1140px;
+    margin: 80px 0 0 0;
+}
+
+.search-movie__field {
+    width: 93%;
+    max-width: 1060px;
+    border-width: 0;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+    height: 48px;
+    padding: 0 20px 0;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 14px;
+    line-height: 18px;
+    font-weight: 400;
+}
+
+.search-movie__submit {
+    width: 77px;
+    height: 44px;
+    border-radius: 25px;
+    background-color: #3456f3;
+    color: #fff;
+    border-width: 0;
+    margin: 0 0 0 10px;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+}

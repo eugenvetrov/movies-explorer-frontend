@@ -9,6 +9,7 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
+import Movies from '../Movies/Movies'
 
 function App() {
 
@@ -41,6 +42,14 @@ function App() {
               <Portfolio />
               </>
             }
+          />
+          <Route
+             path="/movies"
+             element={
+              <>
+              <Movies />
+              </>
+             }
           />
         </Routes>
         <Footer />
