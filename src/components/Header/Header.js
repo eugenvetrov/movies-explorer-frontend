@@ -28,9 +28,9 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
               <img src={logo} className="header__nav__logo" alt="Логотип в панели аутентификации"/>
               <nav className="header__nav">
                     <Link to="../movies" className={`header-nav__link-movies ${activeMoviesLink === "movies" ? "header-nav__link-movies_active" : "" }`}
-                     onMouseOn={() => onActiveMoviesLink('movies')}>Фильмы</Link>
+                     onMouseEnter={() => onActiveMoviesLink('movies')}>Фильмы</Link>
                     <Link to="../saved-movies" className={`header-nav__link-movies ${activeMoviesLink === "saved-movies" ? "header-nav__link-movies_active" : "" }`}
-                     onMouseOn={() => onActiveMoviesLink('saved-movies')}>Сохраненные фильмы</Link>
+                     onMouseEnter={() => onActiveMoviesLink('saved-movies')}>Сохраненные фильмы</Link>
                     <Link to="../profile" className="header__account-button"><img src={account} className="header__account-logo" alt="кнопка аккаунта"/>Аккаунт</Link>
                   </nav>
             </header>
