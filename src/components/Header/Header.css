@@ -63,7 +63,7 @@
     display: flex;
     width: 100px;
     height: 32px;
-    border-radius: 20px;
+    border-radius: 50px;
     border: 1px solid #aaa;
     justify-content: center;
     align-items: center;
