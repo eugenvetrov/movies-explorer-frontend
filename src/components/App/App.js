@@ -10,8 +10,7 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
-import MoviesCard from '../MoviesCard/MoviesCard';
-import moviesArray from '../../utils/moviesArray';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function App() {
 
@@ -50,12 +49,7 @@ function App() {
              element={
               <>
               <Movies />
-              <MoviesCard
-               nameRU={moviesArray[0].nameRU}
-               imageUrl={`https://api.nomoreparties.co/${moviesArray[0].image.url}`}
-               trailerLink={moviesArray[0].trailerLink}
-               duration={moviesArray[0].duration}
-               />
+               <MoviesCardList />
               </>
              }
           />

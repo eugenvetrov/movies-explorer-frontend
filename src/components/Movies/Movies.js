@@ -25,6 +25,7 @@ const Movies = () => {
            name="shortFilm"
            handleChange={handleChange}
         />
+        <hr className="movies__line"/>
       </div>
     )
 }
