@@ -1,4 +1,4 @@
-.register {
+.auth {
     display: flex;
     width: 100%;
     max-width: 396px;
@@ -6,7 +6,7 @@
     flex-direction: column;
 }
 
-.register__title {
+.auth__title {
     margin: 40px 0 20px 0;
     font-weight: 500;
     font-size: 24px;
@@ -14,7 +14,7 @@
     color: #000;
 }
 
-.register__form {
+.auth__form {
     width: 100%;
     max-width: 396px;
     display: flex;
@@ -22,7 +22,7 @@
     flex-direction: column;
 }
 
-.register__form-field {
+.auth__form-field {
     display: flex;
     height: 46px;
     border: none;
@@ -43,7 +43,7 @@
     margin: 10px 0 0 0;
 }
 
-.register__form-label {
+.auth__form-label {
     font-weight: 500;
     font-size: 11px;
     line-height: 13px;
@@ -55,11 +55,11 @@
     margin: 20px 0 0 0;
 }
 
-.register__form-field:focus {
+.auth__form-field:focus {
     outline: none;
 }
 
-.register__submit {
+.auth__submit {
     display: flex;
     color: #fff;
     margin: 69px 0 0 0;
@@ -76,7 +76,7 @@
     height: 45px;
 }
 
-.register__text {
+.auth__text {
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
@@ -84,7 +84,7 @@
     margin: 16px 0 0 0;
 }
 
-.register__link {
+.auth__link {
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
