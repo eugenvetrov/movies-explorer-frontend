@@ -3,7 +3,7 @@ import './FilterCheckbox.css';
 const FilterCheckbox = ({ title, name, handleChange }) => {
 
     return (
-        <div>
+        <div className="checkbox">
         <label className="checkbox__switch">
         <input
           className="checkbox__switch-input"

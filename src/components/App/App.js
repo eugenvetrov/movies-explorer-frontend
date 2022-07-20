@@ -2,8 +2,8 @@ import './App.css';
 import { Routes, Route} from "react-router-dom";
 import {useState} from "react"
 import Header from '../Header/Header';
-import Promo from '../Promo/Promo.js';
-import NavTab from '../NavTab/NavTab.js';
+import Promo from '../Promo/Promo';
+import NavTab from '../NavTab/NavTab';
 import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
@@ -11,8 +11,9 @@ import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
+import Profile from '../Profile/Profile';
 
-function App() {
+const App = () => {
 
   const [activeAuthLink, setActiveAuthLink] = useState('signin')
   const [activeMoviesLink, setActiveMoviesLink] = useState('movies')
@@ -25,6 +26,8 @@ function App() {
   const handleActiveMoviesLink = (button) => {
     setActiveMoviesLink(button);
   }
+
+  const userName = "Евгений"
 
 
   return (
@@ -47,17 +50,19 @@ function App() {
           <Route
              path="/movies"
              element={
-              <>
               <Movies />
-              </>
              }
           />
           <Route
              path="/saved-movies"
              element={
-              <>
                 <SavedMovies />
-              </>
+             }
+          />
+          <Route
+             path="/profile"
+             element={
+               <Profile name={userName} />
              }
           />
         </Routes>

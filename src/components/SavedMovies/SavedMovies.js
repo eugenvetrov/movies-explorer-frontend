@@ -27,7 +27,6 @@ const SavedMovies = () => {
         />
         <hr className="saved-movies__line"/>
         <MoviesCardList moviesArray={moviesArray}/>
-        <button className="saved-movies__more-button">Ещё</button>
       </div>
     )
 }

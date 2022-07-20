@@ -22,7 +22,7 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
             }
           />
           <Route
-           path="/movies"
+           path="/*"
             element={
             <header className="header__landing header__main">
               <img src={logo} className="header__nav__logo" alt="Логотип в панели аутентификации"/>
