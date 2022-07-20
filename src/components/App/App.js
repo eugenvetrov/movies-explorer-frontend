@@ -10,6 +10,7 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
+import SavedMovies from '../SavedMovies/SavedMovies';
 
 function App() {
 
@@ -48,6 +49,14 @@ function App() {
              element={
               <>
               <Movies />
+              </>
+             }
+          />
+          <Route
+             path="/saved-movies"
+             element={
+              <>
+                <SavedMovies />
               </>
              }
           />

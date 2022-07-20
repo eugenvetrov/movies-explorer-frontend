@@ -1,13 +1,13 @@
 import './MoviesCardList.css';
-import moviesArray from '../../utils/moviesArray';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = () => {
+const MoviesCardList = ({moviesArray}) => {
     return (
         <section className="movies-list">
            {moviesArray.map((card) => {
             return (
             <MoviesCard
+               card={card}
                nameRU={card.nameRU}
                imageUrl={`https://api.nomoreparties.co/${card.image.url}`}
                trailerLink={card.trailerLink}

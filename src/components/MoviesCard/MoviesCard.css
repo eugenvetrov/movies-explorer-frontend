@@ -65,3 +65,14 @@
     background-position: center center;
     background-size: 8px 4.5px;
 }
+
+.movie-card__like_saved {
+    background-image: url(../../images/like-save-movie.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 7px 7px;
+}
+
+.movie-card__like:hover {
+    cursor: pointer;
+}

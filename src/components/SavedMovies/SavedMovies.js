@@ -1,11 +1,10 @@
-import { useState } from "react";
-import './Movies.css';
-import SearchForm from '../SearchForm/SearchForm';
+import './SavedMovies.css';
+import {useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import moviesArray from '../../utils/moviesArray';
 
-const Movies = () => {
+const SavedMovies = () => {
 
     const [checked, setChecked] = useState({
         name: true,
@@ -20,18 +19,17 @@ const Movies = () => {
     };
 
     return (
-      <div className="movies">
-        <SearchForm />
+        <div className="saved-movies">
         <FilterCheckbox 
            title="Короткометражки"
            name="shortFilm"
            handleChange={handleChange}
         />
-        <hr className="movies__line"/>
+        <hr className="saved-movies__line"/>
         <MoviesCardList moviesArray={moviesArray}/>
-        <button className="movies__more-button">Ещё</button>
+        <button className="saved-movies__more-button">Ещё</button>
       </div>
     )
 }
 
-export default Movies;
+export default SavedMovies;
