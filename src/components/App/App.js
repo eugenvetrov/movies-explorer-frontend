@@ -10,7 +10,6 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 function App() {
 
@@ -49,7 +48,6 @@ function App() {
              element={
               <>
               <Movies />
-               <MoviesCardList />
               </>
              }
           />

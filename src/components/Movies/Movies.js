@@ -2,6 +2,7 @@ import { useState } from "react";
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
+import MoviesCardList from '../MoviesCardList/MoviesCardList';
 
 const Movies = () => {
 
@@ -26,6 +27,8 @@ const Movies = () => {
            handleChange={handleChange}
         />
         <hr className="movies__line"/>
+        <MoviesCardList />
+        <button className="movies__more-button">Ещё</button>
       </div>
     )
 }
