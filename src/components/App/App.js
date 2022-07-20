@@ -12,6 +12,7 @@ import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
+import Register from '../Register/Register';
 
 const App = () => {
 
@@ -63,6 +64,12 @@ const App = () => {
              path="/profile"
              element={
                <Profile name={userName} />
+             }
+          />
+          <Route
+             path="/register"
+             element={
+               <Register />
              }
           />
         </Routes>
