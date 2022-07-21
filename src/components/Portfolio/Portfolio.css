@@ -41,3 +41,27 @@
     height: 29px;
     object-fit: none;
 }
+
+@media screen and (max-width: 1160px) {
+    .portfolio__link-text {
+        font-size: 28px;
+        line-height: 50px;
+    }
+
+    .portfolio__link-image {
+        width: 27px;
+        height: 27px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .portfolio__link-text {
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    .portfolio__link-image {
+        width: 18px;
+        height: 18px;
+    }
+}
