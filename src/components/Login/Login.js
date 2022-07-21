@@ -38,12 +38,17 @@ const Login = () => {
                      name="email"
                      onChange={handleChange}
                 />
+                <span className="auth__error  auth__error_visible"
+                id="login-email-error"></span>
+                
             </label>
             <label className="auth__form-label">Пароль
                 <input type="text" className="auth__form-field"
                      name="password"
                      onChange={handleChange}
                 />
+                <span className="auth__error  auth__error_visible"
+                id="login-password-error"></span>
             </label>
             <button className="auth__submit" type="submit">
                 Войти

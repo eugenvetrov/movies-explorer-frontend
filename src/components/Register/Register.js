@@ -38,18 +38,24 @@ const Register = () => {
                          name="userName"
                          onChange={handleChange}
                     />
+                    <span className="auth__error  auth__error_visible"
+                         id="auth-name-error"></span>
                 </label>
                 <label className="auth__form-label">E-mail
                     <input type="email" className="auth__form-field"
                          name="email"
                          onChange={handleChange}
                     />
+                    <span className="auth__error  auth__error_visible"
+                         id="auth-email-error">Текст ошибки</span>
                 </label>
                 <label className="auth__form-label">Пароль
                     <input type="text" className="auth__form-field"
                          name="password"
                          onChange={handleChange}
                     />
+                    <span className="auth__error  auth__error_visible"
+                         id="auth-password-error"></span>
                 </label>
                 <button className="auth__submit" type="submit">
                     Зарегестрироваться

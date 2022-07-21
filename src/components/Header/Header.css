@@ -137,7 +137,7 @@
 }
 
 .header__account-button_mobile {
-    margin: 115% 0 0 0;
+    margin: 60% 0 0 0;
 }
 
 .header__nav-link-movies-mobile_active {
@@ -152,11 +152,15 @@
 
 @media screen and (max-width: 1160px) {
     .header__auth {
-        margin: 241px auto 0;
+        margin: 232px auto 0;
     }
 
     .header__nav-logo {
         margin-left: 30px;
+    }
+
+    .header__nav-logo-auth {
+        margin: 0;
     }
 
     .header__nav-link {
@@ -168,14 +172,14 @@
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 430px) {
     .header__account-button_mobile {
         margin: 90% 0 0 0;
     }
 
     .header__auth {
         display: flex;
-        margin: 241px auto 0;
+        margin: 56px auto 0;
         justify-content: center;
     }
 

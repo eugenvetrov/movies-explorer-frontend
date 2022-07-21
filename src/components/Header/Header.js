@@ -84,14 +84,14 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
             path="/signin"
             element={<header className="header__landing header__main header__auth">
               <Link to="../" className="header__nav-home-link">
-                 <img src={logo} className="header__nav-logo header__nav-logo-auth" alt="Логотип в панели аутентификации"/>
+                 <img src={logo} className="header__nav-logo  header__nav-logo-auth" alt="Логотип в панели аутентификации"/>
                </Link>
             </header>}
           />
           <Route
             path="/signup"
             element={<header className="header__landing header__main header__auth">
-              <Link to="../" className="header__nav-home-link">
+              <Link to="../" className="header__nav-home-link ">
                    <img src={logo} className="header__nav-logo header__nav-logo-auth" alt="Логотип в панели аутентификации"/>
               </Link>
             </header>}

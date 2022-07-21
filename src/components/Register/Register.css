@@ -52,7 +52,7 @@
     width: 100%;
     max-width: 396px;
     flex-direction: column;
-    margin: 20px 0 0 0;
+    margin: 0;
 }
 
 .auth__form-field:focus {
@@ -91,4 +91,40 @@
     color: #3456F3;
     margin: 16px 0 0 6px;
     text-decoration: none;
+}
+
+.auth__error {
+    display: flex;
+    visibility: hidden;
+    color: #ff3055;
+    width: 100%;
+    margin: 10px auto 0 auto;
+    font-size: 10px;
+    line-height: 12px;
+    padding: 0;
+    height: 12px;
+}
+
+.auth__error_visible {
+    visibility: visible;
+}
+
+@media screen and (max-width: 430px) {
+    .auth__form {
+        width: 260px;
+    }
+
+    .auth__text {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .auth__link {
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .auth__form-label {
+        color: #a0a0a0;
+    }
 }
