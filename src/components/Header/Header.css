@@ -24,6 +24,10 @@
     align-items: center;
 }
 
+.header__nav-home-link {
+    display: flex;
+}
+
 .header__nav-logo {
     width: 38px;
     height: 38px;
@@ -37,6 +41,8 @@
 .header__nav-link {
     display: flex;
     justify-self: end;
+    align-items: center;
+    justify-content: center;
     color: #fff;
     text-decoration: none;
     font-weight: 500;
@@ -60,6 +66,7 @@
 
 .header__nav-link_active {
     background-color: #2BE080;
+    color: #000;
 }
 
 .header__nav-link_active {
@@ -147,10 +154,40 @@
     .header__auth {
         margin: 241px auto 0;
     }
+
+    .header__nav-logo {
+        margin-left: 30px;
+    }
+
+    .header__nav-link {
+        padding: 8px 20px;
+    }
+
+    .header__nav-link:nth-last-child(1) {
+        margin-right: 30px
+    }
 }
 
 @media screen and (max-width: 400px) {
     .header__account-button_mobile {
         margin: 90% 0 0 0;
+    }
+
+    .header__auth {
+        display: flex;
+        margin: 241px auto 0;
+        justify-content: center;
+    }
+
+    .header__nav-logo {
+        margin-left: 14px;
+    }
+
+    .header__nav-link {
+        padding: 5px 12px;
+    }
+
+    .header__nav-link:nth-last-child(1) {
+        margin-right: 14px
     }
 }

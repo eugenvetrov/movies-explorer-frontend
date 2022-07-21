@@ -20,7 +20,9 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
     const mainHeader =
     isMobile ? isOpen ?
     (<header className="header__landing header__main">
+    <Link to="../" className="header__nav-home-link">
     <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
+    </Link>
     <div className="header__overlay"></div>
     <nav className="header__nav_mobile">
         <img src={exit} className="header__nav-exit" alt="Кнопка выхода" onClick={handleMenuButton}/>
@@ -41,11 +43,15 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
     </header>
     )
     : (<header className="header__landing header__main">
-          <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/><img src={menu} className="header__menu-icon"       alt="Иконка мобильного меню" onClick={handleMenuButton} />
+          <Link to="../" className="header__nav-home-link">
+             <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
+          </Link><img src={menu} className="header__menu-icon"       alt="Иконка мобильного меню" onClick={handleMenuButton} />
        </header>)    
     :
     (<header className="header__landing header__main">
-        <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
+        <Link to="../" className="header__nav-home-link">
+           <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
+        </Link>
         <nav className="header__nav">
               <Link to="../movies" className={`header__nav-link-movies ${activeMoviesLink === "movies" ? "header__nav-link-movies_active" :     "" }`}
                onMouseEnter={() => onActiveMoviesLink('movies')}>Фильмы</Link>
@@ -62,7 +68,9 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
             exact path="/"
             element={
               <header className="header__landing">
-                <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
+                  <Link to="../" className="header__nav-home-link">
+                     <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
+                  </Link>
                   <nav className="header__nav">
                     <Link to="signup" className={`header__nav-link ${activeAuthLink === "signup" ? "header__nav-link_active" : "" }`}
                      onMouseEnter={() => onAuthMouthOver('signup')}>Регистрация</Link>
@@ -75,13 +83,17 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
           <Route
             path="/signin"
             element={<header className="header__landing header__main header__auth">
-            <img src={logo} className="header__nav-logo header__nav-logo-auth" alt="Логотип в панели аутентификации"/>
+              <Link to="../" className="header__nav-home-link">
+                 <img src={logo} className="header__nav-logo header__nav-logo-auth" alt="Логотип в панели аутентификации"/>
+               </Link>
             </header>}
           />
           <Route
             path="/signup"
             element={<header className="header__landing header__main header__auth">
-            <img src={logo} className="header__nav-logo header__nav-logo-auth" alt="Логотип в панели аутентификации"/>
+              <Link to="../" className="header__nav-home-link">
+                   <img src={logo} className="header__nav-logo header__nav-logo-auth" alt="Логотип в панели аутентификации"/>
+              </Link>
             </header>}
           />
           <Route

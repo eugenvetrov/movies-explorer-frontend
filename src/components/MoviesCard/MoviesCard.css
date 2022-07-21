@@ -109,4 +109,16 @@
     .movie-card__link {
         width: 300px;
     }
+
+    .movie-card__title {
+        font-size: 12px;
+        margin: 0 0 0 14px;
+    }
+
+    .movie-card__duration {
+        margin: 14px 14px 14px 0;
+        font-size: 10px;
+        line-height: 18px;
+        color: #a0a0a0;
+    }
 }
