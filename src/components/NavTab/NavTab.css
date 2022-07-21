@@ -16,3 +16,9 @@
     line-height: 16px;
     font-weight: 500;
 }
+
+@media screen and (max-width: 400px) {
+    .landing-selector__link {
+        font-size: 11px;
+    }
+}
