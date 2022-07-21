@@ -31,7 +31,7 @@ const Login = () => {
 
     return (
         <section className="auth">
-        <p className="auth__title">Добро пожаловать!</p>
+        <p className="auth__title">Рады видеть!</p>
         <form className="auth__form" onSubmit={(e) => handleSubmit(e)}>
             <label className="auth__form-label">E-mail
                 <input type="email" className="auth__form-field"

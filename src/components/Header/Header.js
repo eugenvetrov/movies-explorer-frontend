@@ -1,9 +1,11 @@
 import './Header.css';
 import { Routes, Route, Link } from "react-router-dom";
+import renderPaths from "../../utils/renderPaths"
 import logo from '../../images/logo-auth.svg';
 import account from '../../images/accaunt.svg';
 
 const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMoviesLink}) => {
+  
     return(
         <Routes>
           <>
@@ -21,10 +23,8 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
               </header>
             }
           />
-          <Route
-           path="/*"
-            element={
-            <header className="header__landing header__main">
+          {renderPaths(["/signin", "/signup", "/profile", "/movies","/saved-movies"],
+           <header className="header__landing header__main">
               <img src={logo} className="header__nav__logo" alt="Логотип в панели аутентификации"/>
               <nav className="header__nav">
                     <Link to="../movies" className={`header-nav__link-movies ${activeMoviesLink === "movies" ? "header-nav__link-movies_active" : "" }`}
@@ -33,8 +33,11 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
                      onMouseEnter={() => onActiveMoviesLink('saved-movies')}>Сохраненные фильмы</Link>
                     <Link to="../profile" className="header__account-button"><img src={account} className="header__account-logo" alt="кнопка аккаунта"/>Аккаунт</Link>
                   </nav>
-            </header>
-          } />
+            </header>)}
+          <Route
+           path="/*"
+            element={<></>}
+           />
           </>
         </Routes>
     )

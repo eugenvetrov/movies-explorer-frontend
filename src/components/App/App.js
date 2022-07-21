@@ -14,6 +14,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import NotFound from '../NotFound/NotFound';
 
 const App = () => {
 
@@ -77,6 +78,12 @@ const App = () => {
              path="/signin"
              element={
                <Login />
+             }
+          />
+          <Route
+             path="/*"
+             element={
+               <NotFound />
              }
           />
         </Routes>
