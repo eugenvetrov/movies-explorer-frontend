@@ -1,6 +1,6 @@
 import './MoviesCard.css';
 import { useState } from 'react';
-import usePathname from '../../utils/usePathname';
+import usePathname from '../../customHooks/usePathname';
 
 const MoviesCard = ({card, nameRU, imageUrl, trailerLink, duration}) => {
 
