@@ -1,9 +1,10 @@
 .header__landing {
-    display: flex;
+    display: grid;
     width: 100%;
     max-width: 1280px;
     max-height: 74px;
     background-color: #073042;
+    grid-template-columns: 68px minmax(68px, auto);
     align-items: center;
     justify-content: space-between;
 }
@@ -12,18 +13,28 @@
     background-color: #fff;
 }
 
+.header__auth {
+    width: 100%;
+    max-width: 396px;
+    margin: 70px auto 0;
+}
+
 .header__nav {
     display: flex;
     align-items: center;
 }
 
-.header__nav__logo {
+.header__nav-logo {
     width: 38px;
     height: 38px;
     margin: 18px 0 18px 70px;
 }
 
-.header-nav__link {
+.header__nav-logo-auth {
+    margin: 0;
+}
+
+.header__nav-link {
     display: flex;
     justify-self: end;
     color: #fff;
@@ -36,7 +47,7 @@
     border-radius: 3px;
 }
 
-.header-nav__link-movies {
+.header__nav-link-movies {
     display: flex;
     justify-self: end;
     text-decoration: none;
@@ -47,15 +58,15 @@
     margin: 0 0 0 20px;
 }
 
-.header-nav__link_active {
+.header__nav-link_active {
     background-color: #2BE080;
 }
 
-.header-nav__link-movies_active {
+.header__nav-link_active {
     font-weight: 500;
 }
 
-.header-nav__link:nth-last-child(1) {
+.header__nav-link:nth-last-child(1) {
     margin-right: 70px; 
 }
 
@@ -77,4 +88,63 @@
 
 .header__account-logo {
     margin: 0 7px 0 0;
+}
+
+.header__nav_mobile {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    max-width: 520px;
+    flex-direction: column;
+    align-content: flex-end;
+    justify-content: flex-start;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 5;
+    opacity: 1;
+    background-color: #fff;
+}
+
+.header__overlay {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    right: 0;
+    content: "";
+    background-color: #000;
+    opacity: 0.3;
+    z-index: 2;
+}
+
+.header__nav-link-movies_mobile {
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000;
+    text-decoration: none;
+    margin: 0 0 28px 0;
+}
+
+.header__account-button_mobile {
+    margin: 60% 0 0 0;
+}
+
+.header__nav-link-movies-mobile_active {
+    text-decoration: underline;;
+}
+
+.header__nav-exit {
+    display: flex;
+    align-self: end;
+    margin: 22px 22px 105px auto;
+}
+
+@media screen and (max-width: 1160px) {
+    .header__auth {
+        margin: 241px auto 0;
+    }
 }

@@ -1,20 +1,59 @@
 import './Header.css';
 import { Routes, Route, Link } from "react-router-dom";
+import { useState } from "react";
+import useDeviceDetect from "../../customHooks/useDeviceDetect"
 import logo from '../../images/logo-auth.svg';
 import account from '../../images/accaunt.svg';
+import menu from '../../images/menu.svg';
+import exit from '../../images/exit.svg';
 
 const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMoviesLink}) => {
 
-    const mainHeader = <header className="header__landing header__main">
-    <img src={logo} className="header__nav__logo" alt="Логотип в панели аутентификации"/>
-    <nav className="header__nav">
-          <Link to="../movies" className={`header-nav__link-movies ${activeMoviesLink === "movies" ? "header-nav__link-movies_active" : "" }`}
-           onMouseEnter={() => onActiveMoviesLink('movies')}>Фильмы</Link>
-          <Link to="../saved-movies" className={`header-nav__link-movies ${activeMoviesLink === "saved-movies" ? "header-nav__link-movies_active" : "" }`}
-           onMouseEnter={() => onActiveMoviesLink('saved-movies')}>Сохраненные фильмы</Link>
-          <Link to="../profile" className="header__account-button"><img src={account} className="header__account-logo" alt="кнопка аккаунта"/>Аккаунт</Link>
-        </nav>
-  </header>;
+    const [isOpen, setIsOpen] = useState(false);
+    const deviceDetect = useDeviceDetect();
+    const isMobile = deviceDetect.isMobile;
+  
+    const handleMenuButton = () => {
+      setIsOpen(!isOpen);
+    };
+
+    const mainHeader =
+    isMobile ? isOpen ?
+    (<header className="header__landing header__main">
+    <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
+    <div className="header__overlay"></div>
+    <nav className="header__nav_mobile">
+        <img src={exit} className="header__nav-exit" alt="Кнопка выхода" onClick={handleMenuButton}/>
+        <Link to="../" className={`header__nav-link-movies_mobile ${activeMoviesLink === "main" ?           "header__nav-link-movies-mobile_active" : "" }`}
+          onClick={() => {
+          onActiveMoviesLink('main')
+          handleMenuButton()}}>Главная</Link>
+        <Link to="../movies" className={`header__nav-link-movies_mobile ${activeMoviesLink === "movies" ?       "header__nav-link-movies-mobile_active" : "" }`}
+          onClick={() => {
+          onActiveMoviesLink('movies')
+          handleMenuButton()}}>Фильмы</Link>
+        <Link to="../saved-movies" className={`header__nav-link-movies_mobile ${activeMoviesLink === "saved-movies" ?       "header__nav-link-movies-mobile_active" : "" }`}
+          onClick={() => {
+          onActiveMoviesLink('saved-movies')
+          handleMenuButton()}}>Сохраненные фильмы</Link>
+        <Link to="../profile" className="header__account-button header__account-button_mobile" onClick={handleMenuButton}><img src={account}       className="header__account-logo" alt="кнопка аккаунта"/>Аккаунт</Link>
+    </nav>
+    </header>
+    )
+    : (<header className="header__landing header__main">
+          <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/><img src={menu} className="header__menu-icon"       alt="Иконка мобильного меню" onClick={handleMenuButton} />
+       </header>)    
+    :
+    (<header className="header__landing header__main">
+        <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
+        <nav className="header__nav">
+              <Link to="../movies" className={`header__nav-link-movies ${activeMoviesLink === "movies" ? "header__nav-link-movies_active" :     "" }`}
+               onMouseEnter={() => onActiveMoviesLink('movies')}>Фильмы</Link>
+              <Link to="../saved-movies" className={`header__nav-link-movies ${activeMoviesLink === "saved-movies" ?     "header__nav-link-movies_active" : "" }`}
+               onMouseEnter={() => onActiveMoviesLink('saved-movies')}>Сохраненные фильмы</Link>
+              <Link to="../profile" className="header__account-button"><img src={account} className="header__account-logo" alt="кнопка     аккаунта"/>Аккаунт</Link>
+            </nav>
+      </header>);
   
     return(
         <Routes>
@@ -23,11 +62,11 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
             exact path="/"
             element={
               <header className="header__landing">
-                <img src={logo} className="header__nav__logo" alt="Логотип в панели аутентификации"/>
+                <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
                   <nav className="header__nav">
-                    <Link to="signup" className={`header-nav__link ${activeAuthLink === "signup" ? "header-nav__link_active" : "" }`}
+                    <Link to="signup" className={`header__nav-link ${activeAuthLink === "signup" ? "header__nav-link_active" : "" }`}
                      onMouseEnter={() => onAuthMouthOver('signup')}>Регистрация</Link>
-                    <Link to="signin" className={`header-nav__link ${activeAuthLink === "signin" ? "header-nav__link_active" : "" }`}
+                    <Link to="signin" className={`header__nav-link ${activeAuthLink === "signin" ? "header__nav-link_active" : "" }`}
                      onMouseEnter={() => onAuthMouthOver('signin')}>Войти</Link>
                   </nav>
               </header>
@@ -35,11 +74,15 @@ const Header = ({activeAuthLink, onAuthMouthOver, activeMoviesLink, onActiveMovi
           />
           <Route
             path="/signin"
-            element={mainHeader}
+            element={<header className="header__landing header__main header__auth">
+            <img src={logo} className="header__nav-logo header__nav-logo-auth" alt="Логотип в панели аутентификации"/>
+            </header>}
           />
           <Route
             path="/signup"
-            element={mainHeader}
+            element={<header className="header__landing header__main header__auth">
+            <img src={logo} className="header__nav-logo header__nav-logo-auth" alt="Логотип в панели аутентификации"/>
+            </header>}
           />
           <Route
             path="/profile"
