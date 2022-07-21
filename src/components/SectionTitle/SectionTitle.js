@@ -1,10 +1,10 @@
 import './SectionTitle.css';
 
-const SectionTitle = ({title}) => {
+const SectionTitle = ({title, selector}) => {
     return(
       <>
-        <h2 className="section__title">{title}</h2>
-        <hr className="section__line"/>
+        <h2 className={`section__title ${selector}`}>{title}</h2>
+        <hr className={`section__line ${selector}`}/>
       </>
     )
 }
