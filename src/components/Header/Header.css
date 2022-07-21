@@ -130,11 +130,11 @@
 }
 
 .header__account-button_mobile {
-    margin: 60% 0 0 0;
+    margin: 115% 0 0 0;
 }
 
 .header__nav-link-movies-mobile_active {
-    text-decoration: underline;;
+    text-decoration: underline;
 }
 
 .header__nav-exit {
@@ -146,5 +146,11 @@
 @media screen and (max-width: 1160px) {
     .header__auth {
         margin: 241px auto 0;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .header__account-button_mobile {
+        margin: 90% 0 0 0;
     }
 }
