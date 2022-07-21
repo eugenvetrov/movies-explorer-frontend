@@ -50,3 +50,50 @@
     line-height: 17px;
     font-weight: 400;
 }
+
+@media screen and (max-width: 1160px) {
+    .techs__widget {
+        width: 84px;
+        height: 57px;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .techs__description-paragraph {
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
+@media screen and (max-width: 500px) {
+
+    .techs {
+        width: 89%;
+        background-color: #fff;
+        margin-top: 140px;
+        padding: 0;
+    }
+
+    .techs__heading {
+        font-size: 30px;
+        line-height: 36px;
+    }
+
+    .techs__widgets {
+        display: grid;
+        grid-template-columns: repeat(2, auto);
+        grid-template-rows: 57px;
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+    }
+
+    .techs__widget {
+        margin: 0;
+        font-size: 12px;
+        line-height: 15px;
+    }
+
+    .techs__description-paragraph {
+        margin-bottom: 50px;
+    }
+}
