@@ -172,7 +172,7 @@
     }
 }
 
-@media screen and (max-width: 430px) {
+@media screen and (max-width: 320px) {
     .header__account-button_mobile {
         margin: 90% 0 0 0;
     }
@@ -193,5 +193,11 @@
 
     .header__nav-link:nth-last-child(1) {
         margin-right: 14px
+    }
+}
+
+@media screen and (max-width: 430px) {
+    .header__auth {
+        width: 260px;
     }
 }
