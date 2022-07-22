@@ -2,6 +2,7 @@ import './SavedMovies.css';
 import {useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SearchForm from '../SearchForm/SearchForm';
 import moviesArray from '../../utils/moviesArray';
 
 const SavedMovies = () => {
@@ -19,13 +20,14 @@ const SavedMovies = () => {
     };
 
     return (
-        <div className="saved-movies">
+      <div className="saved-movies">
+        <SearchForm />
         <FilterCheckbox 
            title="Короткометражки"
            name="shortFilm"
            handleChange={handleChange}
         />
-        <hr className="saved-movies__line"/>
+        <hr className="movies__line"/>
         <MoviesCardList moviesArray={moviesArray}/>
       </div>
     )
