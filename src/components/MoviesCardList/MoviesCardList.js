@@ -7,6 +7,7 @@ const MoviesCardList = ({moviesArray}) => {
            {moviesArray.map((card) => {
             return (
             <MoviesCard
+               key={card.id}
                card={card}
                nameRU={card.nameRU}
                imageUrl={`https://api.nomoreparties.co/${card.image.url}`}

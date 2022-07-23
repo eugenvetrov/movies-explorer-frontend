@@ -35,3 +35,8 @@
     line-height: 18px;
     text-align: center;
 }
+
+.search-movie__submit:hover {
+    opacity: .8;
+    cursor: pointer;
+}
