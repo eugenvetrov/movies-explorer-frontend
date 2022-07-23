@@ -36,6 +36,7 @@ const App = () => {
   return (
     <div className="page">
       <Header activeAuthLink={activeAuthLink} onAuthMouthOver={handleAuthMouthOver} activeMoviesLink={activeMoviesLink} onActiveMoviesLink={handleActiveMoviesLink}/>
+      <main className="main">
       <Routes>
          <Route
             path="/"
@@ -87,6 +88,7 @@ const App = () => {
              }
           />
         </Routes>
+        </main>
         <Footer />
     </div>
   );
