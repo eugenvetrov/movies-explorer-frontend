@@ -75,6 +75,11 @@
     height: 45px;
 }
 
+.auth__submit:hover {
+    opacity: .8;
+    cursor: pointer;
+}
+
 .auth__text {
     font-weight: 400;
     font-size: 14px;
