@@ -8,8 +8,8 @@ const Footer = () => {
     <hr className="footer__line"/>
     <p className="footer__year">&copy;2020</p>
     <div className="footer__links">
-      <a className="footer__link" href="https://practicum.yandex.ru">Яндекс.Практикум</a>
-      <a href="https://github.com/eugenvetrov" className="footer__link">Github</a>
+      <a className="footer__link" href="https://practicum.yandex.ru" target="_blank" rel='noreferrer'>Яндекс.Практикум</a>
+      <a href="https://github.com/eugenvetrov" className="footer__link" target="_blank" rel='noreferrer'>Github</a>
     </div>
   </footer>;
 

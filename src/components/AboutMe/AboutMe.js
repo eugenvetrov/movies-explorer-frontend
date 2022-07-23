@@ -12,7 +12,7 @@ const AboutMe = () => {
             <p className="about-me__text">Люблю творческие задачи и много учиться.
              Больше всего в жизни мне интересны наука и общение с людьми.
               Веб-разработка привлекает меня как раз тем, что это наукоемкая, социальная деятельность.</p>
-            <a href="https://github.com/eugenvetrov" className="about-me__github-link">Github</a>
+            <a href="https://github.com/eugenvetrov" className="about-me__github-link" target="_blank" rel='noreferrer'>Github</a>
             <img src={me} className="about-me__photo" alt="фото студента" />
         </div>
     </section>
