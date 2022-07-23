@@ -54,7 +54,7 @@ const Login = () => {
                 Войти
             </button>
         </form>
-        <p className="auth__text">Ещё не зарегестрированы?<Link to="../signin" className="auth__link">Регистрация</Link></p>
+        <p className="auth__text">Ещё не зарегестрированы?<Link to="../signup" className="auth__link">Регистрация</Link></p>
     </section>
     )
 }
