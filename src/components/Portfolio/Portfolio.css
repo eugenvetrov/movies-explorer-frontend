@@ -1,11 +1,21 @@
 .portfolio {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    justify-content: space-between;
     width: 89%;
     max-width: 1140px;
     margin: 100px 0 139px 0;
+}
+
+.portfolio__list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1140px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0;
 }
 
 .portfolio__title {
@@ -15,6 +25,11 @@
     font-weight: 400;
     color: #a0a0a0;
     margin: 0 0 30px 0;
+}
+
+.portfolio__point {
+    display: flex;
+    width: 100%;
 }
 
 .portfolio__link {
