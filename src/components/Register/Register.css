@@ -1,6 +1,5 @@
 .auth {
     display: flex;
-    width: 100%;
     max-width: 396px;
     align-items: center;
     flex-direction: column;
@@ -12,6 +11,7 @@
     font-size: 24px;
     line-height: 29px;
     color: #000;
+    align-self: flex-start;
 }
 
 .auth__form {
@@ -130,5 +130,11 @@
 
     .auth__form-label {
         color: #a0a0a0;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .auth__title {
+        align-self: center;
     }
 }
