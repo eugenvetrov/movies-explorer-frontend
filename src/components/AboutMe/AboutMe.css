@@ -1,0 +1,109 @@
+.about-me-section{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 89%;
+    max-width: 1140px;
+    margin: 110px 0 0;
+}
+
+.about-me {
+    display: grid;
+    margin: 66px 0 0 0;
+    width: 100%;
+    grid-area: title;
+    grid-template-columns: 51% 49%;
+    grid-template-rows: 76px 46px 187px 18px;
+    grid-row-gap: 45px;
+    grid-template-areas: "title photo"
+                         "description photo"
+                         "text photo"
+                         "github-link photo";
+}
+
+.about-me__title {
+    display: flex;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 27px;
+    margin: 0;
+    font-size: 50px;
+    line-height: 58px;
+    grid-area: title;
+}
+
+.about-me__description {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight: 500;
+    margin: 18px 0 0 0;
+    grid-area: description;
+}
+
+.about-me__text {
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: 400;
+    grid-area: text;
+}
+
+.about-me__github-link {
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 500;
+    color: #000;
+    text-decoration: none;
+    grid-area: github-link;
+}
+
+.about-me__photo {
+    width: 270px;
+    height: 327px;
+    object-fit: cover;
+    justify-self: end;
+    border-radius: 10px;
+    margin: 0;
+    grid-area: photo;
+}
+
+@media screen and (max-width: 660px) {
+    .about-me {
+        grid-template-columns: 100%;
+        grid-template-rows: 352px 36px 16px 112px 18px;
+        grid-column-gap: 20px;
+        grid-template-areas: "photo"
+                             "title"
+                             "description"
+                             "text"
+                             "github-link";
+    }
+
+    .about-me__title {
+        font-size: 30px;
+        line-height: 36px;
+        margin: 0;
+    }
+
+    .about-me__description {
+        font-size: 11px;
+        line-height: 16px;
+        margin: 0;
+    }
+
+    .about-me__text {
+        font-size: 11px;
+        line-height: 16px;
+        margin: 0;
+    }
+
+    .about-me__github-link {
+        margin-top: 20px;
+    }
+
+    .about-me__photo {
+        display: flex;
+        justify-self: center;
+        align-self: center;
+    }
+}

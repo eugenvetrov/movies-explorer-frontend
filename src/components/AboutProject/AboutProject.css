@@ -1,0 +1,119 @@
+.about-project {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 89%;
+  max-width: 1140px;
+  margin: 110px 0 0;
+}
+
+.about-project__description {
+    display: flex;
+    flex-direction: column;
+    width: 48%;
+}
+
+.about-project__description-title {
+    display: flex;
+    font-size: 20px;
+    line-height: 24px;
+    margin: 70px 0 0;
+}
+
+.about-project__description-paragraph {
+    display: flex;
+    margin: 26px 0 0;
+    text-align: left;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.about-project__time-backend {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin: 110px 0 0 0; 
+}
+
+.about-project__time-backend-scale {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #2be080;
+    min-height: 36px;
+    margin: 0;
+}
+
+.about-project__time-frontend {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    margin: 110px 0 0 0; 
+}
+
+.about-project__time-frontend-scale {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f2f2f2;
+    min-height: 36px;
+    margin: 0;
+}
+
+.about-project__time-mark {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin: 14px 0 0 0;
+    color: #a0a0a0;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 500;
+}
+
+@media screen and (max-width: 1160px) {
+    .about-project__description-paragraph {
+        font-size: 12px;
+        line-height: 18px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    .about-project__description-title {
+        font-size: 18px;
+        line-height: 22px;
+    }
+
+    .about-project__description-paragraph {
+        font-size: 11px;
+        line-height: 16px;
+    }
+
+    .about-project__description {
+        width: 100%;
+    }
+
+    .about-project__time-backend-scale {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about-project__time-frontend-scale {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about-project__time-mark {
+        font-size: 11px;
+        line-height: 13px;
+    }
+
+    .about-project__time-backend {
+        width: 35%;
+    }
+    .about-project__time-frontend {
+        width: 65%;
+    }
+}
