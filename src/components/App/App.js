@@ -1,6 +1,6 @@
 import './App.css';
-import { Routes, Route} from "react-router-dom";
-import {useState} from "react"
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react"
 import Header from '../Header/Header';
 import Promo from '../Promo/Promo';
 import NavTab from '../NavTab/NavTab';
@@ -15,11 +15,56 @@ import Profile from '../Profile/Profile';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
+import moviesApi from '../../utils/MoviesApi';
+import { api, auth } from '../../utils/MainApi';
 
 const App = () => {
 
   const [activeAuthLink, setActiveAuthLink] = useState('signin')
   const [activeMoviesLink, setActiveMoviesLink] = useState('movies')
+  const [movies, setMovies] = useState([])
+  const [mainSearchResults, setMainSearchResults] = useState([]);
+  const [shortMainSearchResults, setShortMainSearchResults] = useState([])
+
+  useEffect(() => {
+    moviesApi.getContent().then(movies => setMovies(movies)).catch((err) => {
+      console.log(err);
+    });
+  }, [])
+  
+  const handleMainSearchResults = (value) => {
+
+
+    const mainResult = movies.filter((movie) => {
+      return (
+      Object.values(movie).some((field) => {
+        if (typeof(field) === 'string' && typeof(value) === 'string' && field.includes(value)) {
+          return true;
+        } else {
+          return false;
+        }
+      }))
+    }
+    )
+
+    const shortResult = mainResult.filter(movie => {
+      return movie.duration <= 40;
+    })
+
+    setMainSearchResults(mainResult);
+    setShortMainSearchResults(shortResult);
+    
+  }
+  
+
+
+  useEffect(() => {
+    handleMainSearchResults("Whateverest")
+    console.log(mainSearchResults);
+  }, [movies])
+  
+
+  const navigate = useNavigate();
 
   const handleAuthMouthOver = (button) => {
     setActiveAuthLink(button);
