@@ -37,7 +37,7 @@ const App = () => {
     const mainResult = movies.filter((movie) => {
       return (
       Object.values(movie).some((field) => {
-        if (typeof(field) === 'string' && typeof(value) === 'string' && field.includes(value)) {
+        if (typeof(field) === 'string' && typeof(value) === 'string' && field.toLowerCase().includes(value.toLowerCase())) {
           return true;
         } else {
           return false;
