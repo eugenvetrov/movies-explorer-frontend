@@ -15,10 +15,65 @@ class MainApi {
           headers: this._headeres,
         }).then(this._checkResponse);
     }
+
+    getSavedMovies() {
+      return fetch(`${this._baseUrl}/movies`, {
+        headers: this._headeres,
+      }).then(this._checkResponse);
+    }
+
+    register(user) {
+      return fetch(`${this._baseUrl}/signup`, {
+        method: "POST",
+        headers: this._headeres,
+        body: JSON.stringify({
+          password: `${user.password}`,
+          email: `${user.email}`,
+        }),
+      })
+        .then((res) => {
+          if (res.status === 400) {
+            console.log("некорректно заполнено одно из полей");
+            return res;
+          }
+          return res;
+        })
+        .then(this._checkResponse);
+    }
+  
+    authorize(user) {
+      return fetch(`${this._baseUrl}/signin`, {
+        method: "POST",
+        headers: this._headeres,
+        body: JSON.stringify({
+          password: `${user.password}`,
+          email: `${user.email}`,
+        }),
+      })
+        .then((res) => {
+          if (res.status === 400) {
+            console.log("не передано одно из полей");
+          } else if (res.status === 401) {
+            console.log("пользователь с email не найден");
+          }
+          return res;
+        })
+        .then(this._checkResponse);
+    }
+  
+    validateUser(token) {
+      return fetch(`${this._baseUrl}/users/me`, {
+        method: "GET",
+        headers: {
+          ...this._headers,
+          Authorization: `Bearer ${token}`,
+        },
+      }).then(this._checkResponse);
+    }
     
 }
 
-const api = () => new MainApi({
+const mainApi = new MainApi({
     baseUrl: "https://api.evg.vetrow.movies.nomoredomains.sbs",
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
@@ -26,11 +81,11 @@ const api = () => new MainApi({
     },
 });
   
-const auth =  new MainApi({
+const mainApiAuth =  new MainApi({
     baseUrl: "https://api.evg.vetrow.movies.nomoredomains.sbs",
     headers: {
       "Content-Type": "application/json",
     },
 });
   
-export { api, auth };
+export { mainApi, mainApiAuth };

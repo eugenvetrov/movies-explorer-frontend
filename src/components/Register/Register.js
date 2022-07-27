@@ -2,7 +2,7 @@ import './Register.css';
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Register = () => {
+const Register = ({onRegister}) => {
 
     const [values, setValues] = useState({
         userName: "",
@@ -27,6 +27,10 @@ const Register = () => {
         } else {
             alert(`${values.userName}, ${values.email}, ${values.password}`)
         }
+        onRegister({
+            password: values.password,
+            email: values.email,
+          });
       }
 
     return (

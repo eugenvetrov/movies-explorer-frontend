@@ -2,7 +2,7 @@ import './Login.css';
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Login = ({onLogin}) => {
 
     
     const [values, setValues] = useState({
@@ -27,6 +27,10 @@ const Login = () => {
         } else {
             alert(`${values.email}, ${values.password}`)
         }
+        onLogin({
+            password: values.password,
+            email: values.email,
+          });
       }
 
     return (
