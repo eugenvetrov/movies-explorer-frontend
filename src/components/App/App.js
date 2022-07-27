@@ -34,7 +34,6 @@ const App = () => {
   
   const handleMainSearchResults = (value) => {
 
-
     const mainResult = movies.filter((movie) => {
       return (
       Object.values(movie).some((field) => {
