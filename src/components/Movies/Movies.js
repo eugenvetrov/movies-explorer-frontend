@@ -3,9 +3,9 @@ import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import moviesArray from '../../utils/moviesArray';
+import Preloader from '../Preloader/Preloader';
 
-const Movies = () => {
+const Movies = ({moviesArray}) => {
 
     const [checked, setChecked] = useState({
         name: true,
@@ -28,7 +28,10 @@ const Movies = () => {
            handleChange={handleChange}
         />
         <hr className="movies__line"/>
-        <MoviesCardList moviesArray={moviesArray}/>
+        {moviesArray.length !== 0 ? 
+        <MoviesCardList moviesArray={moviesArray}/> :
+        <Preloader />
+        }
         <button className="movies__more-button">Ещё</button>
       </div>
     )

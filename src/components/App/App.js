@@ -134,7 +134,6 @@ const App = () => {
         .validateUser(jwt)
         .then((res) => {
           setLoggedIn(true);
-          console.log(loggedIn);
           setUserName(res.data.name);
           setCurrentUser(res.data);
         })
@@ -184,7 +183,7 @@ const App = () => {
              path="/movies"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"}>
-                <Movies />
+                <Movies moviesArray={mainSearchResults} />
               </ProtectedRoute>
              }
           />
