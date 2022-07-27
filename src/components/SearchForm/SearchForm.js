@@ -1,7 +1,7 @@
 import './SearchForm.css';
 import { useState } from "react";
 
-const SearchForm = () => {
+const SearchForm = ({onSubmit}) => {
 
     const [values, setValues] = useState({
         searchMovie: "",
@@ -21,6 +21,7 @@ const SearchForm = () => {
           alert("Простите! Поле не должно быть пустым.")
       } else {
           alert(values.searchMovie)
+          onSubmit(values.searchMovie)
       }
     }
     

@@ -5,7 +5,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-const Movies = ({moviesArray}) => {
+const Movies = ({moviesArray, onSubmit}) => {
 
     const [checked, setChecked] = useState({
         name: true,
@@ -21,7 +21,7 @@ const Movies = ({moviesArray}) => {
 
     return (
       <div className="movies">
-        <SearchForm />
+        <SearchForm onSubmit={onSubmit}/>
         <FilterCheckbox 
            title="Короткометражки"
            name="shortFilm"

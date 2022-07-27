@@ -183,7 +183,7 @@ const App = () => {
              path="/movies"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"}>
-                <Movies moviesArray={mainSearchResults} />
+                <Movies moviesArray={mainSearchResults} onSubmit={handleMainSearchResults} />
               </ProtectedRoute>
              }
           />
