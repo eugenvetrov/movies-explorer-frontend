@@ -32,37 +32,33 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
-  const [isAuthSuccesfull, setIsAuthSuccesfull] = useState(false);
 
 
   useEffect(() => {
     tokenCheck();
     
     if (loggedIn){
-      console.log(loggedIn);
+
       mainApi
-      .getUserInfo()
-      .then((user) => {
-        console.log(user);
-        setCurrentUser(user)})
-      .catch((error) => console.log(error));
-
-    moviesApi.getContent()
-    .then(movies => {
-      console.log(movies);
-      setMovies(movies)
-    })
-      .catch((err) => {
-      console.log(err);
-    });
-
-    mainApi.getSavedMovies()
-    .then((movies) => {
-      console.log(movies.data)
-      setSavedMoviesSearchResults(movies.data)})
-      .catch((err) =>{
-      console.log(err);
-    });
+        .getUserInfo()
+        .then((user) => {
+          setCurrentUser(user.data)})
+        .catch((error) => console.log(error));
+  
+      moviesApi.getContent()
+      .then(movies => {
+        setMovies(movies)
+      })
+        .catch((err) => {
+        console.log(err);
+      });
+  
+      mainApi.getSavedMovies()
+      .then((movies) => {
+        setSavedMoviesSearchResults(movies.data)})
+        .catch((err) =>{
+        console.log(err);
+      });
   }}, [loggedIn]);
   
   const handleMainSearchResults = (value) => {
@@ -109,6 +105,7 @@ const App = () => {
         if (res.token) {
           localStorage.setItem("jwt", res.token);
           tokenCheck();
+          navigate("/movies")
         } else {
           console.log("Неизвестная ошибка");
         }
@@ -136,11 +133,10 @@ const App = () => {
       mainApiAuth
         .validateUser(jwt)
         .then((res) => {
-          console.log(res);
           setLoggedIn(true);
+          console.log(loggedIn);
           setUserName(res.data.name);
           setCurrentUser(res.data);
-          navigate("/");
         })
         .catch((err) => {
           if (err.status === 400) {
@@ -187,7 +183,7 @@ const App = () => {
           <Route
              path="/movies"
              element={
-              <ProtectedRoute loggedIn={loggedIn} redirectTo={"./signin"}>
+              <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"}>
                 <Movies />
               </ProtectedRoute>
              }
@@ -195,7 +191,7 @@ const App = () => {
           <Route
              path="/saved-movies"
              element={
-                <ProtectedRoute loggedIn={loggedIn} redirectTo={"./signin"}>
+                <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"}>
                   <SavedMovies />
                 </ProtectedRoute>
              }
