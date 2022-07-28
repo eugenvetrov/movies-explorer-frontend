@@ -32,6 +32,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(null);
   const [loggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
+  const [isMoviesLoading ,setIsMoviesLoading] = useState(false)
 
 
   useEffect(() => {
@@ -62,6 +63,7 @@ const App = () => {
   }}, [loggedIn]);
   
   const handleMainSearchResults = (value) => {
+    setIsMoviesLoading(true);
     const mainResult = movies.filter((movie) => {
       return (
       Object.values(movie).some((field) => {
@@ -76,6 +78,7 @@ const App = () => {
     const shortResult = mainResult.filter(movie => {
       return movie.duration <= 40;
     })
+    setIsMoviesLoading(false);
     setMainSearchResults(mainResult);
     setShortMainSearchResults(shortResult);
   }
@@ -183,7 +186,7 @@ const App = () => {
              path="/movies"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"}>
-                <Movies moviesArray={mainSearchResults} onSubmit={handleMainSearchResults} />
+                <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} />
               </ProtectedRoute>
              }
           />

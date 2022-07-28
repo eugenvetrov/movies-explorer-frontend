@@ -5,10 +5,10 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-const Movies = ({moviesArray, onSubmit}) => {
+const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading}) => {
 
     const [checked, setChecked] = useState({
-        name: true,
+      shortFilm: true,
       });
 
     const handleChange = (event) => {
@@ -29,8 +29,8 @@ const Movies = ({moviesArray, onSubmit}) => {
         />
         <hr className="movies__line"/>
         {moviesArray.length !== 0 ? 
-        <MoviesCardList moviesArray={moviesArray}/> :
-        <Preloader />
+        <MoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm}/> :
+        <Preloader isLoading={isLoading} />
         }
         <button className="movies__more-button">Ещё</button>
       </div>
