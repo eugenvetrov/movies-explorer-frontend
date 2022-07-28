@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import Header from '../Header/Header';
@@ -33,7 +33,8 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [userName, setUserName] = useState("");
   const [isMoviesLoading ,setIsMoviesLoading] = useState(false)
-
+  
+  const location = useLocation();
 
   useEffect(() => {
     tokenCheck();
@@ -61,6 +62,10 @@ const App = () => {
         console.log(err);
       });
   }}, [loggedIn]);
+
+  useEffect(() => {
+    tokenCheck()
+  }, [location]);
   
   const handleMainSearchResults = (value) => {
     setIsMoviesLoading(true);
@@ -99,6 +104,16 @@ const App = () => {
     })
     setSavedMoviesSearchResults(savedMoviesResult);
     setShortSavedMoviesSearchResults(savedShortMoviesResult);
+  }
+
+  const handleSaveAndUnsaveMovie = (movie) => {
+    mainApi.getSavedMovies().then((savedMovies) => {
+      if (savedMovies.some(movie)) {
+      mainApi.deleteMovie(movie)
+    } else {
+      mainApi.saveMovie(movie)
+      }
+    }).catch((err) => {console.log(err);})
   }
 
   const handleLogin = (user) => {
@@ -186,7 +201,7 @@ const App = () => {
              path="/movies"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"}>
-                <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} />
+                <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} saveAndUnsaveMovie={handleSaveAndUnsaveMovie}/>
               </ProtectedRoute>
              }
           />

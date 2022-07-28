@@ -1,7 +1,7 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({moviesArray, shortMoviesArray, isShort}) => {
+const MoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMovie}) => {
     return (
         <section className="movies-list">
            {isShort ? 
@@ -9,11 +9,12 @@ const MoviesCardList = ({moviesArray, shortMoviesArray, isShort}) => {
             return (
             <MoviesCard
                key={card.id}
-               card={card}
+               movie={card}
                nameRU={card.nameRU}
                imageUrl={`https://api.nomoreparties.co/${card.image.url}`}
                trailerLink={card.trailerLink}
                duration={card.duration}
+               saveAndUnsaveMovie={saveAndUnsaveMovie}
                />
             )}
             )  :
@@ -26,6 +27,7 @@ const MoviesCardList = ({moviesArray, shortMoviesArray, isShort}) => {
                imageUrl={`https://api.nomoreparties.co/${card.image.url}`}
                trailerLink={card.trailerLink}
                duration={card.duration}
+               saveAndUnsaveMovie={saveAndUnsaveMovie}
                />
             )}
             )}

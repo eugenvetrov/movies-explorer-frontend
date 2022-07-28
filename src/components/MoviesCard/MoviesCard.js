@@ -2,7 +2,7 @@ import './MoviesCard.css';
 import { useState } from 'react';
 import usePathname from '../../customHooks/usePathname';
 
-const MoviesCard = ({card, nameRU, imageUrl, trailerLink, duration}) => {
+const MoviesCard = ({movie, nameRU, imageUrl, trailerLink, duration, saveAndUnsaveMovie}) => {
 
     const [isLiked, setIsLiked] = useState(false)
 
@@ -10,6 +10,7 @@ const MoviesCard = ({card, nameRU, imageUrl, trailerLink, duration}) => {
 
     const handleLikeClick = () => {
         setIsLiked(!isLiked);
+        saveAndUnsaveMovie(movie)
     }
 
     let button;
