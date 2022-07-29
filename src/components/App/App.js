@@ -164,6 +164,14 @@ const App = () => {
       });
   };
 
+  const handleSignOut = () => {
+    localStorage.removeItem("jwt");
+    setCurrentUser(null);
+    setLoggedIn(false);
+    navigate("/signin");
+  }
+  
+
   const  tokenCheck = () => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
@@ -235,7 +243,7 @@ const App = () => {
              path="/profile"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"} >
-               <Profile />
+               <Profile signOut={handleSignOut} />
               </ProtectedRoute>
              }
           />

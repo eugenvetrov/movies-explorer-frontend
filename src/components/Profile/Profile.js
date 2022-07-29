@@ -1,12 +1,23 @@
 import './Profile.css';
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext"
 
-const Profile = ({name}) => {
+const Profile = ({signOut}) => {
+
+    const user = useContext(CurrentUserContext)
 
     const [values, setValues] = useState({
         userName: "",
         email: ""
       });
+
+    const [name, setName] = useState();
+
+    useEffect(() => {
+      if (user) {
+        setName(user.name);
+      }
+    }, [user])
 
     const handleChange = (event) => {
         const { name, value } = event.target;
@@ -24,11 +35,6 @@ const Profile = ({name}) => {
       } else {
           alert(`${values.userName}, ${values.email}`)
       }
-    }
-
-    const handleSignOut = (event) => {
-        event.preventDefault();
-        alert("Выходим");
     }
 
     return (
@@ -52,7 +58,7 @@ const Profile = ({name}) => {
               Редактировать
             </button>
         </form>
-        <p className="profile__sign-out" onClick={handleSignOut}>Выйти из аккаунта</p>
+        <p className="profile__sign-out" onClick={signOut}>Выйти из аккаунта</p>
       </section>
     )
 }
