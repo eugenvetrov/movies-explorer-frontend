@@ -31,6 +31,7 @@ const App = () => {
   const [shortSavedMoviesSearchResults, setShortSavedMoviesSearchResults] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [isMoviesLoading ,setIsMoviesLoading] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   
   const location = useLocation();
 
@@ -46,25 +47,8 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
-
-    if(jwt) {    
-      
-      mainApiAuth
-          .validateUser(jwt)
-          .then((res) => {
-            setCurrentUser(res.data);
-          })
-          .catch((err) => {
-            if (err.status === 400) {
-              console.log("Токен не передан или передан не в том формате");
-            } else if (err.status === 401) {
-              console.log("Переданный токен некорректен");
-            }
-            console.log(err);
-            setCurrentUser(null);
-          });
-      }
+    
+    tokenCheck();
     
     if (currentUser){
   
@@ -147,6 +131,7 @@ const App = () => {
         .validateUser(token)
         .then((res) => {
           setCurrentUser(res.data);
+          setLoggedIn(true)
         })
         .then(() => navigate("/movies"))
         .catch((err) => {
@@ -156,11 +141,13 @@ const App = () => {
             console.log("Переданный токен некорректен");
           }
           console.log(err);
+          setLoggedIn(false);
           setCurrentUser(null);
         });
       })
       .catch((err) => {
         console.log(err);
+        setLoggedIn(false);
         setCurrentUser(null);
       });
   };
@@ -177,13 +164,14 @@ const App = () => {
       });
   };
 
-  const tokenCheck = () => {
+  const  tokenCheck = () => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
-      mainApi()
-        .getUserInfo()
+      mainApiAuth
+        .validateUser(jwt)
         .then((res) => {
           setCurrentUser(res.data);
+          setLoggedIn(true);
         })
         .catch((err) => {
           if (err.status === 400) {
@@ -192,7 +180,10 @@ const App = () => {
             console.log("Переданный токен некорректен");
           }
           console.log(err);
-        });
+        });  
+    } else {
+      setCurrentUser(null);
+      setLoggedIn(false);
     }
   };
 
@@ -227,7 +218,7 @@ const App = () => {
           <Route
              path="/movies"
              element={
-              <ProtectedRoute redirectTo={"../signin"} >
+              <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"} >
                 <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} saveAndUnsaveMovie={handleSaveAndUnsaveMovie}/>
               </ProtectedRoute>
              }
@@ -235,7 +226,7 @@ const App = () => {
           <Route
              path="/saved-movies"
              element={
-                <ProtectedRoute  redirectTo={"../signin"}>
+                <ProtectedRoute loggedIn={loggedIn}  redirectTo={"../signin"}>
                   <SavedMovies />
                 </ProtectedRoute>
              }
@@ -243,7 +234,7 @@ const App = () => {
           <Route
              path="/profile"
              element={
-              <ProtectedRoute redirectTo={"../signin"} >
+              <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"} >
                <Profile />
               </ProtectedRoute>
              }
