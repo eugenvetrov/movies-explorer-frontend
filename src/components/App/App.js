@@ -1,5 +1,5 @@
 import './App.css';
-import { Routes, Route, Navigate, useNavigate, useLocation } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import Header from '../Header/Header';
@@ -29,39 +29,53 @@ const App = () => {
   const [shortMainSearchResults, setShortMainSearchResults] = useState([])
   const [savedMoviesSearchResults, setSavedMoviesSearchResults] = useState([]);
   const [shortSavedMoviesSearchResults, setShortSavedMoviesSearchResults] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [userName, setUserName] = useState("");
-  const [isMoviesLoading ,setIsMoviesLoading] = useState(false)
+  const [currentUser, setCurrentUser] = useState();
+  const [isMoviesLoading ,setIsMoviesLoading] = useState(false);
   
   const location = useLocation();
 
   useEffect(() => {
-    tokenCheck();
-    
-    if (loggedIn){
 
-      mainApi
-        .getUserInfo()
-        .then((user) => {
-          setCurrentUser(user.data)})
-        .catch((error) => console.log(error));
+    moviesApi.getContent()
+    .then(movies => {
+      setMovies(movies)
+    })
+      .catch((err) => {
+      console.log(err);
+    });
+  }, []);
+
+  useEffect(() => {
+    const jwt = localStorage.getItem("jwt");
+
+    if(jwt) {    
+      
+      mainApiAuth
+          .validateUser(jwt)
+          .then((res) => {
+            setCurrentUser(res.data);
+          })
+          .catch((err) => {
+            if (err.status === 400) {
+              console.log("Токен не передан или передан не в том формате");
+            } else if (err.status === 401) {
+              console.log("Переданный токен некорректен");
+            }
+            console.log(err);
+            setCurrentUser(null);
+          });
+      }
+    
+    if (currentUser){
   
-      moviesApi.getContent()
-      .then(movies => {
-        setMovies(movies)
-      })
-        .catch((err) => {
-        console.log(err);
-      });
-  
-      mainApi.getSavedMovies()
+      mainApi().getSavedMovies()
       .then((movies) => {
         setSavedMoviesSearchResults(movies.data)})
         .catch((err) =>{
         console.log(err);
       });
-  }}, [loggedIn]);
+
+  }}, [currentUser]);
 
   useEffect(() => {
     tokenCheck()
@@ -69,6 +83,7 @@ const App = () => {
   
   const handleMainSearchResults = (value) => {
     setIsMoviesLoading(true);
+    setTimeout(3600)
     const mainResult = movies.filter((movie) => {
       return (
       Object.values(movie).some((field) => {
@@ -107,11 +122,11 @@ const App = () => {
   }
 
   const handleSaveAndUnsaveMovie = (movie) => {
-    mainApi.getSavedMovies().then((savedMovies) => {
+    mainApi().getSavedMovies().then((savedMovies) => {
       if (savedMovies.some(movie)) {
-      mainApi.deleteMovie(movie)
+      mainApi().deleteMovie(movie)
     } else {
-      mainApi.saveMovie(movie)
+      mainApi().saveMovie(movie)
       }
     }).catch((err) => {console.log(err);})
   }
@@ -121,15 +136,32 @@ const App = () => {
       .authorize(user)
       .then((res) => {
         if (res.token) {
-          localStorage.setItem("jwt", res.token);
-          tokenCheck();
-          navigate("/movies")
+          localStorage.setItem("jwt", res.token);   
+          return res.token;     
         } else {
           console.log("Неизвестная ошибка");
         }
       })
+      .then((token) => {
+        mainApiAuth
+        .validateUser(token)
+        .then((res) => {
+          setCurrentUser(res.data);
+        })
+        .then(() => navigate("/movies"))
+        .catch((err) => {
+          if (err.status === 400) {
+            console.log("Токен не передан или передан не в том формате");
+          } else if (err.status === 401) {
+            console.log("Переданный токен некорректен");
+          }
+          console.log(err);
+          setCurrentUser(null);
+        });
+      })
       .catch((err) => {
         console.log(err);
+        setCurrentUser(null);
       });
   };
 
@@ -137,7 +169,7 @@ const App = () => {
     mainApiAuth
       .register(user)
       .then((res) => {
-        setUserName(res.data.name);
+        console.log(res);
         navigate("/signin");
       })
       .catch((err) => {
@@ -146,13 +178,11 @@ const App = () => {
   };
 
   const tokenCheck = () => {
-    if (localStorage.getItem("jwt")) {
-      const jwt = localStorage.getItem("jwt");
-      mainApiAuth
-        .validateUser(jwt)
+    const jwt = localStorage.getItem("jwt");
+    if (jwt) {
+      mainApi()
+        .getUserInfo()
         .then((res) => {
-          setLoggedIn(true);
-          setUserName(res.data.name);
           setCurrentUser(res.data);
         })
         .catch((err) => {
@@ -163,8 +193,6 @@ const App = () => {
           }
           console.log(err);
         });
-    } else {
-      setLoggedIn(false);
     }
   };
 
@@ -177,13 +205,12 @@ const App = () => {
   const handleActiveMoviesLink = (button) => {
     setActiveMoviesLink(button);
   }
-
   return (
     <CurrentUserContext.Provider value={currentUser}>
-    <div className="page">
+    {<div className="page">
       <Header activeAuthLink={activeAuthLink} onAuthMouthOver={handleAuthMouthOver} activeMoviesLink={activeMoviesLink} onActiveMoviesLink={handleActiveMoviesLink}/>
       <main className="main">
-      <Routes>
+        <Routes>
          <Route
             path="/"
             element={
@@ -200,7 +227,7 @@ const App = () => {
           <Route
              path="/movies"
              element={
-              <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"}>
+              <ProtectedRoute redirectTo={"../signin"} >
                 <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} saveAndUnsaveMovie={handleSaveAndUnsaveMovie}/>
               </ProtectedRoute>
              }
@@ -208,7 +235,7 @@ const App = () => {
           <Route
              path="/saved-movies"
              element={
-                <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"}>
+                <ProtectedRoute  redirectTo={"../signin"}>
                   <SavedMovies />
                 </ProtectedRoute>
              }
@@ -216,7 +243,9 @@ const App = () => {
           <Route
              path="/profile"
              element={
-               <Profile name={userName} />
+              <ProtectedRoute redirectTo={"../signin"} >
+               <Profile />
+              </ProtectedRoute>
              }
           />
           <Route
@@ -242,9 +271,9 @@ const App = () => {
              }
           />
         </Routes>
-        </main>
-        <Footer />
-    </div>
+      </main>
+      <Footer />
+    </div>}
     </CurrentUserContext.Provider>
   );
 }

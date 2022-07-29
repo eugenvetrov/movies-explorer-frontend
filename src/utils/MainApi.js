@@ -10,6 +10,13 @@ class MainApi {
         }
     }
 
+    deleteMovie(movie) {
+      return fetch(`${this._baseUrl}/movies/${movie.id}`, {
+        method: 'DELETE',
+        headers: this._headeres,
+      }).then(this._checkResponse);
+    }
+
     getUserInfo() {
         return fetch(`${this._baseUrl}/users/me`, {
           headers: this._headeres,
@@ -40,6 +47,15 @@ class MainApi {
         })
         .then(this._checkResponse);
     }
+
+    saveMovie(movie) {
+      console.log(movie)
+      return fetch(`${this._baseUrl}/movies`, {
+        method: "POST",
+        headers: this._headeres,
+        body: movie
+      }).then(this._checkResponse);
+    }
   
     authorize(user) {
       return fetch(`${this._baseUrl}/signin`, {
@@ -60,7 +76,7 @@ class MainApi {
         })
         .then(this._checkResponse);
     }
-  
+
     validateUser(token) {
       return fetch(`${this._baseUrl}/users/me`, {
         method: "GET",
@@ -70,10 +86,9 @@ class MainApi {
         },
       }).then(this._checkResponse);
     }
-    
 }
 
-const mainApi = new MainApi({
+const mainApi = () => new MainApi({
     baseUrl: "https://api.evg.vetrow.movies.nomoredomains.sbs",
     headers: {
       authorization: `Bearer ${localStorage.getItem("jwt")}`,
