@@ -29,3 +29,7 @@
     font-size: 12px;
     line-height: 15px;
 }
+
+.movies__more-button_deactivated {
+    display: none;
+}

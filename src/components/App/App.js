@@ -125,13 +125,6 @@ const App = () => {
       })
       .catch((err) => {console.log(err);})
     }
-    // mainApi().getSavedMovies().then((movies) => {
-    //   if (movies.data.some(item => item === movie)) {
-    //   mainApi().deleteMovie(movie).catch((err) => {console.log(err);})
-    // } else {
-    //   mainApi().saveMovie(movie).catch((err) => {console.log(err);})
-    //   }
-    // }).catch((err) => {console.log(err);})
   }
 
   const handleLogin = (user) => {

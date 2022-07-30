@@ -1,7 +1,7 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMovie, cardCount, cardShortCount}) => {
+const MoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMovie, cardCount, cardShortCount, moreButtonVisible}) => {
 
     return (
         <section className="movies-list">

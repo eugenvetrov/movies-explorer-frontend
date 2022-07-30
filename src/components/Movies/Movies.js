@@ -9,6 +9,8 @@ import Preloader from '../Preloader/Preloader';
 const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsaveMovie}) => {
 
   const windowWidth = useWindowWidth();
+  const [moreMoviesButtonVisible, setMoreMoviesButtonVisible] = useState(true);
+  const [moreShortMoviesButtonVisible, setMoreShortMoviesButtonVisible] = useState(true)
 
   const getInitialCountOfMovies = (width) => {
     if(width > 1279) {
@@ -33,6 +35,10 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
       ...prev,
       [name]: !checked[name],
     }));
+    setCardCount(getInitialCountOfMovies(windowWidth));
+    setCardShortCount(getInitialCountOfMovies(windowWidth));
+    setMoreMoviesButtonVisible(true);
+    setMoreShortMoviesButtonVisible(true);
   };
 
   const handleMoreCards = (event) => {
@@ -43,6 +49,11 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
       checked.shortFilm ?  setCardCount(cardCount + 2) : setCardShortCount(cardShortCount + 2)
     } else if (windowWidth <= 480){
       checked.shortFilm ?  setCardCount(cardCount + 1) : setCardShortCount(cardShortCount + 1)
+    }
+    if (cardCount >= moviesArray.length - 1) {
+      setMoreMoviesButtonVisible(false);
+    } else if (cardCount >= shortMoviesArray.length - 1) {
+      setMoreShortMoviesButtonVisible(false);
     }
   }
 
@@ -57,9 +68,13 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
         <hr className="movies__line"/>
         {moviesArray.length !== 0 ? 
         <MoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} cardCount={cardCount} cardShortCount={cardShortCount} /> :
-        <Preloader isLoading={isLoading} />
+        <Preloader isLoading={isLoading} moreMoviesButtonVisible={moreMoviesButtonVisible} />
         }
-        <button className="movies__more-button" onClick={handleMoreCards}>Ещё</button>
+        {checked.shortFilm ? 
+        <button className={`movies__more-button ${moreMoviesButtonVisible ? "" : "movies__more-button_deactivated"}`} onClick={handleMoreCards}>Ещё</button> :
+          <button className={`movies__more-button ${moreShortMoviesButtonVisible ? "" : "movies__more-button_deactivated"}`} onClick={handleMoreCards}>Ещё</button>
+        }
+        
       </div>
     )
 }
