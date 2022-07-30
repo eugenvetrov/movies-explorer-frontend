@@ -50,6 +50,7 @@ class MainApi {
     }
 
     saveMovie(movie) {
+      console.log(movie);
       return fetch(`${this._baseUrl}/movies`, {
         method: "POST",
         headers: this._headeres,
@@ -58,11 +59,11 @@ class MainApi {
           director: `${movie.director}`,
           duration: `${movie.duration}`,
           description: `${movie.description}`,
-          image: `https://api.nomoreparties.co/${movie.image.url}`,
+          image: `https://api.nomoreparties.co${movie.image.url}`,
           movieId: `${movie.id}`,
           nameRU: `${movie.nameRU}`,
           nameEN: `${movie.nameEN}`,
-          thumbnail: `https://api.nomoreparties.co/${movie.thumbnail}`,
+          thumbnail: `https://api.nomoreparties.co${movie.thumbnail}`,
           trailerLink: `${movie.trailerLink}`,
           year: `${movie.year}`,
         })

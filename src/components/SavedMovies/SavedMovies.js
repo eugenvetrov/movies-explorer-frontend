@@ -1,10 +1,10 @@
 import './SavedMovies.css';
 import {useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, deleteMovie}) => {
+const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, deleteMovie}) => {
 
   const [checked, setChecked] = useState({
     shortFilm: true,
@@ -17,7 +17,7 @@ const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, delete
       [name]: !checked[name],
     }));
   }
-
+  
     return (
       <div className="saved-movies">
         <SearchForm />
@@ -27,7 +27,7 @@ const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, delete
            handleChange={handleChange}
         />
         <hr className="movies__line"/>
-        <MoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} deleteMovie={deleteMovie} />
+        <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} deleteMovie={deleteMovie} />
       </div>
     )
 }
