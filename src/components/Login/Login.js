@@ -24,8 +24,6 @@ const Login = ({onLogin}) => {
         const isSomeFieldEmpty = Object.values(values).some((item) => item === "");
         if (isSomeFieldEmpty) {
             alert("Простите! Поле не должно быть пустым.")
-        } else {
-            alert(`${values.email}, ${values.password}`)
         }
         onLogin({
             password: values.password,

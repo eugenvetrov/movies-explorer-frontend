@@ -3,6 +3,8 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 
 const MoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMovie, cardCount, cardShortCount}) => {
 
+    // console.log(cardCount);
+
     return (
         <section className="movies-list">
            {isShort ? 

@@ -1,4 +1,4 @@
-import { useState, useEffect} from 'react';
+import { useState } from 'react';
 import useWindowWidth from "../../customHooks/useWindowWidth"
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
@@ -10,45 +10,40 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
 
   const windowWidth = useWindowWidth();
 
-  const [cardCount, setCardCount] = useState(0);
-  const [cardShortCount, setCardShortCount] = useState(0);
-
-    useEffect(() => {
-      if(windowWidth > 1279) {
-        setCardCount(12);
-        setCardShortCount(12);
-      } else if (1280 > windowWidth > 767) {
-        setCardCount(8);
-        setCardShortCount(8);
-      } else if (windowWidth < 768) {
-        setCardCount(5);
-        setCardShortCount(5);
-      }
-    }, [windowWidth])
-
-    const [checked, setChecked] = useState({
-      shortFilm: true,
-      });
-
-    const handleChange = (event) => {
-      const { name } = event.target;
-      setChecked((prev) => ({
-        ...prev,
-        [name]: !checked[name],
-      }));
-    };
-
-    const handleMoreCards = (event) => {
-      event.preventDefault();
-      if(windowWidth >= 1280) {
-        checked.shortFilm ? setCardShortCount(cardShortCount + 3) : setCardCount(cardCount + 3);
-      } else if (1280 > windowWidth > 480) {
-        checked.shortFilm ? setCardShortCount(cardShortCount + 2) : setCardCount(cardCount + 2);
-      } else if (windowWidth <= 480){
-        checked.shortFilm ? setCardShortCount(cardShortCount + 1) : setCardCount(cardCount + 1);
-      }
-      console.log(cardCount, cardShortCount);
+  const getInitialCountOfMovies = (width) => {
+    if(width > 1279) {
+      return 12;
+    } else if (width >= 768) {
+      return 8;
+    } else if (width < 768) {
+      return 5;
     }
+  }
+
+  const [cardCount, setCardCount] = useState(getInitialCountOfMovies(windowWidth));
+  const [cardShortCount, setCardShortCount] = useState(getInitialCountOfMovies(windowWidth));
+
+  const [checked, setChecked] = useState({
+    shortFilm: true,
+    });
+
+  const handleChange = (event) => {
+    const { name } = event.target;
+    setChecked((prev) => ({
+      ...prev,
+      [name]: !checked[name],
+    }));
+  };
+  const handleMoreCards = (event) => {
+    event.preventDefault();
+    if(windowWidth >= 1280) {
+      checked.shortFilm ? setCardShortCount(cardShortCount + 3) : setCardCount(cardCount + 3);
+    } else if (1280 > windowWidth > 480) {
+      checked.shortFilm ? setCardShortCount(cardShortCount + 2) : setCardCount(cardCount + 2);
+    } else if (windowWidth <= 480){
+      checked.shortFilm ? setCardShortCount(cardShortCount + 1) : setCardCount(cardCount + 1);
+    }
+  }
 
     return (
       <div className="movies">
