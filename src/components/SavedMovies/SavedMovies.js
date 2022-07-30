@@ -3,21 +3,20 @@ import {useState } from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
-import moviesArray from '../../utils/moviesArray';
 
-const SavedMovies = () => {
+const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, deleteMovie}) => {
 
-    const [checked, setChecked] = useState({
-        name: true,
-      });
+  const [checked, setChecked] = useState({
+    shortFilm: true,
+    });
 
-    const handleChange = (event) => {
-      const { name } = event.target;
-      setChecked((prev) => ({
-        ...prev,
-        [name]: !checked[name],
-      }));
-    };
+  const handleChange = (event) => {
+    const { name } = event.target;
+    setChecked((prev) => ({
+      ...prev,
+      [name]: !checked[name],
+    }));
+  }
 
     return (
       <div className="saved-movies">
@@ -28,7 +27,7 @@ const SavedMovies = () => {
            handleChange={handleChange}
         />
         <hr className="movies__line"/>
-        <MoviesCardList moviesArray={moviesArray}/>
+        <MoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} deleteMovie={deleteMovie} />
       </div>
     )
 }

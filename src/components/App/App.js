@@ -32,6 +32,7 @@ const App = () => {
   const [shortSavedMoviesSearchResults, setShortSavedMoviesSearchResults] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [isMoviesLoading ,setIsMoviesLoading] = useState(false);
+  const [isSavedMoviesLoading, setIsSavedMoviesLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(true);
   
   const location = useLocation();
@@ -48,19 +49,16 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    
-    tokenCheck();
-    
-    if (currentUser){
-  
+    tokenCheck().then((res) => {
+      if(res) {
       mainApi().getSavedMovies()
       .then((movies) => {
-        setSavedMovies(movies.data)})
+        setSavedMovies(movies.data)
+      })
         .catch((err) =>{
         console.log(err);
       });
-
-  }}, []);
+  }})}, []);
 
   useEffect(() => {
     tokenCheck()
@@ -89,7 +87,7 @@ const App = () => {
   }
 
   const handleSavedMoviesSearchResults = (value) => {
-    const savedMoviesResult = savedMoviesSearchResults.filter((movie) => {
+    const savedMoviesResult = savedMovies.filter((movie) => {
       return (
         Object.values(movie).some((field) => {
           if (typeof(field) === 'string' && typeof(value) === 'string' && field.toLowerCase().includes(value.toLowerCase())) {
@@ -187,11 +185,12 @@ const App = () => {
   const  tokenCheck = () => {
     const jwt = localStorage.getItem("jwt");
     if (jwt) {
-      mainApiAuth
+       return mainApiAuth
         .validateUser(jwt)
         .then((res) => {
           setCurrentUser(res.data);
           setLoggedIn(true);
+          return res.data
         })
         .catch((err) => {
           if (err.status === 400) {
@@ -204,6 +203,7 @@ const App = () => {
     } else {
       setCurrentUser(null);
       setLoggedIn(false);
+      return false;
     }
   };
 
@@ -247,7 +247,7 @@ const App = () => {
              path="/saved-movies"
              element={
                 <ProtectedRoute loggedIn={loggedIn}  redirectTo={"../signin"}>
-                  <SavedMovies />
+                  <SavedMovies moviesArray={savedMovies} searchMoviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} onSubmit={handleSavedMoviesSearchResults} isLoading={isSavedMoviesLoading} />
                 </ProtectedRoute>
              }
           />
