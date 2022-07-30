@@ -11,7 +11,8 @@ class MainApi {
     }
 
     deleteMovie(movie) {
-      return fetch(`${this._baseUrl}/movies/${movie.id}`, {
+      console.log(movie._id);
+      return fetch(`${this._baseUrl}/movies/${movie._id}`, {
         method: 'DELETE',
         headers: this._headeres,
       }).then(this._checkResponse);
@@ -49,11 +50,22 @@ class MainApi {
     }
 
     saveMovie(movie) {
-      console.log(movie)
       return fetch(`${this._baseUrl}/movies`, {
         method: "POST",
         headers: this._headeres,
-        body: movie
+        body: JSON.stringify({
+          country: `${movie.country}`,
+          director: `${movie.director}`,
+          duration: `${movie.duration}`,
+          description: `${movie.description}`,
+          image: `https://api.nomoreparties.co/${movie.image.url}`,
+          movieId: `${movie.id}`,
+          nameRU: `${movie.nameRU}`,
+          nameEN: `${movie.nameEN}`,
+          thumbnail: `https://api.nomoreparties.co/${movie.thumbnail}`,
+          trailerLink: `${movie.trailerLink}`,
+          year: `${movie.year}`,
+        })
       }).then(this._checkResponse);
     }
   

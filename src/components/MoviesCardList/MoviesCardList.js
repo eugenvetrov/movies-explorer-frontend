@@ -23,7 +23,7 @@ const MoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMo
             return (
             <MoviesCard
                key={card.id}
-               card={card}
+               movie={card}
                nameRU={card.nameRU}
                imageUrl={`https://api.nomoreparties.co/${card.image.url}`}
                trailerLink={card.trailerLink}

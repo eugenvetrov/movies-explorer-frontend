@@ -25,6 +25,7 @@ const App = () => {
   const [activeAuthLink, setActiveAuthLink] = useState('signin')
   const [activeMoviesLink, setActiveMoviesLink] = useState('movies')
   const [movies, setMovies] = useState([])
+  const [savedMovies, setSavedMovies] = useState([])
   const [mainSearchResults, setMainSearchResults] = useState([]);
   const [shortMainSearchResults, setShortMainSearchResults] = useState([])
   const [savedMoviesSearchResults, setSavedMoviesSearchResults] = useState([]);
@@ -54,12 +55,12 @@ const App = () => {
   
       mainApi().getSavedMovies()
       .then((movies) => {
-        setSavedMoviesSearchResults(movies.data)})
+        setSavedMovies(movies.data)})
         .catch((err) =>{
         console.log(err);
       });
 
-  }}, [currentUser]);
+  }}, []);
 
   useEffect(() => {
     tokenCheck()
@@ -106,13 +107,31 @@ const App = () => {
   }
 
   const handleSaveAndUnsaveMovie = (movie) => {
-    mainApi().getSavedMovies().then((savedMovies) => {
-      if (savedMovies.some(movie)) {
-      mainApi().deleteMovie(movie)
+    const movieTempArray = savedMovies.filter(item => item.movieId === movie.id);
+    let saveMovie
+    movieTempArray.length > 0 ? saveMovie = movieTempArray[0] : saveMovie = undefined;
+    console.log(saveMovie);
+    if(saveMovie) {
+      mainApi().deleteMovie(saveMovie)
+      .then(() => {
+          setSavedMovies(movies.filter((m) => m !== movie))
+      })
+      .catch((err) => {console.log(err);})
     } else {
       mainApi().saveMovie(movie)
-      }
-    }).catch((err) => {console.log(err);})
+      .then((newMovie) => {
+        savedMovies ? 
+        setSavedMovies([newMovie.movie, ...movies]) : setSavedMovies([newMovie.movie]);
+      })
+      .catch((err) => {console.log(err);})
+    }
+    // mainApi().getSavedMovies().then((movies) => {
+    //   if (movies.data.some(item => item === movie)) {
+    //   mainApi().deleteMovie(movie).catch((err) => {console.log(err);})
+    // } else {
+    //   mainApi().saveMovie(movie).catch((err) => {console.log(err);})
+    //   }
+    // }).catch((err) => {console.log(err);})
   }
 
   const handleLogin = (user) => {
