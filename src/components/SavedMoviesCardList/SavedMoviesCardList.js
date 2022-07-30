@@ -1,13 +1,12 @@
 import './SavedMoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const SavedMoviesCardList = ({moviesArray, shortMoviesArray, isShort, deleteMovie}) => {
+const SavedMoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMovie}) => {
     return (
         <section className="movies-list">
            {
            isShort ? 
            shortMoviesArray.map((card) => {
-            console.log(card);
             return (
             <MoviesCard
                key={card.id}
@@ -16,7 +15,7 @@ const SavedMoviesCardList = ({moviesArray, shortMoviesArray, isShort, deleteMovi
                imageUrl={card.image}
                trailerLink={card.trailerLink}
                duration={card.duration}
-               saveAndUnsaveMovie={deleteMovie}
+               saveAndUnsaveMovie={saveAndUnsaveMovie}
                />
             )}
             )  :
@@ -24,12 +23,12 @@ const SavedMoviesCardList = ({moviesArray, shortMoviesArray, isShort, deleteMovi
             return (
             <MoviesCard
                key={card.id}
-               card={card}
+               movie={card}
                nameRU={card.nameRU}
                imageUrl={card.image}
                trailerLink={card.trailerLink}
                duration={card.duration}
-               saveAndUnsaveMovie={deleteMovie}
+               saveAndUnsaveMovie={saveAndUnsaveMovie}
                />
             )}
             )}

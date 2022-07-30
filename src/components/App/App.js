@@ -66,7 +66,7 @@ const App = () => {
   
   const handleMainSearchResults = (value) => {
     setIsMoviesLoading(true);
-    setTimeout(3600)
+    // setTimeout(3600)
     const mainResult = movies.filter((movie) => {
       return (
       Object.values(movie).some((field) => {
@@ -105,11 +105,9 @@ const App = () => {
   }
 
   const handleSaveAndUnsaveMovie = (movie) => {
-    console.log(movie);
     const movieTempArray = savedMovies.filter(item => item.movieId === movie.id);
     let saveMovie
     movieTempArray.length > 0 ? saveMovie = movieTempArray[0] : saveMovie = undefined;
-    console.log(saveMovie);
     if(saveMovie) {
       mainApi().deleteMovie(saveMovie)
       .then(() => {
@@ -121,10 +119,19 @@ const App = () => {
       mainApi().saveMovie(movie)
       .then((newMovie) => {
         savedMovies ? 
-        setSavedMovies([newMovie.movie, ...movies]) : setSavedMovies([newMovie.movie]);
+        setSavedMovies([newMovie.movie, ...savedMovies]) : setSavedMovies([newMovie.movie]);
       })
       .catch((err) => {console.log(err);})
     }
+  }
+
+  const handleDeleteMovie = (movie) => {
+    console.log(movie);
+    mainApi().deleteMovie(movie)
+      .then(() => {
+          setSavedMovies(savedMovies.filter((m) => m !== movie))
+      })
+      .catch((err) => {console.log(err);})
   }
 
   const handleLogin = (user) => {
@@ -250,6 +257,7 @@ const App = () => {
              element={
                 <ProtectedRoute loggedIn={loggedIn}  redirectTo={"../signin"}>
                   <SavedMovies moviesArray={savedMovies} searchMoviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} onSubmit={handleSavedMoviesSearchResults} isLoading={isSavedMoviesLoading} 
+                  saveAndUnsaveMovie={handleDeleteMovie}
                    />
                 </ProtectedRoute>
              }

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import usePathname from '../../customHooks/usePathname';
 
 const MoviesCard = ({movie, nameRU, imageUrl, trailerLink, duration, saveAndUnsaveMovie}) => {
+    console.log(movie);
 
     const [isLiked, setIsLiked] = useState(false)
 

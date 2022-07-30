@@ -4,7 +4,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, deleteMovie}) => {
+const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovie}) => {
 
   const [checked, setChecked] = useState({
     shortFilm: true,
@@ -27,7 +27,7 @@ const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, deleteMovie}) => 
            handleChange={handleChange}
         />
         <hr className="movies__line"/>
-        <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} deleteMovie={deleteMovie} />
+        <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
       </div>
     )
 }
