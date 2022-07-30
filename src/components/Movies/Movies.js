@@ -34,14 +34,15 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
       [name]: !checked[name],
     }));
   };
+
   const handleMoreCards = (event) => {
     event.preventDefault();
     if(windowWidth >= 1280) {
-      checked.shortFilm ? setCardShortCount(cardShortCount + 3) : setCardCount(cardCount + 3);
-    } else if (1280 > windowWidth > 480) {
-      checked.shortFilm ? setCardShortCount(cardShortCount + 2) : setCardCount(cardCount + 2);
+      checked.shortFilm ?  setCardCount(cardCount + 3) : setCardShortCount(cardShortCount + 3)
+    } else if (windowWidth > 480) {
+      checked.shortFilm ?  setCardCount(cardCount + 2) : setCardShortCount(cardShortCount + 2)
     } else if (windowWidth <= 480){
-      checked.shortFilm ? setCardShortCount(cardShortCount + 1) : setCardCount(cardCount + 1);
+      checked.shortFilm ?  setCardCount(cardCount + 1) : setCardShortCount(cardShortCount + 1)
     }
   }
 
