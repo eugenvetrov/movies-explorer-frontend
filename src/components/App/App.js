@@ -1,6 +1,7 @@
 import './App.css';
 import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { useFormValidation } from "../../customHooks/useFormValidation.js";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext.js";
 import Header from '../Header/Header';
 import Promo from '../Promo/Promo';
@@ -37,6 +38,9 @@ const App = () => {
   const [savedShortLoadingEmpty, setSavedShortLoadingEmpty] = useState(false)
   const [mainSearchFormValue, setMainSearchFormValue] = useState();
   const [savedSearchFormValue, setSavedSearchFormValue] = useState();
+
+  const { formErrors, formValid, setFormValid, validateField, clearErrors } =
+  useFormValidation();
   
   const location = useLocation();
 
@@ -203,6 +207,10 @@ const App = () => {
   useEffect(() => {
     tokenCheck()
   }, [location]);
+
+  useEffect(() => {
+    setFormValid(!Object.values(formErrors).some((item) => item !== ""));
+  }, [formErrors, setFormValid]);
   
   const handleMainSearchResults = (value) => {
     localStorage.setItem("mainSearchFormValue", JSON.stringify(value))
@@ -383,6 +391,7 @@ const App = () => {
   };
 
   const handleUpdateUser = ({name, email}) => {
+    clearErrors();
     return mainApi()
       .setUserInfo(name, email)
       .then((user) => {
@@ -441,7 +450,8 @@ const App = () => {
              path="/profile"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"} >
-               <Profile signOut={handleSignOut} onEditUser={handleUpdateUser} />
+               <Profile signOut={handleSignOut} onEditUser={handleUpdateUser} formErrors={formErrors} validateField={validateField}
+                  formValid={formValid}/>
               </ProtectedRoute>
              }
           />

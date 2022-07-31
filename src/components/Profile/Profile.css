@@ -83,3 +83,21 @@
     margin: 16px 0 0 0;
     cursor: pointer;
 }
+
+.profile__error {
+    display: flex;
+    visibility: hidden;
+    color: #ff3055;
+    width: 100%;
+    margin: -10px auto 0 auto;
+    font-size: 10px;
+    line-height: 12px;
+    padding: 0;
+    height: 12px;
+    justify-content: flex-end;
+    align-items: flex-start;
+}
+
+.profile__error_visible {
+    visibility: visible;
+}
