@@ -340,10 +340,9 @@ const App = () => {
           console.log(err);
         });  
     } else {
-      return new Promise((res, rej) => {
+      return new Promise((resolve, reject) => {
         setCurrentUser(null);
         setLoggedIn(false);
-        return res
       })
     }
   };
