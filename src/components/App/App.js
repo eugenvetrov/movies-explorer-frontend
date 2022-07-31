@@ -35,18 +35,40 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(true);
   const [savedLoadingEmpty, setSavedLoadingEmpty] = useState(false)
   const [savedShortLoadingEmpty, setSavedShortLoadingEmpty] = useState(false)
+  const [mainSearchFormValue, setMainSearchFormValue] = useState();
+  const [savedSearchFormValue, setSavedSearchFormValue] = useState();
   
   const location = useLocation();
 
-  useEffect(() => {
-
+  const fetchMovies = () => {
     moviesApi.getContent()
     .then(movies => {
+      localStorage.setItem('movies', JSON.stringify(movies))
       setMovies(movies)
     })
       .catch((err) => {
       console.log(err);
     });
+  }
+
+  useEffect(() => {
+    const localMovies = localStorage.getItem("movies");
+
+    if(localMovies) {
+      try {
+        const parsedMovies = JSON.parse(localMovies)
+        if(!Array.isArray(parsedMovies)){
+          console.log("Ошибка при получении локальных данных");
+        }
+        setMovies(parsedMovies)
+      } catch(err) {
+        console.log(err);
+        localStorage.removeItem("movies");
+        fetchMovies()
+      }
+    } else {
+      fetchMovies()
+    }
   }, []);
 
   useEffect(() => {
@@ -66,6 +88,7 @@ const App = () => {
   }, [location]);
   
   const handleMainSearchResults = (value) => {
+    setMainSearchFormValue(value)
     setIsMoviesLoading(true);
     // setTimeout(3600)
     const mainResult = movies.filter((movie) => {
@@ -88,6 +111,7 @@ const App = () => {
   }
 
   const handleSavedMoviesSearchResults = (value) => {
+    setSavedSearchFormValue(value);
     const savedMoviesResult = savedMovies.filter((movie) => {
       return (
         Object.values(movie).some((field) => {
@@ -253,7 +277,7 @@ const App = () => {
              path="/movies"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"} >
-                <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} saveAndUnsaveMovie={handleSaveAndUnsaveMovie} savedMovies={savedMovies}/>
+                <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} saveAndUnsaveMovie={handleSaveAndUnsaveMovie} savedMovies={savedMovies} mainSearchFormValue={mainSearchFormValue} />
               </ProtectedRoute>
              }
           />
@@ -262,7 +286,7 @@ const App = () => {
              element={
                 <ProtectedRoute loggedIn={loggedIn}  redirectTo={"../signin"}>
                   <SavedMovies moviesArray={savedMovies} searchMoviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} onSubmit={handleSavedMoviesSearchResults}  
-                  saveAndUnsaveMovie={handleDeleteMovie} savedMoviesSearchResults={savedMoviesSearchResults} shortSavedMoviesSearchResults={shortSavedMoviesSearchResults} savedLoadingEmpty={savedLoadingEmpty} savedShortLoadingEmpty={savedShortLoadingEmpty}
+                  saveAndUnsaveMovie={handleDeleteMovie} savedMoviesSearchResults={savedMoviesSearchResults} shortSavedMoviesSearchResults={shortSavedMoviesSearchResults} savedLoadingEmpty={savedLoadingEmpty} savedShortLoadingEmpty={savedShortLoadingEmpty} savedSearchFormValue={savedSearchFormValue}
                    />
                 </ProtectedRoute>
              }

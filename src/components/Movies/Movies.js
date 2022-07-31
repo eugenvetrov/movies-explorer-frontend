@@ -6,7 +6,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsaveMovie, savedMovies}) => {
+const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsaveMovie, savedMovies, mainSearchFormValue}) => {
   const windowWidth = useWindowWidth();
   const [moreMoviesButtonVisible, setMoreMoviesButtonVisible] = useState(true);
   const [moreShortMoviesButtonVisible, setMoreShortMoviesButtonVisible] = useState(true)
@@ -58,7 +58,7 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
 
     return (
       <div className="movies">
-        <SearchForm onSubmit={onSubmit}/>
+        <SearchForm onSubmit={onSubmit} mainSearchFormValue={mainSearchFormValue} />
         <FilterCheckbox 
            title="Короткометражки"
            name="shortFilm"

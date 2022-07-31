@@ -4,7 +4,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovie, savedMoviesSearchResults, shortSavedMoviesSearchResults, savedLoadingEmpty, savedShortLoadingEmpty} ) => {
+const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovie, savedMoviesSearchResults, shortSavedMoviesSearchResults, savedLoadingEmpty, savedShortLoadingEmpty, savedSearchFormValue} ) => {
 
   const [checked, setChecked] = useState({
     shortFilm: true,
@@ -20,7 +20,7 @@ const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovi
   
     return (
       <div className="saved-movies">
-        <SearchForm onSubmit={onSubmit} />
+        <SearchForm onSubmit={onSubmit} savedSearchFormValue={savedSearchFormValue} />
         <FilterCheckbox 
            title="Короткометражки"
            name="shortFilm"

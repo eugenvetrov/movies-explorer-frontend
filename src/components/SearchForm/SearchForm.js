@@ -1,11 +1,21 @@
 import './SearchForm.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const SearchForm = ({onSubmit}) => {
+const SearchForm = ({onSubmit, mainSearchFormValue, savedSearchFormValue}) => {
 
     const [values, setValues] = useState({
         searchMovie: "",
       });
+
+    useEffect(() =>{
+      savedSearchFormValue && setValues({searchMovie: savedSearchFormValue});
+      mainSearchFormValue && setValues({searchMovie: mainSearchFormValue});
+    }, [mainSearchFormValue, savedSearchFormValue]);
+
+    console.log(mainSearchFormValue);
+    console.log(savedSearchFormValue);
+    console.log(values);
+
     const handleChange = (event) => {
       const { name, value } = event.target;
       setValues((prev) => ({
@@ -32,6 +42,7 @@ const SearchForm = ({onSubmit}) => {
             name="searchMovie"
             placeholder="Фильм"
             onChange={handleChange}
+            value = {values.searchMovie}
           />
           <button className="search-movie__submit" type="submit">
             Найти
