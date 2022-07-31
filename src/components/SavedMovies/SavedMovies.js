@@ -4,7 +4,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
 
-const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovie}) => {
+const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovie, savedMoviesSearchResults, shortSavedMoviesSearchResults, savedLoadingEmpty, savedShortLoadingEmpty} ) => {
 
   const [checked, setChecked] = useState({
     shortFilm: true,
@@ -20,14 +20,22 @@ const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovi
   
     return (
       <div className="saved-movies">
-        <SearchForm />
+        <SearchForm onSubmit={onSubmit} />
         <FilterCheckbox 
            title="Короткометражки"
            name="shortFilm"
            handleChange={handleChange}
         />
         <hr className="movies__line"/>
-        <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
+
+        { 
+        savedMoviesSearchResults.length > 0 && <SavedMoviesCardList moviesArray={savedMoviesSearchResults} shortMoviesArray=      {shortSavedMoviesSearchResults} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
+        }
+        {
+          savedMoviesSearchResults.length === 0 && !savedLoadingEmpty && !savedShortLoadingEmpty ?
+            <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm}     saveAndUnsaveMovie={saveAndUnsaveMovie} /> :
+            <p>Ничего не найдено</p>
+        }
       </div>
     )
 }

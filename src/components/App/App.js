@@ -32,8 +32,9 @@ const App = () => {
   const [shortSavedMoviesSearchResults, setShortSavedMoviesSearchResults] = useState([]);
   const [currentUser, setCurrentUser] = useState();
   const [isMoviesLoading ,setIsMoviesLoading] = useState(false);
-  const [isSavedMoviesLoading, setIsSavedMoviesLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(true);
+  const [savedLoadingEmpty, setSavedLoadingEmpty] = useState(false)
+  const [savedShortLoadingEmpty, setSavedShortLoadingEmpty] = useState(false)
   
   const location = useLocation();
 
@@ -102,6 +103,8 @@ const App = () => {
     })
     setSavedMoviesSearchResults(savedMoviesResult);
     setShortSavedMoviesSearchResults(savedShortMoviesResult);
+    if(savedMoviesSearchResults.length === 0) {setSavedLoadingEmpty(true)} else {setSavedLoadingEmpty(false)}
+    if(shortSavedMoviesSearchResults.length === 0) {setSavedShortLoadingEmpty(true)} else {setSavedShortLoadingEmpty(false)}
   }
 
   const handleSaveAndUnsaveMovie = (movie) => {
@@ -112,10 +115,12 @@ const App = () => {
       mainApi().deleteMovie(saveMovie)
       .then(() => {
           setSavedMovies(savedMovies.filter((m) => m.movieId !== movie.id))
+          if(savedMoviesSearchResults.length > 0){
+            setSavedMoviesSearchResults(savedMoviesSearchResults.filter((m) => m.movieId !== movie.id))
+          }
       })
       .catch((err) => {console.log(err);})
     } else {
-      console.log(movie);
       mainApi().saveMovie(movie)
       .then((newMovie) => {
         savedMovies ? 
@@ -129,6 +134,7 @@ const App = () => {
     mainApi().deleteMovie(movie)
       .then(() => {
           setSavedMovies(savedMovies.filter((m) => m !== movie))
+          setSavedMoviesSearchResults(savedMoviesSearchResults.filter((m) => m !== movie))
       })
       .catch((err) => {console.log(err);})
   }
@@ -255,8 +261,8 @@ const App = () => {
              path="/saved-movies"
              element={
                 <ProtectedRoute loggedIn={loggedIn}  redirectTo={"../signin"}>
-                  <SavedMovies moviesArray={savedMovies} searchMoviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} onSubmit={handleSavedMoviesSearchResults} isLoading={isSavedMoviesLoading} 
-                  saveAndUnsaveMovie={handleDeleteMovie}
+                  <SavedMovies moviesArray={savedMovies} searchMoviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} onSubmit={handleSavedMoviesSearchResults}  
+                  saveAndUnsaveMovie={handleDeleteMovie} savedMoviesSearchResults={savedMoviesSearchResults} shortSavedMoviesSearchResults={shortSavedMoviesSearchResults} savedLoadingEmpty={savedLoadingEmpty} savedShortLoadingEmpty={savedShortLoadingEmpty}
                    />
                 </ProtectedRoute>
              }
