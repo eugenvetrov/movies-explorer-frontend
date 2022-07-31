@@ -38,8 +38,6 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
         }) : alert("Простите! Какое-то из полей заполнено некорректно.");
     }
 
-    console.log(values);
-
     return (
       <section className="profile">
         <p className="profile__title">Привет, {name}!</p>

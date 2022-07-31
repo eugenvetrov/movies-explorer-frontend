@@ -346,6 +346,7 @@ const App = () => {
   };
 
   const handleRegister = (user) => {
+    clearErrors();
     mainApiAuth
       .register(user)
       .then((res) => {
@@ -355,6 +356,9 @@ const App = () => {
         console.log(err);
       });
   };
+
+  console.log(formValid);
+  console.log(formErrors);
 
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
@@ -450,8 +454,11 @@ const App = () => {
              path="/profile"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"} >
-               <Profile signOut={handleSignOut} onEditUser={handleUpdateUser} formErrors={formErrors} validateField={validateField}
-                  formValid={formValid}/>
+               <Profile signOut={handleSignOut}
+                        onEditUser={handleUpdateUser}
+                        formErrors={formErrors}
+                        validateField={validateField}
+                        formValid={formValid}/>
               </ProtectedRoute>
              }
           />
@@ -460,6 +467,9 @@ const App = () => {
              element={
                <Register
                  onRegister={handleRegister}
+                 formErrors={formErrors}
+                 validateField={validateField}
+                 formValid={formValid}
                />
              }
           />
