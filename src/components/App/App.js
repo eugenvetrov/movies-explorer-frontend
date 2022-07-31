@@ -111,7 +111,7 @@ const App = () => {
     if(saveMovie) {
       mainApi().deleteMovie(saveMovie)
       .then(() => {
-          setSavedMovies(movies.filter((m) => m !== movie))
+          setSavedMovies(savedMovies.filter((m) => m.movieId !== movie.id))
       })
       .catch((err) => {console.log(err);})
     } else {
@@ -126,7 +126,6 @@ const App = () => {
   }
 
   const handleDeleteMovie = (movie) => {
-    console.log(movie);
     mainApi().deleteMovie(movie)
       .then(() => {
           setSavedMovies(savedMovies.filter((m) => m !== movie))
@@ -248,7 +247,7 @@ const App = () => {
              path="/movies"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"} >
-                <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} saveAndUnsaveMovie={handleSaveAndUnsaveMovie}/>
+                <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} saveAndUnsaveMovie={handleSaveAndUnsaveMovie} savedMovies={savedMovies}/>
               </ProtectedRoute>
              }
           />

@@ -6,8 +6,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsaveMovie}) => {
-
+const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsaveMovie, savedMovies}) => {
   const windowWidth = useWindowWidth();
   const [moreMoviesButtonVisible, setMoreMoviesButtonVisible] = useState(true);
   const [moreShortMoviesButtonVisible, setMoreShortMoviesButtonVisible] = useState(true)
@@ -67,7 +66,7 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
         />
         <hr className="movies__line"/>
         {moviesArray.length !== 0 ? 
-        <MoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} cardCount={cardCount} cardShortCount={cardShortCount} /> :
+        <MoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} cardCount={cardCount} cardShortCount={cardShortCount} savedMovies={savedMovies} /> :
         <Preloader isLoading={isLoading} moreMoviesButtonVisible={moreMoviesButtonVisible} />
         }
         {checked.shortFilm ? 

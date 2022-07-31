@@ -2,6 +2,7 @@ import './SavedMoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
 const SavedMoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMovie}) => {
+    
     return (
         <section className="movies-list">
            {
@@ -9,7 +10,7 @@ const SavedMoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUns
            shortMoviesArray.map((card) => {
             return (
             <MoviesCard
-               key={card.id}
+               key={card.movieId}
                movie={card}
                nameRU={card.nameRU}
                imageUrl={card.image}
@@ -22,7 +23,7 @@ const SavedMoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUns
            moviesArray.map((card) => {
             return (
             <MoviesCard
-               key={card.id}
+               key={card.movieId}
                movie={card}
                nameRU={card.nameRU}
                imageUrl={card.image}

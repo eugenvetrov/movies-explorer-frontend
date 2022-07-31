@@ -1,8 +1,7 @@
 import './MoviesCardList.css';
 import MoviesCard from '../MoviesCard/MoviesCard';
 
-const MoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMovie, cardCount, cardShortCount}) => {
-
+const MoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMovie, cardCount, cardShortCount, savedMovies}) => {
     return (
         <section className="movies-list">
            {isShort ? 
@@ -16,6 +15,7 @@ const MoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMo
                trailerLink={card.trailerLink}
                duration={card.duration}
                saveAndUnsaveMovie={saveAndUnsaveMovie}
+               savedMovies={savedMovies}
                />
             )}
             )  :
@@ -29,6 +29,7 @@ const MoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMo
                trailerLink={card.trailerLink}
                duration={card.duration}
                saveAndUnsaveMovie={saveAndUnsaveMovie}
+               savedMovies={savedMovies}
                />
             )}
             )}
