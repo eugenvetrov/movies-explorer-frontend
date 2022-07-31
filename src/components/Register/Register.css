@@ -113,6 +113,11 @@
     visibility: visible;
 }
 
+.auth__submit_disable {
+    background-color: #a0a0a0;
+    opacity: .8;
+}
+
 @media screen and (max-width: 430px) {
     .auth__form {
         width: 260px;

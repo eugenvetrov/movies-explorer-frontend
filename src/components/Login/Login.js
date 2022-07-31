@@ -2,7 +2,7 @@ import './Login.css';
 import { useState } from "react";
 import { Link } from "react-router-dom";
 
-const Login = ({onLogin}) => {
+const Login = ({onLogin, formErrors, validateField, formValid}) => {
 
     
     const [values, setValues] = useState({
@@ -16,6 +16,7 @@ const Login = ({onLogin}) => {
           ...prev,
           [name]: value,
         }));
+        validateField(name, value);
       };
 
 
@@ -25,10 +26,11 @@ const Login = ({onLogin}) => {
         if (isSomeFieldEmpty) {
             alert("Простите! Поле не должно быть пустым.")
         }
+        formValid && !isSomeFieldEmpty ?
         onLogin({
             password: values.password,
             email: values.email,
-          });
+          }) : alert("Простите! Какое-то из полей заполнено некорректно.");
       }
 
     return (
@@ -40,19 +42,16 @@ const Login = ({onLogin}) => {
                      name="email"
                      onChange={handleChange}
                 />
-                <span className="auth__error  auth__error_visible"
-                id="login-email-error"></span>
-                
+                <span className="auth__error  auth__error_visible">{formErrors.email}</span>
             </label>
             <label className="auth__form-label">Пароль
-                <input type="text" className="auth__form-field"
+                <input type="password" className="auth__form-field"
                      name="password"
                      onChange={handleChange}
                 />
-                <span className="auth__error  auth__error_visible"
-                id="login-password-error"></span>
+                <span className="auth__error  auth__error_visible">{formErrors.password}</span>
             </label>
-            <button className="auth__submit" type="submit">
+            <button className={`auth__submit ${formValid ? "" : "auth__submit_disable"}`} type="submit">
                 Войти
             </button>
         </form>

@@ -58,7 +58,7 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
             />
             </label>
             <span className="profile__error  profile__error_visible">{formErrors.email}</span>
-            <button className="profile__submit" type="submit">
+            <button className={`profile__submit ${formValid ? "" : "profile__submit_disable"}`} type="submit">
               Редактировать
             </button>
         </form>

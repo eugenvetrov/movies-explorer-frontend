@@ -206,7 +206,8 @@ const App = () => {
 
   useEffect(() => {
     tokenCheck()
-  }, [location]);
+    clearErrors()
+  }, [location]); /* eslint-disable-line */
 
   useEffect(() => {
     setFormValid(!Object.values(formErrors).some((item) => item !== ""));
@@ -309,6 +310,7 @@ const App = () => {
   }
 
   const handleLogin = (user) => {
+    clearErrors();
     mainApiAuth
       .authorize(user)
       .then((res) => {
@@ -356,9 +358,6 @@ const App = () => {
         console.log(err);
       });
   };
-
-  console.log(formValid);
-  console.log(formErrors);
 
   const handleSignOut = () => {
     localStorage.removeItem("jwt");
@@ -478,6 +477,9 @@ const App = () => {
              element={
                <Login 
                  onLogin={handleLogin}
+                 formErrors={formErrors}
+                 validateField={validateField}
+                 formValid={formValid}
                />
              }
           />

@@ -101,3 +101,7 @@
 .profile__error_visible {
     visibility: visible;
 }
+
+.profile__submit_disable {
+    color: #858585;
+}

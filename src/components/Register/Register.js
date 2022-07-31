@@ -23,7 +23,6 @@ const Register = ({onRegister, formErrors, validateField, formValid}) => {
     const handleSubmit = (event) => {
         event.preventDefault();
         const isSomeFieldEmpty = Object.values(values).some((item) => item === "");
-        console.log(isSomeFieldEmpty);
         formValid && !isSomeFieldEmpty ?
           onRegister({
               name: values.userName,
@@ -58,7 +57,7 @@ const Register = ({onRegister, formErrors, validateField, formValid}) => {
                     />
                     <span className="auth__error  auth__error_visible">{formErrors.password}</span>
                 </label>
-                <button className="auth__submit" type="submit">
+                <button className={`auth__submit ${formValid ? "" : "auth__submit_disable"}`} type="submit">
                     Зарегестрироваться
                 </button>
             </form>

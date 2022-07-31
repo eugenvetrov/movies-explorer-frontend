@@ -3,7 +3,6 @@ import { useState } from "react";
 export const useFormValidation = () => {
   const [formErrors, setFormErrors] = useState({
     name: "",
-    movieSearch: "",
     email: "",
     password: "",
   });
@@ -32,20 +31,6 @@ export const useFormValidation = () => {
           }));
         }
         break;
-
-        case "movieSearch":
-            if (value.length >= 2 && value.length <= 40) {
-              setFormErrors((prev) => ({
-                ...prev,
-                [field]: "",
-              }));
-            } else {
-              setFormErrors((prev) => ({
-                ...prev,
-                [field]: "Недопустимое количество символов",
-              }));
-            }
-            break;
         case "email":
           if (value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/i)) { /* eslint-disable-line */
             setFormErrors((prev) => ({
