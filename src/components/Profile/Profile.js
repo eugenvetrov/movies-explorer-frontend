@@ -2,12 +2,12 @@ import './Profile.css';
 import { useState, useEffect, useContext } from "react";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext"
 
-const Profile = ({signOut}) => {
+const Profile = ({signOut, onEditUser}) => {
 
     const user = useContext(CurrentUserContext)
 
     const [values, setValues] = useState({
-        userName: "",
+        name: "",
         email: ""
       });
 
@@ -32,10 +32,14 @@ const Profile = ({signOut}) => {
       const isSomeFieldEmpty = Object.values(values).some((item) => item === "");
       if (isSomeFieldEmpty) {
           alert("Простите! Поле не должно быть пустым.")
-      } else {
-          alert(`${values.userName}, ${values.email}`)
       }
+      onEditUser({
+        name: values.name,
+        email: values.email,
+      })
     }
+
+    console.log(values);
 
     return (
       <section className="profile">
@@ -43,7 +47,7 @@ const Profile = ({signOut}) => {
         <form className="profile__form" onSubmit={(e) => handleSubmit(e)}>
             <label className="profile__form-label">Имя
             <input className="profile__form-text"
-                        name="userName"
+                        name="name"
                         onChange={handleChange}
             />
             </label>

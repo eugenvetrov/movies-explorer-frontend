@@ -17,7 +17,7 @@ const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovi
       [name]: !checked[name],
     }));
   }
-  
+
     return (
       <div className="saved-movies">
         <SearchForm onSubmit={onSubmit} savedSearchFormValue={savedSearchFormValue} />
@@ -32,9 +32,13 @@ const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovi
         savedMoviesSearchResults.length > 0 && <SavedMoviesCardList moviesArray={savedMoviesSearchResults} shortMoviesArray=      {shortSavedMoviesSearchResults} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
         }
         {
-          savedMoviesSearchResults.length === 0 && !savedLoadingEmpty && !savedShortLoadingEmpty ?
-            <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm}     saveAndUnsaveMovie={saveAndUnsaveMovie} /> :
-            <p>Ничего не найдено</p>
+        savedMoviesSearchResults.length === 0 && !savedSearchFormValue && <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
+        }
+        {
+          savedLoadingEmpty && checked.shortFilm && <p>Ничего не найдено</p>
+        }
+        {
+          savedShortLoadingEmpty && !checked.shortFilm && <p>Ничего не найдено</p>
         }
       </div>
     )

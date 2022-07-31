@@ -23,6 +23,17 @@ class MainApi {
         }).then(this._checkResponse);
     }
 
+    setUserInfo(name, email) {
+      return fetch(`${this._baseUrl}/users/me`, {
+        method: "PATCH",
+        headers: this._headeres,
+        body: JSON.stringify({
+          name: `${name}`,
+          email: `${email}`,
+        }),
+      }).then(this._checkResponse);
+    }
+
     getSavedMovies() {
       return fetch(`${this._baseUrl}/movies`, {
         headers: this._headeres,

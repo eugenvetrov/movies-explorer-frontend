@@ -163,6 +163,32 @@ const App = () => {
   }, [])
 
   useEffect(() => {
+
+    const savedLocalLoadingEmpty = localStorage.getItem("savedLoadingEmpty");
+
+    if(savedLocalLoadingEmpty) {
+      try {
+        setSavedLoadingEmpty(JSON.parse(savedLocalLoadingEmpty));
+      } catch (e) {
+        localStorage.removeItem("savedLoadingEmpty")
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+
+    const savedShortLocalLoadingEmpty = localStorage.getItem("savedShortLoadingEmpty");
+
+    if(savedShortLocalLoadingEmpty) {
+      try {
+        setSavedShortLoadingEmpty(JSON.parse(savedShortLocalLoadingEmpty));
+      } catch (e) {
+        localStorage.removeItem("savedShortLoadingEmpty")
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     tokenCheck().then((res) => {
       if(res) {
       mainApi().getSavedMovies()
@@ -182,7 +208,6 @@ const App = () => {
     localStorage.setItem("mainSearchFormValue", JSON.stringify(value))
     setMainSearchFormValue(value)
     setIsMoviesLoading(true);
-    // setTimeout(3600)
     const mainResult = movies.filter((movie) => {
       return (
       Object.values(movie).some((field) => {
@@ -222,8 +247,18 @@ const App = () => {
     })
     setSavedMoviesSearchResults(savedMoviesResult);
     setShortSavedMoviesSearchResults(savedShortMoviesResult);
-    if(savedMoviesSearchResults.length === 0) {setSavedLoadingEmpty(true)} else {setSavedLoadingEmpty(false)}
-    if(shortSavedMoviesSearchResults.length === 0) {setSavedShortLoadingEmpty(true)} else {setSavedShortLoadingEmpty(false)}
+    setSavedLoadingEmpty(() => savedMoviesResult.length === 0);
+    setSavedShortLoadingEmpty(() => savedShortMoviesResult.length === 0);
+    if(savedMoviesSearchResults.length === 0) {
+      localStorage.setItem("savedLoadingEmpty", JSON.stringify(true));
+    } else {
+      localStorage.setItem("savedLoadingEmpty", JSON.stringify(false));
+    }
+    if(shortSavedMoviesSearchResults.length === 0) {
+      localStorage.setItem("savedShortLoadingEmpty", JSON.stringify(true));
+    } else {
+      localStorage.setItem("savedShortLoadingEmpty", JSON.stringify(false));
+    }
     localStorage.setItem("savedMoviesSearchResults", JSON.stringify(savedMoviesResult));
     localStorage.setItem("shortSavedMoviesSearchResults", JSON.stringify(savedShortMoviesResult));
   }
@@ -347,6 +382,15 @@ const App = () => {
     }
   };
 
+  const handleUpdateUser = ({name, email}) => {
+    return mainApi()
+      .setUserInfo(name, email)
+      .then((user) => {
+        setCurrentUser(user.data);
+      })
+      .catch((error) => console.log(error));
+  };
+
   const navigate = useNavigate();
 
   const handleAuthMouthOver = (button) => {
@@ -388,7 +432,7 @@ const App = () => {
              element={
                 <ProtectedRoute loggedIn={loggedIn}  redirectTo={"../signin"}>
                   <SavedMovies moviesArray={savedMovies} searchMoviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} onSubmit={handleSavedMoviesSearchResults}  
-                  saveAndUnsaveMovie={handleDeleteMovie} savedMoviesSearchResults={savedMoviesSearchResults} shortSavedMoviesSearchResults={shortSavedMoviesSearchResults} savedLoadingEmpty={savedLoadingEmpty} savedShortLoadingEmpty={savedShortLoadingEmpty} savedSearchFormValue={savedSearchFormValue}
+                  saveAndUnsaveMovie={handleDeleteMovie} savedMoviesSearchResults={savedMoviesSearchResults} shortSavedMoviesSearchResults={shortSavedMoviesSearchResults} savedLoadingEmpty={savedLoadingEmpty} savedShortLoadingEmpty={savedShortLoadingEmpty} savedSearchFormValue={savedSearchFormValue} 
                    />
                 </ProtectedRoute>
              }
@@ -397,7 +441,7 @@ const App = () => {
              path="/profile"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"} >
-               <Profile signOut={handleSignOut} />
+               <Profile signOut={handleSignOut} onEditUser={handleUpdateUser} />
               </ProtectedRoute>
              }
           />

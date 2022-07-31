@@ -22,12 +22,7 @@ const SearchForm = ({onSubmit, mainSearchFormValue, savedSearchFormValue}) => {
     
     const handleSubmit = (event) => {
       event.preventDefault();
-      const isSomeFieldEmpty = Object.values(values).some((item) => item === "");
-      if (isSomeFieldEmpty) {
-          alert("Простите! Поле не должно быть пустым.")
-      } else {
-          onSubmit(values.searchMovie)
-      }
+      onSubmit(values.searchMovie);
     }
     
     return (
