@@ -12,10 +12,6 @@ const SearchForm = ({onSubmit, mainSearchFormValue, savedSearchFormValue}) => {
       mainSearchFormValue && setValues({searchMovie: mainSearchFormValue});
     }, [mainSearchFormValue, savedSearchFormValue]);
 
-    console.log(mainSearchFormValue);
-    console.log(savedSearchFormValue);
-    console.log(values);
-
     const handleChange = (event) => {
       const { name, value } = event.target;
       setValues((prev) => ({

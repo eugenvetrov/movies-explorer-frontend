@@ -72,6 +72,97 @@ const App = () => {
   }, []);
 
   useEffect(() => {
+
+    const mainSearchLocalValue = localStorage.getItem("mainSearchFormValue");
+
+    if(mainSearchLocalValue) {
+      try {
+        setMainSearchFormValue(JSON.parse(mainSearchLocalValue));
+      } catch (e) {
+        localStorage.removeItem("mainSearchFormValue")
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+
+    const savedSearchLocalValue = localStorage.getItem("savedSearchFormValue");
+
+    if(savedSearchLocalValue) {
+      try {
+        setSavedSearchFormValue(JSON.parse(savedSearchLocalValue));
+      } catch (e) {
+        localStorage.removeItem("savedSearchFormValue")
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+
+    const savedLocalMoviesSearchResults = localStorage.getItem("savedMoviesSearchResults");
+
+    if(savedLocalMoviesSearchResults) {
+      try {
+        setSavedMoviesSearchResults(JSON.parse(savedLocalMoviesSearchResults));
+      } catch (e) {
+        localStorage.removeItem("savedMoviesSearchResults")
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+
+    const mainLocalSearchResults = localStorage.getItem("mainSearchResults");
+    
+    if(mainLocalSearchResults) {
+      try {
+        setMainSearchResults(JSON.parse(mainLocalSearchResults));
+      } catch (e) {
+        localStorage.removeItem("mainSearchResults")
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+
+    const shortMainLocalSearchResults = localStorage.getItem("shortMainSearchResults");
+
+    if(shortMainLocalSearchResults) {
+      try {
+        setShortMainSearchResults(JSON.parse(shortMainLocalSearchResults));
+      } catch (e) {
+        localStorage.removeItem("shortMainSearchResults")
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+
+    const shortSavedMoviesLocalSearchResults = localStorage.getItem("shortSavedMoviesSearchResults");
+
+    if(shortSavedMoviesLocalSearchResults) {
+      try {
+        setShortSavedMoviesSearchResults(JSON.parse(shortSavedMoviesLocalSearchResults));
+      } catch (e) {
+        localStorage.removeItem("shortSavedMoviesSearchResults")
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+
+    const localSavedMovies = localStorage.getItem("savedMovies");
+    
+    if(localSavedMovies) {
+      try {
+        setSavedMovies(JSON.parse(localSavedMovies));
+      } catch (e) {
+        localStorage.removeItem("savedMovies")
+      }
+    }
+  }, [])
+
+  useEffect(() => {
     tokenCheck().then((res) => {
       if(res) {
       mainApi().getSavedMovies()
@@ -88,6 +179,7 @@ const App = () => {
   }, [location]);
   
   const handleMainSearchResults = (value) => {
+    localStorage.setItem("mainSearchFormValue", JSON.stringify(value))
     setMainSearchFormValue(value)
     setIsMoviesLoading(true);
     // setTimeout(3600)
@@ -108,9 +200,12 @@ const App = () => {
     setIsMoviesLoading(false);
     setMainSearchResults(mainResult);
     setShortMainSearchResults(shortResult);
+    localStorage.setItem("mainSearchResults", JSON.stringify(mainResult));
+    localStorage.setItem("shortMainSearchResults", JSON.stringify(shortResult));
   }
 
   const handleSavedMoviesSearchResults = (value) => {
+    localStorage.setItem("savedSearchFormValue", JSON.stringify(value))
     setSavedSearchFormValue(value);
     const savedMoviesResult = savedMovies.filter((movie) => {
       return (
@@ -129,6 +224,8 @@ const App = () => {
     setShortSavedMoviesSearchResults(savedShortMoviesResult);
     if(savedMoviesSearchResults.length === 0) {setSavedLoadingEmpty(true)} else {setSavedLoadingEmpty(false)}
     if(shortSavedMoviesSearchResults.length === 0) {setSavedShortLoadingEmpty(true)} else {setSavedShortLoadingEmpty(false)}
+    localStorage.setItem("savedMoviesSearchResults", JSON.stringify(savedMoviesResult));
+    localStorage.setItem("shortSavedMoviesSearchResults", JSON.stringify(savedShortMoviesResult));
   }
 
   const handleSaveAndUnsaveMovie = (movie) => {
@@ -139,8 +236,10 @@ const App = () => {
       mainApi().deleteMovie(saveMovie)
       .then(() => {
           setSavedMovies(savedMovies.filter((m) => m.movieId !== movie.id))
+          localStorage.setItem("savedMovies", JSON.stringify(savedMovies.filter((m) => m.movieId !== movie.id)));
           if(savedMoviesSearchResults.length > 0){
             setSavedMoviesSearchResults(savedMoviesSearchResults.filter((m) => m.movieId !== movie.id))
+            localStorage.setItem("savedMoviesSearchResults", JSON.stringify(savedMoviesSearchResults.filter((m) => m.movieId !== movie.id)));
           }
       })
       .catch((err) => {console.log(err);})
@@ -149,6 +248,7 @@ const App = () => {
       .then((newMovie) => {
         savedMovies ? 
         setSavedMovies([newMovie.movie, ...savedMovies]) : setSavedMovies([newMovie.movie]);
+        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
       })
       .catch((err) => {console.log(err);})
     }
@@ -159,6 +259,8 @@ const App = () => {
       .then(() => {
           setSavedMovies(savedMovies.filter((m) => m !== movie))
           setSavedMoviesSearchResults(savedMoviesSearchResults.filter((m) => m !== movie))
+          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+          localStorage.setItem("savedMoviesSearchResults", JSON.stringify(savedMoviesSearchResults));
       })
       .catch((err) => {console.log(err);})
   }
