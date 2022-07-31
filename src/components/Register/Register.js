@@ -24,10 +24,10 @@ const Register = ({onRegister}) => {
         const isSomeFieldEmpty = Object.values(values).some((item) => item === "");
         if (isSomeFieldEmpty) {
             alert("Простите! Поле не должно быть пустым.")
-        } else {
-            alert(`${values.userName}, ${values.email}, ${values.password}`)
         }
+        
         onRegister({
+            name: values.userName,
             password: values.password,
             email: values.email,
           });

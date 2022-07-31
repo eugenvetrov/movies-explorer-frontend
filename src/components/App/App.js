@@ -306,7 +306,6 @@ const App = () => {
     mainApiAuth
       .register(user)
       .then((res) => {
-        console.log(res);
         navigate("/signin");
       })
       .catch((err) => {
@@ -341,9 +340,11 @@ const App = () => {
           console.log(err);
         });  
     } else {
-      setCurrentUser(null);
-      setLoggedIn(false);
-      return false;
+      return new Promise((res, rej) => {
+        setCurrentUser(null);
+        setLoggedIn(false);
+        return res
+      })
     }
   };
 

@@ -34,6 +34,7 @@ class MainApi {
         method: "POST",
         headers: this._headeres,
         body: JSON.stringify({
+          name: `${user.name}`,
           password: `${user.password}`,
           email: `${user.email}`,
         }),
