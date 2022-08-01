@@ -363,7 +363,7 @@ const App = () => {
     localStorage.removeItem("jwt");
     setCurrentUser(null);
     setLoggedIn(false);
-    navigate("/signin");
+    navigate("/");
   }
   
 
