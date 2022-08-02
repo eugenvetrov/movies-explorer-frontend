@@ -33,7 +33,7 @@ const App = () => {
   const [savedMoviesSearchResults, setSavedMoviesSearchResults] = useState([]);
   const [shortSavedMoviesSearchResults, setShortSavedMoviesSearchResults] = useState([]);
   const [currentUser, setCurrentUser] = useState();
-  const [isMoviesLoading ,setIsMoviesLoading] = useState(false);
+  const [isMoviesLoading, setIsMoviesLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(true);
   const [savedLoadingEmpty, setSavedLoadingEmpty] = useState(false)
   const [savedShortLoadingEmpty, setSavedShortLoadingEmpty] = useState(false)
@@ -41,6 +41,8 @@ const App = () => {
   const [savedSearchFormValue, setSavedSearchFormValue] = useState();
   const [popupInformErrorMessage, setPopupInformErrorMessage] = useState();
   const [isPopupInformActive, setIsPopupInformActive] = useState(false);
+  const [moreMoviesButtonVisible, setMoreMoviesButtonVisible] = useState(false);
+  const [moreShortMoviesButtonVisible, setMoreShortMoviesButtonVisible] = useState(false);
 
   const { formErrors, formValid, setFormValid, validateField, clearErrors } =
   useFormValidation();
@@ -162,6 +164,8 @@ const App = () => {
   }, [formErrors, setFormValid]);
   
   const handleMainSearchResults = (value) => {
+    setMoreMoviesButtonVisible(true);
+    setMoreShortMoviesButtonVisible(true);
     localStorage.setItem("mainSearchFormValue", JSON.stringify(value))
     setMainSearchFormValue(value)
     setIsMoviesLoading(true);
@@ -338,6 +342,15 @@ const App = () => {
     localStorage.removeItem("shortMainSearchResults");
     localStorage.removeItem("savedMovies");
     localStorage.removeItem("mainSearchFormValue");
+    localStorage.removeItem("savedSearchFormValue");
+    localStorage.removeItem("savedMoviesSearchResults");
+    localStorage.removeItem("savedLoadingEmpty");
+    localStorage.removeItem("savedShortLoadingEmpty");
+    localStorage.removeItem("cardCount");
+    localStorage.removeItem("cardShortCount");
+    localStorage.removeItem("shortSavedMoviesSearchResults");
+    localStorage.removeItem("moreMoviesButtonVisible");
+    localStorage.removeItem("moreShortMoviesButtonVisible");
   }
 
   const setStateToDefault = () => {
@@ -358,10 +371,11 @@ const App = () => {
   }
 
   const handleSignOut = () => {
-    clearLocalStorage();
+    setStateToDefault();
     setCurrentUser(null);
     setLoggedIn(false);
-    setStateToDefault();
+    clearLocalStorage();
+    console.log(mainSearchResults);
     navigate("/");
   }
   
@@ -394,9 +408,8 @@ const App = () => {
   };
 
   const handleUpdateUser = ({name, email}) => {
-    clearErrors();
-    name === currentUser.name && email === currentUser.email ?
-    mainApi()
+    const updateUser = (name, email) => {
+      mainApi()
       .setUserInfo(name, email)
       .then((user) => {
         setCurrentUser(user.data);
@@ -406,13 +419,17 @@ const App = () => {
         openPopupInform("Не удалось изменить данные");
         console.log(err)
       })
-    :
-      openPopupInform("Значения должны отличаться от текущих")
-  };
+    }
 
-  console.log(savedMovies);
-  console.log(savedMoviesSearchResults);
-  console.log(savedMoviesSearchResults);
+    clearErrors();
+    if (name && name === currentUser.name) {
+      openPopupInform("Имя должно отличаться от текущего")
+    } else if (email && email === currentUser.email) {
+      openPopupInform("Email должен отличаться от текущего")
+    } else {
+      updateUser(name, email)
+    }
+  };
 
   const handleHeaderMouseOver = (button) => {
     setActiveHeaderLink(button);
@@ -444,7 +461,7 @@ const App = () => {
              path="/movies"
              element={
               <ProtectedRoute loggedIn={loggedIn} redirectTo={"/"} >
-                <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} saveAndUnsaveMovie={handleSaveAndUnsaveMovie} savedMovies={savedMovies} mainSearchFormValue={mainSearchFormValue} />
+                <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} setIsLoading={setIsMoviesLoading} saveAndUnsaveMovie={handleSaveAndUnsaveMovie} savedMovies={savedMovies} mainSearchFormValue={mainSearchFormValue} moreMoviesButtonVisible={moreMoviesButtonVisible} moreShortMoviesButtonVisible={moreShortMoviesButtonVisible} setMoreMoviesButtonVisible={setMoreMoviesButtonVisible} setMoreShortMoviesButtonVisible={setMoreShortMoviesButtonVisible} />
               </ProtectedRoute>
              }
           />

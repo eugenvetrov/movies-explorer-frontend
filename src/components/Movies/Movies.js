@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom'
 import useWindowWidth from "../../customHooks/useWindowWidth"
 import './Movies.css';
 import SearchForm from '../SearchForm/SearchForm';
@@ -6,10 +7,39 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsaveMovie, savedMovies, mainSearchFormValue}) => {
+const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsaveMovie, savedMovies, mainSearchFormValue, moreMoviesButtonVisible, moreShortMoviesButtonVisible, setMoreMoviesButtonVisible, setMoreShortMoviesButtonVisible}) => {
+
+  const location = useLocation();
+  const [isSearched, setIsSearched] = useState();
+
+  useEffect(() => {
+    const mainVisible = localStorage.getItem("moreMoviesButtonVisible");
+    const parsedMainVisible = JSON.parse(mainVisible);
+    const shortVisible = localStorage.getItem("moreShortMoviesButtonVisible");
+    const parsedShortVisible = JSON.parse(shortVisible);
+    const count = localStorage.getItem("cardCount");
+    const parsedCount = JSON.parse(count);
+    const shortCount = localStorage.getItem("cardShortCount")
+    const parsedShortCount = JSON.parse(shortCount);
+    parsedMainVisible && setMoreMoviesButtonVisible(parsedMainVisible);
+    parsedShortVisible && setMoreShortMoviesButtonVisible(parsedShortVisible);
+    parsedCount && setCardCount(parsedCount);
+    parsedShortCount && setCardShortCount(parsedShortCount);
+    moviesArray.length > 0 && checked.longFilm && cardCount < moviesArray.length - 1 && setMoreMoviesButtonVisible(true)
+    shortMoviesArray.length > 0 && !checked.longFilm && cardShortCount < shortMoviesArray.length - 1 && setMoreShortMoviesButtonVisible(true)
+    moviesArray.length > 0 && checked.longFilm && cardCount >= moviesArray.length - 1 && setMoreMoviesButtonVisible(false)
+    shortMoviesArray.length > 0 && !checked.longFilm && cardShortCount >= shortMoviesArray.length - 1 && setMoreShortMoviesButtonVisible(false)
+  }, [location]); /*eslint-disable-line */
+
+  useEffect(() =>{
+    if (isSearched) {
+      setIsSearched(false);
+      setCardCount(getInitialCountOfMovies(windowWidth));
+      setCardShortCount(getInitialCountOfMovies(windowWidth));
+    }
+  }, [mainSearchFormValue]); /*eslint-disable-line*/
+
   const windowWidth = useWindowWidth();
-  const [moreMoviesButtonVisible, setMoreMoviesButtonVisible] = useState(true);
-  const [moreShortMoviesButtonVisible, setMoreShortMoviesButtonVisible] = useState(true)
 
   const getInitialCountOfMovies = (width) => {
     if(width > 1279) {
@@ -25,8 +55,14 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
   const [cardShortCount, setCardShortCount] = useState(getInitialCountOfMovies(windowWidth));
 
   const [checked, setChecked] = useState({
-    shortFilm: true,
+    longFilm: true,
     });
+
+    console.log(cardCount < moviesArray.length - 1);
+
+    console.log(moviesArray.length > 0 && checked.longFilm && cardCount < moviesArray.length);
+
+    console.log(moreMoviesButtonVisible);
 
   const handleChange = (event) => {
     const { name } = event.target;
@@ -34,42 +70,58 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
       ...prev,
       [name]: !checked[name],
     }));
-    setCardCount(getInitialCountOfMovies(windowWidth));
-    setCardShortCount(getInitialCountOfMovies(windowWidth));
-    setMoreMoviesButtonVisible(true);
-    setMoreShortMoviesButtonVisible(true);
   };
 
   const handleMoreCards = (event) => {
     event.preventDefault();
     if(windowWidth >= 1280) {
-      checked.shortFilm ?  setCardCount(cardCount + 3) : setCardShortCount(cardShortCount + 3)
+      if(checked.longFilm) {  
+        localStorage.setItem("cardCount", cardCount + 3);
+        setCardCount(cardCount + 3)
+       } else if (!checked.longFilm) { 
+        localStorage.setItem("cardShortCount", cardShortCount + 3);
+        setCardShortCount(cardShortCount + 3)
+       } 
     } else if (windowWidth > 480) {
-      checked.shortFilm ?  setCardCount(cardCount + 2) : setCardShortCount(cardShortCount + 2)
-    } else if (windowWidth <= 480){
-      checked.shortFilm ?  setCardCount(cardCount + 1) : setCardShortCount(cardShortCount + 1)
+      if (checked.longFilm) {
+        localStorage.setItem("cardCount", cardCount + 2);
+        setCardCount(cardCount + 2)
+      } else if (!checked.longFilm) {
+        localStorage.setItem("cardCount", cardCount + 2);
+        setCardShortCount(cardShortCount + 2)
+      }
+    } else if (windowWidth <= 480) {
+      if(checked.longFilm) {
+        localStorage.setItem("cardCount", cardCount + 1);
+        setCardCount(cardCount + 1)
+      } else if (!checked.longFilm) {
+        localStorage.setItem("cardCount", cardCount + 1);
+        setCardShortCount(cardShortCount + 1)
+      }
     }
     if (cardCount >= moviesArray.length - 1) {
       setMoreMoviesButtonVisible(false);
-    } else if (cardCount >= shortMoviesArray.length - 1) {
+      localStorage.setItem("moreMoviesButtonVisible", false);
+    } else if (cardShortCount >= shortMoviesArray.length - 1) {
       setMoreShortMoviesButtonVisible(false);
+      localStorage.setItem("moreShortMoviesButtonVisible", false);
     }
   }
 
     return (
       <div className="movies">
-        <SearchForm onSubmit={onSubmit} mainSearchFormValue={mainSearchFormValue} />
+        <SearchForm onSubmit={onSubmit} mainSearchFormValue={mainSearchFormValue} setIsSearched={setIsSearched}s/>
         <FilterCheckbox 
            title="Короткометражки"
-           name="shortFilm"
+           name="longFilm"
            handleChange={handleChange}
         />
         <hr className="movies__line"/>
         {moviesArray.length !== 0 ? 
-        <MoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} cardCount={cardCount} cardShortCount={cardShortCount} savedMovies={savedMovies} /> :
+        <MoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.longFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} cardCount={cardCount} cardShortCount={cardShortCount} savedMovies={savedMovies} /> :
         <Preloader isLoading={isLoading} moreMoviesButtonVisible={moreMoviesButtonVisible} />
         }
-        {checked.shortFilm ? 
+        {checked.longFilm ? 
         <button className={`movies__more-button ${moreMoviesButtonVisible ? "" : "movies__more-button_deactivated"}`} onClick={handleMoreCards}>Ещё</button> :
           <button className={`movies__more-button ${moreShortMoviesButtonVisible ? "" : "movies__more-button_deactivated"}`} onClick={handleMoreCards}>Ещё</button>
         }

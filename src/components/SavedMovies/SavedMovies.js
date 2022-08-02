@@ -6,10 +6,6 @@ import SearchForm from '../SearchForm/SearchForm';
 
 const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovie, savedMoviesSearchResults, shortSavedMoviesSearchResults, savedLoadingEmpty, savedShortLoadingEmpty, savedSearchFormValue } ) => {
 
-  console.log(moviesArray);
-  console.log(savedMoviesSearchResults);
-  console.log(savedLoadingEmpty);
-
   const [checked, setChecked] = useState({
     shortFilm: true,
     });

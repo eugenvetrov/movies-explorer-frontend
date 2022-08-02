@@ -32,8 +32,7 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
 
     const handleSubmit = (event) => {
       event.preventDefault();
-      const isSomeFieldEmpty = Object.values(values).some((item) => item === "");
-      formValid && !isSomeFieldEmpty ?
+      formValid ?
         onEditUser({
           name: values.name,
           email: values.email,
@@ -42,7 +41,7 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
 
     return (
       <section className="profile">
-        <p className="profile__title">Привет{`, ${name ? name : ""}`}!</p>
+        <p className="profile__title">Привет{name && name !== "undefined" ? `, ${name}` : ""}!</p>
         <form className="profile__form" autoComplete="off"
           noValidate onSubmit={(e) => handleSubmit(e)}>
             <label className="profile__form-label">Имя
