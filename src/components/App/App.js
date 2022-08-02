@@ -211,7 +211,7 @@ const App = () => {
         .catch((err) =>{
         console.log(err);
       });
-  }})}, []);
+  }})}, [location]);
 
   useEffect(() => {
     tokenCheck()
@@ -283,7 +283,7 @@ const App = () => {
 
   const handleSaveAndUnsaveMovie = (movie) => {
     mainApi().getSavedMovies().then((savedMovies) => {
-      setSavedMovies(savedMovies);
+      setSavedMovies(savedMovies.data);
     }).then(() => {
       const movieTempArray = savedMovies.filter(item => item.movieId === movie.id);
       let saveMovie
@@ -476,19 +476,24 @@ const App = () => {
 
   const handleUpdateUser = ({name, email}) => {
     clearErrors();
-    return mainApi()
+    name === currentUser.name && email === currentUser.email ?
+    mainApi()
       .setUserInfo(name, email)
       .then((user) => {
         setCurrentUser(user.data);
         openPopupInform();
       })
       .catch((err) => {
-        openPopupInform(err.message);
+        openPopupInform("Не удалось изменить данные");
         console.log(err)
-      });
+      })
+    :
+      openPopupInform("Значения должны отличаться от текущих")
   };
 
-
+  console.log(savedMovies);
+  console.log(savedMoviesSearchResults);
+  console.log(savedMoviesSearchResults);
 
   const handleHeaderMouseOver = (button) => {
     setActiveHeaderLink(button);
@@ -528,7 +533,7 @@ const App = () => {
              path="/saved-movies"
              element={
                 <ProtectedRoute loggedIn={loggedIn}  redirectTo={"/"}>
-                  <SavedMovies moviesArray={savedMovies} searchMoviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} onSubmit={handleSavedMoviesSearchResults}  
+                  <SavedMovies moviesArray={savedMovies} shortMoviesArray={shortSavedMoviesSearchResults} onSubmit={handleSavedMoviesSearchResults}  
                   saveAndUnsaveMovie={handleDeleteMovie} savedMoviesSearchResults={savedMoviesSearchResults} shortSavedMoviesSearchResults={shortSavedMoviesSearchResults} savedLoadingEmpty={savedLoadingEmpty} savedShortLoadingEmpty={savedShortLoadingEmpty} savedSearchFormValue={savedSearchFormValue} 
                    />
                 </ProtectedRoute>

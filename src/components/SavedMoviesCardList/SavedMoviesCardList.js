@@ -4,7 +4,7 @@ import MoviesCard from '../MoviesCard/MoviesCard';
 const SavedMoviesCardList = ({moviesArray, shortMoviesArray, isShort, saveAndUnsaveMovie}) => {
 
     console.log(moviesArray);
-    
+
     return (
         <section className="movies-list">
            {
