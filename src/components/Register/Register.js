@@ -1,9 +1,17 @@
 import './Register.css';
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useContext, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import {CurrentUserContext} from "../../contexts/CurrentUserContext"
 
 const Register = ({onRegister, formErrors, validateField, formValid}) => {
+    
+    const user = useContext(CurrentUserContext);
+    const navigate = useNavigate();
 
+    useEffect(() => {
+      if(user) navigate("/")
+    },[user, navigate])
+    
     const [values, setValues] = useState({
         name: "",
         email: "",
@@ -19,7 +27,6 @@ const Register = ({onRegister, formErrors, validateField, formValid}) => {
         validateField(name, value);
       };
 
-    console.log(values);
     const handleSubmit = (event) => {
         event.preventDefault();
         const isSomeFieldEmpty = Object.values(values).some((item) => item === "");
