@@ -64,7 +64,7 @@ const App = () => {
     setIsPopupInformActive(true)
   }
 
-  // useEffect(() => {openPopupInform('Не удалось удалить фильм')},[]);
+  // useEffect(() => {openPopupInform('Ошибка при обновлении фильма')},[]);
 
   useEffect(() => {
     const localMovies = localStorage.getItem("movies");
@@ -284,35 +284,44 @@ const App = () => {
   }
 
   const handleSaveAndUnsaveMovie = (movie) => {
-    const movieTempArray = savedMovies.filter(item => item.movieId === movie.id);
-    let saveMovie
-    movieTempArray.length > 0 ? saveMovie = movieTempArray[0] : saveMovie = undefined;
-    if(saveMovie) {
-      mainApi().deleteMovie(saveMovie)
-      .then(() => {
-          setSavedMovies(savedMovies.filter((m) => m.movieId !== movie.id))
-          localStorage.setItem("savedMovies", JSON.stringify(savedMovies.filter((m) => m.movieId !== movie.id)));
-          if(savedMoviesSearchResults.length > 0){
-            setSavedMoviesSearchResults(savedMoviesSearchResults.filter((m) => m.movieId !== movie.id))
-            localStorage.setItem("savedMoviesSearchResults", JSON.stringify(savedMoviesSearchResults.filter((m) => m.movieId !== movie.id)));
-          }
-      })
-      .catch((err) => {
-        openPopupInform('Не удалось удалить фильм')
-        console.log(err);}
-        )
-    } else {
-      mainApi().saveMovie(movie)
-      .then((newMovie) => {
-        savedMovies ? 
-        setSavedMovies([newMovie.movie, ...savedMovies]) : setSavedMovies([newMovie.movie]);
-        localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
-      })
-      .catch((err) => {
-        openPopupInform('Не удалось сохранить фильм')
-        console.log(err);
-      })
-    }
+    mainApi().getSavedMovies().then((savedMovies) => {
+      setSavedMovies(savedMovies);
+    }).then(() => {
+      const movieTempArray = savedMovies.filter(item => item.movieId === movie.id);
+      let saveMovie
+      movieTempArray.length > 0 ? saveMovie = movieTempArray[0] : saveMovie = undefined;
+      if(saveMovie) {
+        mainApi().deleteMovie(saveMovie)
+        .then(() => {
+            setSavedMovies(savedMovies.filter((m) => m.movieId !== movie.id))
+            localStorage.setItem("savedMovies", JSON.stringify(savedMovies.filter((m) => m.movieId !== movie.id)));
+            if(savedMoviesSearchResults.length > 0){
+              setSavedMoviesSearchResults(savedMoviesSearchResults.filter((m) => m.movieId !== movie.id))
+              localStorage.setItem("savedMoviesSearchResults", JSON.stringify(savedMoviesSearchResults.filter((m) => m.movieId !== movie.id)));
+            }
+        })
+        .catch((err) => {
+          openPopupInform('Не удалось удалить фильм')
+          console.log(err);}
+          )
+      } else {
+        mainApi().saveMovie(movie)
+        .then((newMovie) => {
+          savedMovies ? 
+          setSavedMovies([newMovie.movie, ...savedMovies]) : setSavedMovies([newMovie.movie]);
+          localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
+        })
+        .catch((err) => {
+          openPopupInform('Не удалось сохранить фильм')
+          console.log(err);
+        })
+      }
+    })
+    .catch((err) => {
+      openPopupInform('Ошибка при обновлении фильма')
+      console.log(err);
+    })
+
   }
 
   const handleDeleteMovie = (movie) => {
@@ -414,11 +423,29 @@ const App = () => {
     localStorage.removeItem("mainSearchFormValue");
   }
 
+  const setStateToDefault = () => {
+    setActiveHeaderLink("signin")
+    setActiveMoviesLink('movies')
+    setMovies([])
+    setSavedMovies([])
+    setMainSearchResults([]);
+    setShortMainSearchResults([])
+    setSavedMoviesSearchResults([]);
+    setShortSavedMoviesSearchResults([]);
+    setIsMoviesLoading(false);
+    setSavedLoadingEmpty(false)
+    setSavedShortLoadingEmpty(false)
+    setMainSearchFormValue();
+    setSavedSearchFormValue();
+    setPopupInformErrorMessage();
+    setIsPopupInformActive(false);
+  }
+
   const handleSignOut = () => {
     clearLocalStorage();
     setCurrentUser(null);
     setLoggedIn(false);
-    setActiveHeaderLink("signin")
+    setStateToDefault();
     navigate("/");
   }
   
