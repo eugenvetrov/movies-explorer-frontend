@@ -7,7 +7,7 @@ import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
 
-const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsaveMovie, savedMovies, mainSearchFormValue, moreMoviesButtonVisible, moreShortMoviesButtonVisible, setMoreMoviesButtonVisible, setMoreShortMoviesButtonVisible}) => {
+const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, setIsLoading, saveAndUnsaveMovie, savedMovies, mainSearchFormValue, moreMoviesButtonVisible, moreShortMoviesButtonVisible, setMoreMoviesButtonVisible, setMoreShortMoviesButtonVisible}) => {
 
   const location = useLocation();
   const [isSearched, setIsSearched] = useState();
@@ -29,6 +29,8 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
     shortMoviesArray.length > 0 && !checked.longFilm && cardShortCount < shortMoviesArray.length - 1 && setMoreShortMoviesButtonVisible(true)
     moviesArray.length > 0 && checked.longFilm && cardCount >= moviesArray.length - 1 && setMoreMoviesButtonVisible(false)
     shortMoviesArray.length > 0 && !checked.longFilm && cardShortCount >= shortMoviesArray.length - 1 && setMoreShortMoviesButtonVisible(false)
+    moviesArray.length === 0 && setMoreMoviesButtonVisible(false);
+    shortMoviesArray.length === 0 && setMoreShortMoviesButtonVisible(false);
   }, [location]); /*eslint-disable-line */
 
   useEffect(() =>{
@@ -57,12 +59,6 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
   const [checked, setChecked] = useState({
     longFilm: true,
     });
-
-    console.log(cardCount < moviesArray.length - 1);
-
-    console.log(moviesArray.length > 0 && checked.longFilm && cardCount < moviesArray.length);
-
-    console.log(moreMoviesButtonVisible);
 
   const handleChange = (event) => {
     const { name } = event.target;
@@ -110,22 +106,27 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, saveAndUnsa
 
     return (
       <div className="movies">
-        <SearchForm onSubmit={onSubmit} mainSearchFormValue={mainSearchFormValue} setIsSearched={setIsSearched}s/>
+        <SearchForm onSubmit={onSubmit} mainSearchFormValue={mainSearchFormValue} setIsSearched={setIsSearched} setIsLoading={setIsLoading}/>
         <FilterCheckbox 
            title="Короткометражки"
            name="longFilm"
            handleChange={handleChange}
         />
         <hr className="movies__line"/>
-        {moviesArray.length !== 0 ? 
-        <MoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.longFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} cardCount={cardCount} cardShortCount={cardShortCount} savedMovies={savedMovies} /> :
-        <Preloader isLoading={isLoading} moreMoviesButtonVisible={moreMoviesButtonVisible} />
+        {moviesArray.length !== 0 && localStorage.getItem("mainSearchFormValue") && 
+        <MoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.longFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} cardCount={cardCount} cardShortCount={cardShortCount} savedMovies={savedMovies} />
         }
-        {checked.longFilm ? 
-        <button className={`movies__more-button ${moreMoviesButtonVisible ? "" : "movies__more-button_deactivated"}`} onClick={handleMoreCards}>Ещё</button> :
-          <button className={`movies__more-button ${moreShortMoviesButtonVisible ? "" : "movies__more-button_deactivated"}`} onClick={handleMoreCards}>Ещё</button>
+        {
+          moviesArray.length === 0 && localStorage.getItem("mainSearchFormValue") && isLoading &&  <Preloader isLoading={isLoading} moreMoviesButtonVisible={moreMoviesButtonVisible} />
+        }
+        {
+           moviesArray.length === 0 && localStorage.getItem("mainSearchFormValue") && !isLoading && <p>Ничего не найдено</p>
         }
         
+        {checked.longFilm ? 
+        <button className={`movies__more-button ${moreMoviesButtonVisible ? "" : "movies__more-button_deactivated"}`} onClick={handleMoreCards}>Ещё</button> :
+        <button className={`movies__more-button ${moreShortMoviesButtonVisible ? "" : "movies__more-button_deactivated"}`} onClick={handleMoreCards}>Ещё</button>
+        }
       </div>
     )
 }

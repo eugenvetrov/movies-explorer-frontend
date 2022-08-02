@@ -1,5 +1,5 @@
 import './SavedMovies.css';
-import {useState } from 'react';
+import {useState} from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
@@ -32,13 +32,7 @@ const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovi
         savedMoviesSearchResults.length > 0 && <SavedMoviesCardList moviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
         }
         {
-        savedMoviesSearchResults.length === 0 && !savedSearchFormValue && <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
-        }
-        {
-          savedLoadingEmpty && checked.shortFilm && <p>Ничего не найдено</p>
-        }
-        {
-          savedShortLoadingEmpty && !checked.shortFilm && <p>Ничего не найдено</p>
+        savedMoviesSearchResults.length === 0 && moviesArray.length > 0 && <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
         }
       </div>
     )

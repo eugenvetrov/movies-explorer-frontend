@@ -33,3 +33,11 @@
 .movies__more-button_deactivated {
     display: none;
 }
+
+.movies__text {
+    display: flex;
+    margin: 26px 0 0;
+    text-align: left;
+    font-size: 14px;
+    line-height: 20px;
+}

@@ -1,7 +1,7 @@
 import './SearchForm.css';
 import { useState, useEffect } from "react";
 
-const SearchForm = ({onSubmit, mainSearchFormValue, savedSearchFormValue, setIsSearched}) => {
+const SearchForm = ({onSubmit, mainSearchFormValue, savedSearchFormValue, setIsSearched, setIsLoading}) => {
 
     const [values, setValues] = useState({
         searchMovie: "",
@@ -22,7 +22,8 @@ const SearchForm = ({onSubmit, mainSearchFormValue, savedSearchFormValue, setIsS
     
     const handleSubmit = (event) => {
       event.preventDefault();
-      setIsSearched(true);
+      setIsSearched && setIsSearched(true);
+      setIsLoading && setIsLoading(true);
       onSubmit(values.searchMovie);
     }
     

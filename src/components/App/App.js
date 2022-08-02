@@ -138,8 +138,7 @@ const App = () => {
     }
   }, [])
 
-
-  useEffect(() => {
+  const getSavedMovies = () => {
     tokenCheck().then((res) => {
       if(res) {
       mainApi().getSavedMovies()
@@ -149,7 +148,13 @@ const App = () => {
         .catch((err) =>{
         console.log(err);
       });
-  }})}, []);
+    }
+  })
+  }
+
+
+  useEffect(() => {
+    getSavedMovies()}, [location]); /*eslint-disable-line */
 
   useEffect(() => {
     tokenCheck();
@@ -164,11 +169,8 @@ const App = () => {
   }, [formErrors, setFormValid]);
   
   const handleMainSearchResults = (value) => {
-    setMoreMoviesButtonVisible(true);
-    setMoreShortMoviesButtonVisible(true);
     localStorage.setItem("mainSearchFormValue", JSON.stringify(value))
-    setMainSearchFormValue(value)
-    setIsMoviesLoading(true);
+    setMainSearchFormValue(value);
     const mainResult = movies.filter((movie) => {
       return (
       Object.values(movie).some((field) => {
@@ -183,6 +185,13 @@ const App = () => {
     const shortResult = mainResult.filter(movie => {
       return movie.duration <= 40;
     })
+    if (mainResult.length === 0) {
+      setMoreMoviesButtonVisible(false);
+      setMoreShortMoviesButtonVisible(false);
+    } else if (mainResult.length > 0) {
+      setMoreMoviesButtonVisible(true);
+      setMoreShortMoviesButtonVisible(true);
+    }
     setIsMoviesLoading(false);
     setMainSearchResults(mainResult);
     setShortMainSearchResults(shortResult);
@@ -207,8 +216,8 @@ const App = () => {
     })
     setSavedMoviesSearchResults(savedMoviesResult);
     setShortSavedMoviesSearchResults(savedShortMoviesResult);
-    setSavedLoadingEmpty(() => savedMoviesResult.length === 0);
-    setSavedShortLoadingEmpty(() => savedShortMoviesResult.length === 0);
+    setSavedLoadingEmpty(savedMoviesResult.length === 0);
+    setSavedShortLoadingEmpty(savedShortMoviesResult.length === 0);
   }
 
   const handleSaveAndUnsaveMovie = (movie) => {
@@ -375,7 +384,6 @@ const App = () => {
     setCurrentUser(null);
     setLoggedIn(false);
     clearLocalStorage();
-    console.log(mainSearchResults);
     navigate("/");
   }
   
