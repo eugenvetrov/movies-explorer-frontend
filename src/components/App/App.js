@@ -43,6 +43,7 @@ const App = () => {
   useFormValidation();
   
   const location = useLocation();
+  const navigate = useNavigate();
 
   const fetchMovies = () => {
     moviesApi.getContent()
@@ -429,7 +430,7 @@ const App = () => {
       .catch((error) => console.log(error));
   };
 
-  const navigate = useNavigate();
+
 
   const handleHeaderMouseOver = (button) => {
     setActiveHeaderLink(button);
@@ -460,7 +461,7 @@ const App = () => {
           <Route
              path="/movies"
              element={
-              <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"} >
+              <ProtectedRoute loggedIn={loggedIn} redirectTo={"/"} >
                 <Movies moviesArray={mainSearchResults} shortMoviesArray={shortMainSearchResults} onSubmit={handleMainSearchResults} isLoading={isMoviesLoading} saveAndUnsaveMovie={handleSaveAndUnsaveMovie} savedMovies={savedMovies} mainSearchFormValue={mainSearchFormValue} />
               </ProtectedRoute>
              }
@@ -468,7 +469,7 @@ const App = () => {
           <Route
              path="/saved-movies"
              element={
-                <ProtectedRoute loggedIn={loggedIn}  redirectTo={"../signin"}>
+                <ProtectedRoute loggedIn={loggedIn}  redirectTo={"/"}>
                   <SavedMovies moviesArray={savedMovies} searchMoviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} onSubmit={handleSavedMoviesSearchResults}  
                   saveAndUnsaveMovie={handleDeleteMovie} savedMoviesSearchResults={savedMoviesSearchResults} shortSavedMoviesSearchResults={shortSavedMoviesSearchResults} savedLoadingEmpty={savedLoadingEmpty} savedShortLoadingEmpty={savedShortLoadingEmpty} savedSearchFormValue={savedSearchFormValue} 
                    />
@@ -478,7 +479,7 @@ const App = () => {
           <Route
              path="/profile"
              element={
-              <ProtectedRoute loggedIn={loggedIn} redirectTo={"../signin"} >
+              <ProtectedRoute loggedIn={loggedIn} redirectTo={"/"} >
                <Profile signOut={handleSignOut}
                         onEditUser={handleUpdateUser}
                         formErrors={formErrors}
