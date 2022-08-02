@@ -64,8 +64,6 @@ const App = () => {
     setIsPopupInformActive(true)
   }
 
-  // useEffect(() => {openPopupInform('Ошибка при обновлении фильма')},[]);
-
   useEffect(() => {
     const localMovies = localStorage.getItem("movies");
 
@@ -424,20 +422,19 @@ const App = () => {
   }
 
   const setStateToDefault = () => {
-    setActiveHeaderLink("signin")
-    setActiveMoviesLink('movies')
-    setMovies([])
-    setSavedMovies([])
+    setActiveHeaderLink("signin");
+    setActiveMoviesLink('movies');
+    setSavedMovies([]);
     setMainSearchResults([]);
-    setShortMainSearchResults([])
+    setShortMainSearchResults([]);
     setSavedMoviesSearchResults([]);
     setShortSavedMoviesSearchResults([]);
     setIsMoviesLoading(false);
-    setSavedLoadingEmpty(false)
-    setSavedShortLoadingEmpty(false)
-    setMainSearchFormValue();
-    setSavedSearchFormValue();
-    setPopupInformErrorMessage();
+    setSavedLoadingEmpty(false);
+    setSavedShortLoadingEmpty(false);
+    setMainSearchFormValue(null);
+    setSavedSearchFormValue(null);
+    setPopupInformErrorMessage("");
     setIsPopupInformActive(false);
   }
 

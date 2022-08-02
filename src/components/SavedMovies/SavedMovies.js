@@ -29,7 +29,7 @@ const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovi
         <hr className="movies__line"/>
 
         { 
-        savedMoviesSearchResults.length > 0 && <SavedMoviesCardList moviesArray={savedMoviesSearchResults} shortMoviesArray=      {shortSavedMoviesSearchResults} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
+        savedMoviesSearchResults.length > 0 && <SavedMoviesCardList moviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
         }
         {
         savedMoviesSearchResults.length === 0 && !savedSearchFormValue && <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
