@@ -8,17 +8,21 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
 
     const [values, setValues] = useState({
         name: "",
-        email: ""
+        email: "",
       });
 
     const [name, setName] = useState();
-    const [email, setEmail] = useState();
 
     useEffect(() => {
-      if (user) {
-        setName(user.name);
-        setEmail(user.email);
-      }
+      if(user) {
+        if (user.name && user.name !== "undefined" && user.email && user.email !== "undefined") {
+          setName(user.name);
+          setValues({
+            name: user.name,
+            email: user.email
+          })
+        }
+     }
     }, [user])
 
     const handleChange = (event) => {
@@ -32,7 +36,9 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
 
     const handleSubmit = (event) => {
       event.preventDefault();
-      formValid ?
+      const isChanged = values.name !== user.name || values.email !== user.email;
+      const isSomeFieldEmpty = Object.values(values).some((item) => item === "");
+      formValid && !isSomeFieldEmpty && isChanged ?
         onEditUser({
           name: values.name,
           email: values.email,
@@ -47,7 +53,7 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
             <label className="profile__form-label">Имя
             <input className="profile__form-text"
                         name="name"
-                        placeholder={name}
+                        value={values.name}
                         onChange={handleChange}
             />
             </label>
@@ -56,7 +62,7 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
             <label className="profile__form-label">E-mail
             <input className="profile__form-text"
                         name="email"
-                        placeholder={email}
+                        value={values.email}
                         onChange={handleChange}
             />
             </label>

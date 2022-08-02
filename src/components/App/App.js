@@ -408,7 +408,6 @@ const App = () => {
   };
 
   const handleUpdateUser = ({name, email}) => {
-    const updateUser = (name, email) => {
       mainApi()
       .setUserInfo(name, email)
       .then((user) => {
@@ -419,16 +418,7 @@ const App = () => {
         openPopupInform("Не удалось изменить данные");
         console.log(err)
       })
-    }
-
     clearErrors();
-    if (name && name === currentUser.name) {
-      openPopupInform("Имя должно отличаться от текущего")
-    } else if (email && email === currentUser.email) {
-      openPopupInform("Email должен отличаться от текущего")
-    } else {
-      updateUser(name, email)
-    }
   };
 
   const handleHeaderMouseOver = (button) => {
