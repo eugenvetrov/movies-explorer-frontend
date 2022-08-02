@@ -370,8 +370,22 @@ const App = () => {
       });
   };
 
-  const handleSignOut = () => {
+  const clearLocalStorage = () => {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("savedSearchFormValue");
+    localStorage.removeItem("savedMoviesSearchResults");
+    localStorage.removeItem("mainSearchResults");
+    localStorage.removeItem("savedLoadingEmpty");
+    localStorage.removeItem("savedShortLoadingEmpty");
+    localStorage.removeItem("movies");
+    localStorage.removeItem("shortMainSearchResults");
+    localStorage.removeItem("shortSavedMoviesSearchResults");
+    localStorage.removeItem("savedMovies");
+    localStorage.removeItem("mainSearchFormValue");
+  }
+
+  const handleSignOut = () => {
+    clearLocalStorage();
     setCurrentUser(null);
     setLoggedIn(false);
     navigate("/");
