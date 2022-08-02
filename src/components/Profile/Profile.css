@@ -105,3 +105,9 @@
 .profile__submit_disable {
     color: #858585;
 }
+
+@media screen and (max-width: 410px) {
+    .profile__form {
+        max-width: 260px;
+    }
+}

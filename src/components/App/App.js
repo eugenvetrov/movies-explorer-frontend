@@ -19,6 +19,7 @@ import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
 import moviesApi from '../../utils/MoviesApi';
 import ProtectedRoute from "../ProtectedRoute//ProtectedRoute.js";
+import PopupInform from "../PopupInform/PopupInform.js";
 import { mainApi, mainApiAuth } from '../../utils/MainApi';
 
 const App = () => {
@@ -38,6 +39,8 @@ const App = () => {
   const [savedShortLoadingEmpty, setSavedShortLoadingEmpty] = useState(false)
   const [mainSearchFormValue, setMainSearchFormValue] = useState();
   const [savedSearchFormValue, setSavedSearchFormValue] = useState();
+  const [popupInformErrorMessage, setPopupInformErrorMessage] = useState();
+  const [isPopupInformActive, setIsPopupInformActive] = useState(false);
 
   const { formErrors, formValid, setFormValid, validateField, clearErrors } =
   useFormValidation();
@@ -55,6 +58,13 @@ const App = () => {
       console.log(err);
     });
   }
+
+  const openPopupInform = (errorMessage) => {
+    setPopupInformErrorMessage(errorMessage)
+    setIsPopupInformActive(true)
+  }
+
+  // useEffect(() => {openPopupInform('Не удалось удалить фильм')},[]);
 
   useEffect(() => {
     const localMovies = localStorage.getItem("movies");
@@ -287,7 +297,10 @@ const App = () => {
             localStorage.setItem("savedMoviesSearchResults", JSON.stringify(savedMoviesSearchResults.filter((m) => m.movieId !== movie.id)));
           }
       })
-      .catch((err) => {console.log(err);})
+      .catch((err) => {
+        openPopupInform('Не удалось удалить фильм')
+        console.log(err);}
+        )
     } else {
       mainApi().saveMovie(movie)
       .then((newMovie) => {
@@ -295,7 +308,10 @@ const App = () => {
         setSavedMovies([newMovie.movie, ...savedMovies]) : setSavedMovies([newMovie.movie]);
         localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
       })
-      .catch((err) => {console.log(err);})
+      .catch((err) => {
+        openPopupInform('Не удалось сохранить фильм')
+        console.log(err);
+      })
     }
   }
 
@@ -307,7 +323,15 @@ const App = () => {
           localStorage.setItem("savedMovies", JSON.stringify(savedMovies));
           localStorage.setItem("savedMoviesSearchResults", JSON.stringify(savedMoviesSearchResults));
       })
-      .catch((err) => {console.log(err);})
+      .catch((err) => {
+        openPopupInform('Не удалось удалить фильм')
+        console.log(err);
+      })
+  }
+
+  const handlePopupInformActiveOff = () => {
+    setIsPopupInformActive(false);
+    setPopupInformErrorMessage(null);
   }
 
   const login = (user) => {
@@ -318,6 +342,7 @@ const App = () => {
           localStorage.setItem("jwt", res.token);   
           return res.token;     
         } else {
+          openPopupInform('Авторизация не удалась')
           console.log("Неизвестная ошибка");
         }
       })
@@ -335,16 +360,20 @@ const App = () => {
         .catch((err) => {
           if (err.status === 400) {
             console.log("Токен не передан или передан не в том формате");
+            openPopupInform('Токен не передан');
           } else if (err.status === 401) {
             console.log("Переданный токен некорректен");
+            openPopupInform('Переданный токен некорректен')
           }
           console.log(err);
+          openPopupInform('Авторизация не удалась')
           setLoggedIn(false);
           setCurrentUser(null);
         });
       })
       .catch((err) => {
         console.log(err);
+        openPopupInform('Не удалось авторизоваться')
         setLoggedIn(false);
         setCurrentUser(null);
       });
@@ -366,6 +395,7 @@ const App = () => {
         })
       })
       .catch((err) => {
+        openPopupInform('Регистрация не удалась')
         console.log(err);
       });
   };
@@ -426,8 +456,12 @@ const App = () => {
       .setUserInfo(name, email)
       .then((user) => {
         setCurrentUser(user.data);
+        openPopupInform();
       })
-      .catch((error) => console.log(error));
+      .catch((err) => {
+        openPopupInform(err.message);
+        console.log(err)
+      });
   };
 
 
@@ -518,6 +552,7 @@ const App = () => {
           />
         </Routes>
       </main>
+      <PopupInform isActive={isPopupInformActive} ActiveOff={handlePopupInformActiveOff} errorMessage={popupInformErrorMessage}/>
       <Footer />
     </div>}
     </CurrentUserContext.Provider>
