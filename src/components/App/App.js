@@ -23,7 +23,7 @@ import { mainApi, mainApiAuth } from '../../utils/MainApi';
 
 const App = () => {
 
-  const [activeHeaderLink, setActiveHeaderLink] = useState('signin')
+  const [activeHeaderLink, setActiveHeaderLink] = useState("signin")
   const [activeMoviesLink, setActiveMoviesLink] = useState('movies')
   const [movies, setMovies] = useState([])
   const [savedMovies, setSavedMovies] = useState([])
@@ -386,6 +386,7 @@ const App = () => {
         .then((res) => {
           setCurrentUser(res.data);
           setLoggedIn(true);
+          setActiveHeaderLink("movies")
           return res.data
         })
         .catch((err) => {

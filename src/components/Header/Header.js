@@ -1,16 +1,17 @@
 import './Header.css';
 import { Routes, Route, Link } from "react-router-dom";
-import { useState, useContext} from "react";
+import { useState, useContext } from "react";
 import useDeviceDetect from "../../customHooks/useDeviceDetect"
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 import logo from '../../images/logo-auth.svg';
 import account from '../../images/accaunt.svg';
 import menu from '../../images/menu.svg';
+import whiteMenu from '../../images/white-menu.svg';
 import exit from '../../images/exit.svg';
 
 const Header = ({activeHeaderLink, onHeaderMouthOver, activeMoviesLink, onActiveMoviesLink}) => {
     
-  const user = useContext(CurrentUserContext);
+    const user = useContext(CurrentUserContext);
 
     const [isOpen, setIsOpen] = useState(false);
     const deviceDetect = useDeviceDetect();
@@ -76,7 +77,41 @@ const Header = ({activeHeaderLink, onHeaderMouthOver, activeMoviesLink, onActive
         </nav>
       </header>
 
-      const authorizedHeaderAtHome = <header className="header__landing">
+      const authorizedHeaderAtHome = 
+      isMobile ? isOpen ?
+      (<header className="header__landing">
+      <Link to="../" className="header__nav-home-link">
+      <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
+      </Link>
+      <div className="header__overlay"></div>
+      <nav className="header__nav_mobile">
+          <img src={exit} className="header__nav-exit" alt="Кнопка выхода" onClick={handleMenuButton}/>
+          <Link to="../" className={`header__nav-link-movies_mobile ${activeMoviesLink === "main" ?           "header__nav-link-movies-mobile_active" : "" }`}
+            onClick={() => {
+            onActiveMoviesLink('main')
+            handleMenuButton()}}>Главная</Link>
+          <Link to="../movies" className={`header__nav-link-movies_mobile ${activeMoviesLink === "movies" ?       "header__nav-link-movies-mobile_active" : "" }`}
+            onClick={() => {
+            onActiveMoviesLink('movies')
+            onHeaderMouthOver('movies')
+            handleMenuButton()}}>Фильмы</Link>
+          <Link to="../saved-movies" className={`header__nav-link-movies_mobile ${activeMoviesLink === "saved-movies" ?       "header__nav-link-movies-mobile_active" : "" }`}
+            onClick={() => {
+            onActiveMoviesLink('saved-movies')
+            onHeaderMouthOver('saved-movies')
+            handleMenuButton()}}>Сохраненные фильмы</Link>
+          <Link to="../profile" className="header__account-button header__account-button_mobile" onClick={handleMenuButton}><img src={account}       className="header__account-logo" alt="кнопка аккаунта"/>Аккаунт</Link>
+      </nav>
+      </header>
+      )
+      :
+      (<header className="header__landing">
+          <Link to="../" className="header__nav-home-link">
+             <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
+          </Link><img src={whiteMenu} className="header__menu-icon_white" alt="Иконка мобильного меню" onClick={handleMenuButton} />
+       </header>)    
+      :
+      (<header className="header__landing">
       <Link to="../" className="header__nav-home-link">
          <img src={logo} className="header__nav-logo" alt="Логотип в панели аутентификации"/>
       </Link>
@@ -87,7 +122,7 @@ const Header = ({activeHeaderLink, onHeaderMouthOver, activeMoviesLink, onActive
          onMouseEnter={() => onHeaderMouthOver('saved-movies')}>Сохраненные фильмы</Link>
          <Link to="profile" className="header__account-button header__account-button_home-page"><img src={account} className="header__account-logo" alt="кнопка     аккаунта"/>Аккаунт</Link>
       </nav>
-    </header>
+      </header>)
   
     return(
         <Routes>
