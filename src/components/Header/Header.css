@@ -150,6 +150,10 @@
     margin: 22px 22px 105px auto;
 }
 
+.header__account-button_home-page {
+    background-color: #fff;
+}
+
 @media screen and (max-width: 1160px) {
     .header__auth {
         margin: 232px auto 0;

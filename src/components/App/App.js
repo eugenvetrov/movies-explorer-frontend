@@ -23,7 +23,7 @@ import { mainApi, mainApiAuth } from '../../utils/MainApi';
 
 const App = () => {
 
-  const [activeAuthLink, setActiveAuthLink] = useState('signin')
+  const [activeHeaderLink, setActiveHeaderLink] = useState('signin')
   const [activeMoviesLink, setActiveMoviesLink] = useState('movies')
   const [movies, setMovies] = useState([])
   const [savedMovies, setSavedMovies] = useState([])
@@ -328,7 +328,10 @@ const App = () => {
           setCurrentUser(res.data);
           setLoggedIn(true)
         })
-        .then(() => navigate("/movies"))
+        .then(() => {
+          setActiveHeaderLink("movies")
+          navigate("/movies")
+        })
         .catch((err) => {
           if (err.status === 400) {
             console.log("Токен не передан или передан не в том формате");
@@ -413,8 +416,8 @@ const App = () => {
 
   const navigate = useNavigate();
 
-  const handleAuthMouthOver = (button) => {
-    setActiveAuthLink(button);
+  const handleHeaderMouseOver = (button) => {
+    setActiveHeaderLink(button);
   }
 
   const handleActiveMoviesLink = (button) => {
@@ -423,7 +426,7 @@ const App = () => {
   return (
     <CurrentUserContext.Provider value={currentUser}>
     {<div className="page">
-      <Header activeAuthLink={activeAuthLink} onAuthMouthOver={handleAuthMouthOver} activeMoviesLink={activeMoviesLink} onActiveMoviesLink={handleActiveMoviesLink}/>
+      <Header activeHeaderLink={activeHeaderLink} onHeaderMouthOver={handleHeaderMouseOver} activeMoviesLink={activeMoviesLink} onActiveMoviesLink={handleActiveMoviesLink}/>
       <main className="main">
         <Routes>
          <Route

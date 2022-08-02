@@ -1,7 +1,7 @@
 import './Login.css';
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {CurrentUserContext} from "../../contexts/CurrentUserContext"
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
 const Login = ({onLogin, formErrors, validateField, formValid}) => {
 
