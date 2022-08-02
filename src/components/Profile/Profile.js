@@ -12,10 +12,12 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
       });
 
     const [name, setName] = useState();
+    const [email, setEmail] = useState();
 
     useEffect(() => {
       if (user) {
         setName(user.name);
+        setEmail(user.email);
       }
     }, [user])
 
@@ -40,12 +42,13 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
 
     return (
       <section className="profile">
-        <p className="profile__title">Привет, {name}!</p>
+        <p className="profile__title">Привет{`, ${name ? name : ""}`}!</p>
         <form className="profile__form" autoComplete="off"
           noValidate onSubmit={(e) => handleSubmit(e)}>
             <label className="profile__form-label">Имя
             <input className="profile__form-text"
                         name="name"
+                        placeholder={name}
                         onChange={handleChange}
             />
             </label>
@@ -54,6 +57,7 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
             <label className="profile__form-label">E-mail
             <input className="profile__form-text"
                         name="email"
+                        placeholder={email}
                         onChange={handleChange}
             />
             </label>

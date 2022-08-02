@@ -310,7 +310,6 @@ const App = () => {
   }
 
   const login = (user) => {
-    console.log(user);
     return mainApiAuth
       .authorize(user)
       .then((res) => {
@@ -388,6 +387,7 @@ const App = () => {
     clearLocalStorage();
     setCurrentUser(null);
     setLoggedIn(false);
+    setActiveHeaderLink("signin")
     navigate("/");
   }
   
