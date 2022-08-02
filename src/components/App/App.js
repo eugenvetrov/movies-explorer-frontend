@@ -278,7 +278,10 @@ const App = () => {
     setPopupInformErrorMessage(null);
   }
 
+  console.log(formValid);
+
   const login = (user) => {
+    setFormValid(false);
     return mainApiAuth
       .authorize(user)
       .then((res) => {
@@ -295,11 +298,13 @@ const App = () => {
         .validateUser(token)
         .then((res) => {
           setCurrentUser(res.data);
-          setLoggedIn(true)
+          setLoggedIn(true);
         })
         .then(() => {
           setActiveHeaderLink("movies")
-          navigate("/movies")
+          clearErrors();
+          navigate("/movies");
+          setFormValid(true);
         })
         .catch((err) => {
           if (err.status === 400) {
@@ -313,6 +318,7 @@ const App = () => {
           openPopupInform('Авторизация не удалась')
           setLoggedIn(false);
           setCurrentUser(null);
+          setFormValid(true);
         });
       })
       .catch((err) => {
@@ -320,16 +326,16 @@ const App = () => {
         openPopupInform('Не удалось авторизоваться')
         setLoggedIn(false);
         setCurrentUser(null);
+        setFormValid(true);
       });
   }
 
   const handleLogin = (user) => {
-    clearErrors();
     login(user);
   };
 
   const handleRegister = (user) => {
-    clearErrors();
+    setFormValid(false);
     mainApiAuth
       .register(user)
       .then((res) => {
@@ -339,6 +345,7 @@ const App = () => {
         })
       })
       .catch((err) => {
+        setFormValid(true);
         openPopupInform('Регистрация не удалась')
         console.log(err);
       });
@@ -416,17 +423,20 @@ const App = () => {
   };
 
   const handleUpdateUser = ({name, email}) => {
+    setFormValid(false);
       mainApi()
       .setUserInfo(name, email)
       .then((user) => {
         setCurrentUser(user.data);
         openPopupInform();
+        clearErrors()
+        setFormValid(true);
       })
       .catch((err) => {
+        setFormValid(true);
         openPopupInform("Не удалось изменить данные");
         console.log(err)
       })
-    clearErrors();
   };
 
   const handleHeaderMouseOver = (button) => {
