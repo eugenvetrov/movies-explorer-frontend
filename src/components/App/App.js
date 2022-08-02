@@ -309,9 +309,9 @@ const App = () => {
       .catch((err) => {console.log(err);})
   }
 
-  const handleLogin = (user) => {
-    clearErrors();
-    mainApiAuth
+  const login = (user) => {
+    console.log(user);
+    return mainApiAuth
       .authorize(user)
       .then((res) => {
         if (res.token) {
@@ -345,6 +345,11 @@ const App = () => {
         setLoggedIn(false);
         setCurrentUser(null);
       });
+  }
+
+  const handleLogin = (user) => {
+    clearErrors();
+    login(user);
   };
 
   const handleRegister = (user) => {
@@ -352,7 +357,10 @@ const App = () => {
     mainApiAuth
       .register(user)
       .then((res) => {
-        navigate("/signin");
+        login({ 
+          email: res.data.email,
+          password: user.password
+        })
       })
       .catch((err) => {
         console.log(err);
