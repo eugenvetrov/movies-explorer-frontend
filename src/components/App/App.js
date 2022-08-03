@@ -18,7 +18,7 @@ import Register from '../Register/Register';
 import Login from '../Login/Login';
 import NotFound from '../NotFound/NotFound';
 import moviesApi from '../../utils/MoviesApi';
-import ProtectedRoute from "../ProtectedRoute//ProtectedRoute.js";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
 import PopupInform from "../PopupInform/PopupInform.js";
 import { mainApi, mainApiAuth } from '../../utils/MainApi';
 
@@ -44,7 +44,7 @@ const App = () => {
   const [moreMoviesButtonVisible, setMoreMoviesButtonVisible] = useState(false);
   const [moreShortMoviesButtonVisible, setMoreShortMoviesButtonVisible] = useState(false);
 
-  const { formErrors, formValid, setFormValid, validateField, clearErrors } =
+  const {  formErrors, formValid, setFormValid, validateField, clearErrors, lockInputs, unLockInputs  } =
   useFormValidation();
   
   const location = useLocation();
@@ -278,10 +278,9 @@ const App = () => {
     setPopupInformErrorMessage(null);
   }
 
-  console.log(formValid);
-
   const login = (user) => {
     setFormValid(false);
+    lockInputs();
     return mainApiAuth
       .authorize(user)
       .then((res) => {
@@ -305,6 +304,7 @@ const App = () => {
           clearErrors();
           navigate("/movies");
           setFormValid(true);
+          unLockInputs()
         })
         .catch((err) => {
           if (err.status === 400) {
@@ -319,6 +319,7 @@ const App = () => {
           setLoggedIn(false);
           setCurrentUser(null);
           setFormValid(true);
+          unLockInputs()
         });
       })
       .catch((err) => {
@@ -327,6 +328,7 @@ const App = () => {
         setLoggedIn(false);
         setCurrentUser(null);
         setFormValid(true);
+        unLockInputs()
       });
   }
 
@@ -336,6 +338,7 @@ const App = () => {
 
   const handleRegister = (user) => {
     setFormValid(false);
+    lockInputs()
     mainApiAuth
       .register(user)
       .then((res) => {
@@ -343,9 +346,12 @@ const App = () => {
           email: res.data.email,
           password: user.password
         })
+        setFormValid(true);
+        unLockInputs()
       })
       .catch((err) => {
         setFormValid(true);
+        unLockInputs();
         openPopupInform('Регистрация не удалась')
         console.log(err);
       });
@@ -424,6 +430,7 @@ const App = () => {
 
   const handleUpdateUser = ({name, email}) => {
     setFormValid(false);
+    lockInputs();
       mainApi()
       .setUserInfo(name, email)
       .then((user) => {
@@ -431,9 +438,11 @@ const App = () => {
         openPopupInform();
         clearErrors()
         setFormValid(true);
+        unLockInputs();
       })
       .catch((err) => {
         setFormValid(true);
+        unLockInputs();
         openPopupInform("Не удалось изменить данные");
         console.log(err)
       })
@@ -446,6 +455,7 @@ const App = () => {
   const handleActiveMoviesLink = (button) => {
     setActiveMoviesLink(button);
   }
+
   return (
     <CurrentUserContext.Provider value={currentUser}>
     {<div className="page">

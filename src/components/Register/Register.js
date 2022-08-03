@@ -1,7 +1,7 @@
 import './Register.css';
 import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {CurrentUserContext} from "../../contexts/CurrentUserContext"
+import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
 const Register = ({onRegister, formErrors, validateField, formValid}) => {
     
@@ -32,7 +32,7 @@ const Register = ({onRegister, formErrors, validateField, formValid}) => {
         const isSomeFieldEmpty = Object.values(values).some((item) => item === "");
         formValid && !isSomeFieldEmpty ?
           onRegister({
-              name: values.userName,
+              name: values.name,
               password: values.password,
               email: values.email,
             }) : alert("Простите! Какое-то из полей заполнено некорректно.");

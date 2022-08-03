@@ -41,6 +41,7 @@ class MainApi {
     }
 
     register(user) {
+      console.log(user);
       return fetch(`${this._baseUrl}/signup`, {
         method: "POST",
         headers: this._headeres,
@@ -111,34 +112,19 @@ class MainApi {
     }
 }
 
-// const mainApi = () => new MainApi({
-//     baseUrl: "https://api.evg.vetrow.movies.nomoredomains.sbs",
-//     headers: {
-//       authorization: `Bearer ${localStorage.getItem("jwt")}`,
-//       "Content-type": "application/json",
-//     },
-// });
-  
-// const mainApiAuth =  new MainApi({
-//     baseUrl: "https://api.evg.vetrow.movies.nomoredomains.sbs",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-// });
-
 const mainApi = () => new MainApi({
-  baseUrl: "http://localhost:5000",
-  headers: {
-    authorization: `Bearer ${localStorage.getItem("jwt")}`,
-    "Content-type": "application/json",
-  },
+    baseUrl: "https://api.evg.vetrow.movies.nomoredomains.sbs",
+    headers: {
+      authorization: `Bearer ${localStorage.getItem("jwt")}`,
+      "Content-type": "application/json",
+    },
 });
-
+  
 const mainApiAuth =  new MainApi({
-  baseUrl: "http://localhost:5000",
-  headers: {
-    "Content-Type": "application/json",
-  },
+    baseUrl: "https://api.evg.vetrow.movies.nomoredomains.sbs",
+    headers: {
+      "Content-Type": "application/json",
+    },
 });
   
 export { mainApi, mainApiAuth };

@@ -7,6 +7,8 @@ export const useFormValidation = () => {
     password: "",
   });
   const [formValid, setFormValid] = useState(false);
+  const lockInputs = () => setFormValid(false);
+  const unLockInputs = () => setFormValid(true);
   const clearErrors = () => {
     for (let key in formErrors) {
       setFormErrors((prev) => ({
@@ -69,5 +71,5 @@ export const useFormValidation = () => {
           break;
     }
   };
-  return { formErrors, formValid, setFormValid, validateField, clearErrors };
+  return { formErrors, formValid, setFormValid, validateField, clearErrors, lockInputs, unLockInputs };
 };
