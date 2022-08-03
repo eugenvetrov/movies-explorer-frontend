@@ -17,19 +17,34 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, setIsLoadin
   const location = useLocation();
   const [isSearched, setIsSearched] = useState();
 
-  useEffect(() => {
+  const getLocalSwitcherValue = () => {
+    const shortSwitcher = localStorage.getItem("longFilm");
+    const parsedShortSwitcher = JSON.parse(shortSwitcher);
+    if(parsedShortSwitcher !== null) {
+      return parsedShortSwitcher
+    } else {
+      return true;
+    }
+  }
+
+  const getLocalStorageState = () => {
     const mainVisible = localStorage.getItem("moreMoviesButtonVisible");
     const parsedMainVisible = JSON.parse(mainVisible);
     const shortVisible = localStorage.getItem("moreShortMoviesButtonVisible");
     const parsedShortVisible = JSON.parse(shortVisible);
     const count = localStorage.getItem("cardCount");
     const parsedCount = JSON.parse(count);
-    const shortCount = localStorage.getItem("cardShortCount")
+    const shortCount = localStorage.getItem("cardShortCount");
     const parsedShortCount = JSON.parse(shortCount);
     parsedMainVisible && setMoreMoviesButtonVisible(parsedMainVisible);
     parsedShortVisible && setMoreShortMoviesButtonVisible(parsedShortVisible);
     parsedCount && setCardCount(parsedCount);
     parsedShortCount && setCardShortCount(parsedShortCount);
+    getLocalSwitcherValue()
+  }
+
+  useEffect(() => {
+    getLocalStorageState()
     moviesArray.length > 0 && checked.longFilm && cardCount < moviesArray.length - 1 && setMoreMoviesButtonVisible(true)
     shortMoviesArray.length > 0 && !checked.longFilm && cardShortCount < shortMoviesArray.length - 1 && setMoreShortMoviesButtonVisible(true)
     moviesArray.length > 0 && checked.longFilm && cardCount >= moviesArray.length - 1 && setMoreMoviesButtonVisible(false)
@@ -61,9 +76,7 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, setIsLoadin
   const [cardCount, setCardCount] = useState(getInitialCountOfMovies(windowWidth));
   const [cardShortCount, setCardShortCount] = useState(getInitialCountOfMovies(windowWidth));
 
-  const [checked, setChecked] = useState({
-    longFilm: true,
-    });
+  const [checked, setChecked] = useState({longFilm: getLocalSwitcherValue()});
 
   const handleChange = (event) => {
     const { name } = event.target;
@@ -71,6 +84,7 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, setIsLoadin
       ...prev,
       [name]: !checked[name],
     }));
+    localStorage.setItem("longFilm", !checked.longFilm)
   };
 
   const handleMoreCards = (event) => {
@@ -116,6 +130,7 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, setIsLoadin
            title="Короткометражки"
            name="longFilm"
            handleChange={handleChange}
+           checked={checked}
         />
         <hr className="movies__line"/>
         {moviesArray.length !== 0 && localStorage.getItem("mainSearchFormValue") && 
