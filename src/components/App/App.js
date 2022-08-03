@@ -45,7 +45,7 @@ const App = () => {
   const [moreMoviesButtonVisible, setMoreMoviesButtonVisible] = useState(false);
   const [moreShortMoviesButtonVisible, setMoreShortMoviesButtonVisible] = useState(false);
 
-  const {  formErrors, formValid, setFormValid, validateField, clearErrors, lockInputs, unLockInputs  } =
+  const {  formErrors, formValid, setFormValid, validateField, clearErrors, lockInputs, unLockInputs, inputsIsUnlock  } =
   useFormValidation();
   
   const location = useLocation();
@@ -503,7 +503,9 @@ const App = () => {
                         onEditUser={handleUpdateUser}
                         formErrors={formErrors}
                         validateField={validateField}
-                        formValid={formValid}/>
+                        formValid={formValid}
+                        inputsIsUnlock={inputsIsUnlock}
+                        />
               </ProtectedRoute>
              }
           />
@@ -515,6 +517,7 @@ const App = () => {
                  formErrors={formErrors}
                  validateField={validateField}
                  formValid={formValid}
+                 inputsIsUnlock={inputsIsUnlock}
                />
              }
           />
@@ -526,6 +529,7 @@ const App = () => {
                  formErrors={formErrors}
                  validateField={validateField}
                  formValid={formValid}
+                 inputsIsUnlock={inputsIsUnlock}
                />
              }
           />

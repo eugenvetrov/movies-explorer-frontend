@@ -2,7 +2,7 @@ import './Profile.css';
 import { useState, useEffect, useContext } from "react";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext"
 
-const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) => {
+const Profile = ({signOut, onEditUser, formErrors, validateField, formValid, inputsIsUnlock}) => {
 
     const user = useContext(CurrentUserContext)
 
@@ -26,11 +26,13 @@ const Profile = ({signOut, onEditUser, formErrors, validateField, formValid}) =>
     }, [user])
 
     const handleChange = (event) => {
-        const { name, value } = event.target;
+      const { name, value } = event.target;
+      if (inputsIsUnlock) {
         setValues((prev) => ({
           ...prev,
           [name]: value,
         }));
+      }
         validateField(name, value);
       };
 

@@ -41,7 +41,6 @@ class MainApi {
     }
 
     register(user) {
-      console.log(user);
       return fetch(`${this._baseUrl}/signup`, {
         method: "POST",
         headers: this._headeres,

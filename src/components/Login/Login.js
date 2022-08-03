@@ -3,7 +3,7 @@ import { useState, useContext, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {CurrentUserContext} from "../../contexts/CurrentUserContext";
 
-const Login = ({onLogin, formErrors, validateField, formValid}) => {
+const Login = ({onLogin, formErrors, validateField, formValid, inputsIsUnlock}) => {
 
     const user = useContext(CurrentUserContext);
     const navigate = useNavigate();
@@ -19,11 +19,13 @@ const Login = ({onLogin, formErrors, validateField, formValid}) => {
 
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setValues((prev) => ({
-          ...prev,
-          [name]: value,
-        }));
-        validateField(name, value);
+        if (inputsIsUnlock) {
+          setValues((prev) => ({
+            ...prev,
+            [name]: value,
+          }));
+        }
+          validateField(name, value);
       };
 
 
