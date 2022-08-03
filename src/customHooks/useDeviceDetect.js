@@ -31,7 +31,7 @@ const useDeviceDetect = () => {
   }, []);
 
   return {
-    isMobile,
+    isMobile
   };
 };
 
