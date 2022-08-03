@@ -21,6 +21,7 @@ import moviesApi from '../../utils/MoviesApi';
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute.js";
 import PopupInform from "../PopupInform/PopupInform.js";
 import { mainApi, mainApiAuth } from '../../utils/MainApi';
+import { DURATION_OF_SHORT_MOVIE } from "../../utils/Constants"
 
 const App = () => {
 
@@ -49,6 +50,7 @@ const App = () => {
   
   const location = useLocation();
   const navigate = useNavigate();
+  const durationOfShortMovie = DURATION_OF_SHORT_MOVIE;
 
   const fetchMovies = () => {
     moviesApi.getContent()
@@ -183,7 +185,7 @@ const App = () => {
     }
     )
     const shortResult = mainResult.filter(movie => {
-      return movie.duration <= 40;
+      return movie.duration <= durationOfShortMovie;
     })
     if (mainResult.length === 0) {
       setMoreMoviesButtonVisible(false);
@@ -212,7 +214,7 @@ const App = () => {
         }))
     })
     const savedShortMoviesResult = savedMoviesResult.filter(movie => {
-      return movie.duration <= 40;
+      return movie.duration <= durationOfShortMovie;
     })
     setSavedMoviesSearchResults(savedMoviesResult);
     setShortSavedMoviesSearchResults(savedShortMoviesResult);
