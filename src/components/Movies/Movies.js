@@ -6,8 +6,13 @@ import SearchForm from '../SearchForm/SearchForm';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
 import MoviesCardList from '../MoviesCardList/MoviesCardList';
 import Preloader from '../Preloader/Preloader';
+import {MOVIES_COUNT_ADD_LARGE, MOVIES_COUNT_ADD_MEDIUM, MOVIES_COUNT_ADD_SMALL} from '../../utils/Constants'
 
 const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, setIsLoading, saveAndUnsaveMovie, savedMovies, mainSearchFormValue, moreMoviesButtonVisible, moreShortMoviesButtonVisible, setMoreMoviesButtonVisible, setMoreShortMoviesButtonVisible}) => {
+
+  const moviesCountAddLarge = MOVIES_COUNT_ADD_LARGE;
+  const moviesCountAddMedium = MOVIES_COUNT_ADD_MEDIUM;
+  const moviesCountAddSmall = MOVIES_COUNT_ADD_SMALL;
 
   const location = useLocation();
   const [isSearched, setIsSearched] = useState();
@@ -72,27 +77,27 @@ const Movies = ({moviesArray, shortMoviesArray, onSubmit, isLoading, setIsLoadin
     event.preventDefault();
     if(windowWidth >= 1280) {
       if(checked.longFilm) {  
-        localStorage.setItem("cardCount", cardCount + 3);
-        setCardCount(cardCount + 3)
+        localStorage.setItem("cardCount", cardCount + moviesCountAddLarge);
+        setCardCount(cardCount + moviesCountAddLarge)
        } else if (!checked.longFilm) { 
-        localStorage.setItem("cardShortCount", cardShortCount + 3);
-        setCardShortCount(cardShortCount + 3)
+        localStorage.setItem("cardShortCount", cardShortCount + moviesCountAddLarge);
+        setCardShortCount(cardShortCount + moviesCountAddLarge)
        } 
     } else if (windowWidth > 480) {
       if (checked.longFilm) {
-        localStorage.setItem("cardCount", cardCount + 2);
-        setCardCount(cardCount + 2)
+        localStorage.setItem("cardCount", cardCount + moviesCountAddMedium);
+        setCardCount(cardCount + moviesCountAddMedium)
       } else if (!checked.longFilm) {
-        localStorage.setItem("cardCount", cardCount + 2);
-        setCardShortCount(cardShortCount + 2)
+        localStorage.setItem("cardCount", cardCount + moviesCountAddMedium);
+        setCardShortCount(cardShortCount + moviesCountAddMedium)
       }
     } else if (windowWidth <= 480) {
       if(checked.longFilm) {
-        localStorage.setItem("cardCount", cardCount + 1);
-        setCardCount(cardCount + 1)
+        localStorage.setItem("cardCount", cardCount + moviesCountAddSmall);
+        setCardCount(cardCount + moviesCountAddSmall)
       } else if (!checked.longFilm) {
-        localStorage.setItem("cardCount", cardCount + 1);
-        setCardShortCount(cardShortCount + 1)
+        localStorage.setItem("cardCount", cardCount + moviesCountAddSmall);
+        setCardShortCount(cardShortCount + moviesCountAddSmall)
       }
     }
     if (cardCount >= moviesArray.length - 1) {
