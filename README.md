@@ -13,5 +13,3 @@
 Если всё получилось успешно, приложение должно быть доступно в браузере, по адресу <http://localhost:3000>
 
 <http://evg.vetrow.movies.nomoredomains.xyz/>
-
-<https://github.com/eugenvetrov/movies-explorer-frontend/pull/2>
