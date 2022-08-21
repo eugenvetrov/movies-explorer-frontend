@@ -1,34 +1,39 @@
 import './SavedMovies.css';
-import {useState } from 'react';
+import {useState} from 'react';
 import FilterCheckbox from '../FilterCheckbox/FilterCheckbox';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
+import SavedMoviesCardList from '../SavedMoviesCardList/SavedMoviesCardList';
 import SearchForm from '../SearchForm/SearchForm';
-import moviesArray from '../../utils/moviesArray';
 
-const SavedMovies = () => {
+const SavedMovies = ({moviesArray, shortMoviesArray, onSubmit, saveAndUnsaveMovie, savedMoviesSearchResults, shortSavedMoviesSearchResults, savedLoadingEmpty, savedShortLoadingEmpty, savedSearchFormValue } ) => {
 
-    const [checked, setChecked] = useState({
-        name: true,
-      });
+  const [checked, setChecked] = useState({
+    shortFilm: true,
+    });
 
-    const handleChange = (event) => {
-      const { name } = event.target;
-      setChecked((prev) => ({
-        ...prev,
-        [name]: !checked[name],
-      }));
-    };
+  const handleChange = (event) => {
+    const { name } = event.target;
+    setChecked((prev) => ({
+      ...prev,
+      [name]: !checked[name],
+    }));
+  }
 
     return (
       <div className="saved-movies">
-        <SearchForm />
+        <SearchForm onSubmit={onSubmit} savedSearchFormValue={savedSearchFormValue} />
         <FilterCheckbox 
            title="Короткометражки"
            name="shortFilm"
            handleChange={handleChange}
         />
         <hr className="movies__line"/>
-        <MoviesCardList moviesArray={moviesArray}/>
+
+        { 
+        savedMoviesSearchResults.length > 0 && <SavedMoviesCardList moviesArray={savedMoviesSearchResults} shortMoviesArray={shortSavedMoviesSearchResults} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
+        }
+        {
+        savedMoviesSearchResults.length === 0 && moviesArray.length > 0 && <SavedMoviesCardList moviesArray={moviesArray} shortMoviesArray={shortMoviesArray} isShort={!checked.shortFilm} saveAndUnsaveMovie={saveAndUnsaveMovie} />
+        }
       </div>
     )
 }

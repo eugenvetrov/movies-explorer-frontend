@@ -1,11 +1,17 @@
 import './SearchForm.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-const SearchForm = () => {
+const SearchForm = ({onSubmit, mainSearchFormValue, savedSearchFormValue, setIsSearched, setIsLoading}) => {
 
     const [values, setValues] = useState({
         searchMovie: "",
       });
+
+    useEffect(() =>{
+      savedSearchFormValue && setValues({searchMovie: savedSearchFormValue});
+      mainSearchFormValue && setValues({searchMovie: mainSearchFormValue});
+    }, [mainSearchFormValue, savedSearchFormValue]);
+
     const handleChange = (event) => {
       const { name, value } = event.target;
       setValues((prev) => ({
@@ -16,12 +22,9 @@ const SearchForm = () => {
     
     const handleSubmit = (event) => {
       event.preventDefault();
-      const isSomeFieldEmpty = Object.values(values).some((item) => item === "");
-      if (isSomeFieldEmpty) {
-          alert("Простите! Поле не должно быть пустым.")
-      } else {
-          alert(values.searchMovie)
-      }
+      setIsSearched && setIsSearched(true);
+      setIsLoading && setIsLoading(true);
+      onSubmit(values.searchMovie);
     }
     
     return (
@@ -32,6 +35,7 @@ const SearchForm = () => {
             name="searchMovie"
             placeholder="Фильм"
             onChange={handleChange}
+            value = {values.searchMovie}
           />
           <button className="search-movie__submit" type="submit">
             Найти

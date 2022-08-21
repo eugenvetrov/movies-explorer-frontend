@@ -44,10 +44,10 @@
   transition: .4s;
 }
 
-.checkbox__switch-input:checked + .checkbox__slider:before {
+.checkbox__slider_active  + .checkbox__slider:before  {
   transform: translateX(16px);
 }
-.checkbox__switch-input:checked + .checkbox__slider {
+.checkbox__slider_active + .checkbox__slider{
   background-color: #ebebeb;
 }
 .checkbox__slider.checkbox__round {
